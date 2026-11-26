@@ -1,0 +1,295 @@
+{
+  "comparison": "Current release resources compared with the previous public source tree",
+  "baselineCommit": "8d41c8b79245cc78ca3a57029b15d00c76b84513",
+  "method": "Uncompressed file bytes and sum of each resource compressed independently with Node zlib.gzipSync default compression. Computed resource sizes, not browser transfer, timing, FPS or Web Vitals. CSS, fonts, map tiles and user-triggered lazy resources are excluded.",
+  "initialJavaScriptAndCatalog": {
+    "before": {
+      "resources": [
+        {
+          "file": "vendor/leaflet.js",
+          "bytes": 147552,
+          "gzipBytes": 42706
+        },
+        {
+          "file": "vendor/maplibre-gl.js",
+          "bytes": 1058059,
+          "gzipBytes": 277301
+        },
+        {
+          "file": "vendor/maplibre-gl-leaflet.js",
+          "bytes": 13069,
+          "gzipBytes": 3373
+        },
+        {
+          "file": "vendor/hls.min.js",
+          "bytes": 623915,
+          "gzipBytes": 190517
+        },
+        {
+          "file": "cameras.js",
+          "bytes": 2477148,
+          "gzipBytes": 121110
+        },
+        {
+          "file": "catalog-en.js",
+          "bytes": 109563,
+          "gzipBytes": 11272
+        },
+        {
+          "file": "map-geography.js",
+          "bytes": 589076,
+          "gzipBytes": 208166
+        },
+        {
+          "file": "map-basemap.js",
+          "bytes": 8321,
+          "gzipBytes": 2794
+        },
+        {
+          "file": "app.js",
+          "bytes": 34832,
+          "gzipBytes": 10750
+        }
+      ],
+      "total": {
+        "bytes": 5061535,
+        "gzipBytes": 867989
+      }
+    },
+    "after": {
+      "resources": [
+        {
+          "file": "resource-loader.js",
+          "bytes": 1637,
+          "gzipBytes": 692,
+          "sha256": "91f63320b07304eb7d1193ed465f3ddf178c98f72907b1ede6c14652ea1c759c"
+        },
+        {
+          "file": "bootstrap.js",
+          "bytes": 2856,
+          "gzipBytes": 1180,
+          "sha256": "61eeaf740d559522f2ade389ac15c0e64a41d0d5cfc16d8023eee46a168927aa"
+        },
+        {
+          "file": "seo.js",
+          "bytes": 3357,
+          "gzipBytes": 1278,
+          "sha256": "72da8a09980d190a4449d0fd33f40af70c5bd23594f5513edb8e2677c7cc23fd"
+        },
+        {
+          "file": "vendor/leaflet.js",
+          "bytes": 147552,
+          "gzipBytes": 42706,
+          "sha256": "db49d009c841f5ca34a888c96511ae936fd9f5533e90d8b2c4d57596f4e5641a"
+        },
+        {
+          "file": "vendor/maplibre-gl.js",
+          "bytes": 1058059,
+          "gzipBytes": 277301,
+          "sha256": "a9c9e2aa36d4d5b63b131f27c1272f1a28883eeecc0eddd1e0dbfae4033bc7c9"
+        },
+        {
+          "file": "vendor/maplibre-gl-leaflet.js",
+          "bytes": 13069,
+          "gzipBytes": 3373,
+          "sha256": "1c33367962e7755c1a16d1f85658fdc96b5baa36f81adfca9493174cd1b526ce"
+        },
+        {
+          "file": "map-basemap.js",
+          "bytes": 9108,
+          "gzipBytes": 3022,
+          "sha256": "7013b757a9581ba36445e5e3c118b3cb9cde4fa863d335cb391f97505e5f40ec"
+        },
+        {
+          "file": "app.js",
+          "bytes": 58591,
+          "gzipBytes": 15376,
+          "sha256": "969e85f588fc6c2f8a120699a8951eca4225fa094085e9886846029887dd15ef"
+        },
+        {
+          "file": "catalog.json",
+          "bytes": 279710,
+          "gzipBytes": 29258,
+          "sha256": "3f1c5d348a79e19ee4f9c620e521c7eb2940b636ee8f8cd6c1a426dedfbafb6b"
+        }
+      ],
+      "total": {
+        "bytes": 1573939,
+        "gzipBytes": 374186
+      }
+    },
+    "reductionPercent": {
+      "bytes": "68.90",
+      "gzipBytes": "56.89"
+    }
+  },
+  "homeHtml": {
+    "before": {
+      "bytes": 9569,
+      "gzipBytes": 2657
+    },
+    "after": {
+      "bytes": 459842,
+      "gzipBytes": 27728,
+      "sha256": "232a4cc5050db230c19ed5842537e9135c14a499165cb433e890a0c9fee205ff"
+    }
+  },
+  "regionalHtml": {
+    "/regions/seoul/": {
+      "bytes": 21005,
+      "gzipBytes": 4154
+    },
+    "/regions/busan/": {
+      "bytes": 97135,
+      "gzipBytes": 7639
+    },
+    "/regions/daegu/": {
+      "bytes": 29678,
+      "gzipBytes": 4610
+    },
+    "/regions/incheon/": {
+      "bytes": 14576,
+      "gzipBytes": 3776
+    },
+    "/regions/gwangju/": {
+      "bytes": 20119,
+      "gzipBytes": 4047
+    },
+    "/regions/daejeon/": {
+      "bytes": 13238,
+      "gzipBytes": 3665
+    },
+    "/regions/ulsan/": {
+      "bytes": 13160,
+      "gzipBytes": 3654
+    },
+    "/regions/sejong/": {
+      "bytes": 25820,
+      "gzipBytes": 4433
+    },
+    "/regions/gyeonggi/": {
+      "bytes": 61713,
+      "gzipBytes": 6183
+    },
+    "/regions/gangwon/": {
+      "bytes": 26132,
+      "gzipBytes": 4466
+    },
+    "/regions/north-chungcheong/": {
+      "bytes": 56692,
+      "gzipBytes": 5763
+    },
+    "/regions/south-chungcheong/": {
+      "bytes": 18865,
+      "gzipBytes": 4003
+    },
+    "/regions/north-jeolla/": {
+      "bytes": 44491,
+      "gzipBytes": 5292
+    },
+    "/regions/south-jeolla/": {
+      "bytes": 49898,
+      "gzipBytes": 5627
+    },
+    "/regions/north-gyeongsang/": {
+      "bytes": 63562,
+      "gzipBytes": 6236
+    },
+    "/regions/south-gyeongsang/": {
+      "bytes": 83189,
+      "gzipBytes": 8175
+    },
+    "/regions/jeju/": {
+      "bytes": 18776,
+      "gzipBytes": 4008
+    }
+  },
+  "regionalDescriptions": [
+    {
+      "region": "Seoul",
+      "characters": 138,
+      "description": "Explore 8 public live cameras in Seoul, South Korea. See Namsan Transmission Tower, Jungnangcheon Stream, and more on the interactive map."
+    },
+    {
+      "region": "Busan",
+      "characters": 142,
+      "description": "Explore 78 public live cameras in Busan, South Korea. See Sebyeong Bridge · Oncheoncheon Stream, Suyeong Bay, and more on the interactive map."
+    },
+    {
+      "region": "Daegu",
+      "characters": 127,
+      "description": "Explore 16 public live cameras in Daegu, South Korea. See Sincheon Stream, Dogok Intersection, and more on the interactive map."
+    },
+    {
+      "region": "Incheon",
+      "characters": 142,
+      "description": "Explore 2 public live cameras in Incheon, South Korea. See Yeonpyeong Island and Yuhyeon Intersection · Toward Geomdan on the interactive map."
+    },
+    {
+      "region": "Gwangju",
+      "characters": 123,
+      "description": "Explore 7 public live cameras in Gwangju, South Korea. See Yongsan Bridge, Yongjin Bridge, and more on the interactive map."
+    },
+    {
+      "region": "Daejeon",
+      "characters": 96,
+      "description": "Explore 1 public live camera in Daejeon, South Korea. See Gapcheon River on the interactive map."
+    },
+    {
+      "region": "Ulsan",
+      "characters": 89,
+      "description": "Explore 1 public live camera in Ulsan, South Korea. See KBS Ulsan on the interactive map."
+    },
+    {
+      "region": "Sejong",
+      "characters": 175,
+      "description": "Explore 12 public live cameras in Sejong, South Korea. See Government Complex Greenhouse · Above Underpass, Seongnam High School Intersection, and more on the interactive map."
+    },
+    {
+      "region": "Gyeonggi",
+      "characters": 154,
+      "description": "Explore 45 public live cameras in Gyeonggi, South Korea. See Gapyeong Bridge No. 2 · Bukhangang River, Gamaksan Mountain, and more on the interactive map."
+    },
+    {
+      "region": "Gangwon",
+      "characters": 138,
+      "description": "Explore 12 public live cameras in Gangwon, South Korea. See KBS Gangneung, Sokcho Lighthouse Observatory, and more on the interactive map."
+    },
+    {
+      "region": "North Chungcheong",
+      "characters": 135,
+      "description": "Explore 41 public live cameras in North Chungcheong, South Korea. See Musimcheon Stream, Rotary No. 1, and more on the interactive map."
+    },
+    {
+      "region": "South Chungcheong",
+      "characters": 131,
+      "description": "Explore 6 public live cameras in South Chungcheong, South Korea. See Geumgang Bridge, Sinjin Port, and more on the interactive map."
+    },
+    {
+      "region": "North Jeolla",
+      "characters": 138,
+      "description": "Explore 29 public live cameras in North Jeolla, South Korea. See Bieung Port, Baemsagol Valley · Jirisan, and more on the interactive map."
+    },
+    {
+      "region": "South Jeolla",
+      "characters": 149,
+      "description": "Explore 34 public live cameras in South Jeolla, South Korea. See Naju Bridge · Yeongsangang River, Mokpo North Port, and more on the interactive map."
+    },
+    {
+      "region": "North Gyeongsang",
+      "characters": 144,
+      "description": "Explore 47 public live cameras in North Gyeongsang, South Korea. See Duho-dong Coast, Imsu Bridge Intersection, and more on the interactive map."
+    },
+    {
+      "region": "South Gyeongsang",
+      "characters": 158,
+      "description": "Explore 55 public live cameras in South Gyeongsang, South Korea. See Samnangjin · Nakdonggang River, Changwon Sports Complex, and more on the interactive map."
+    },
+    {
+      "region": "Jeju",
+      "characters": 113,
+      "description": "Explore 6 public live cameras in Jeju, South Korea. See KBS Jeju, Marado Island, and more on the interactive map."
+    }
+  ],
+  "baselineTree": "a81d7f47f116e1b6409ba7afd09cbf06b09b8025"
+}

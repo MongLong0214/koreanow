@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#080808">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="description" content="Explore 400 live cameras across South Korea. Find cities, coastlines, and nature on an interactive map.">
   <link rel="canonical" href="https://koreanow.site/">
   <meta property="og:site_name" content="Korea, now.">
@@ -24,27 +25,27 @@
   <meta name="twitter:image" content="https://koreanow.site/social/koreanow-card-v1.png">
   <meta name="twitter:image:alt" content="Korea, now. A map of South Korea with live-camera locations. 400 cameras across 17 regions.">
   <title>Korea, now. — Live cameras across South Korea</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="vendor/leaflet.css">
-  <link rel="stylesheet" href="vendor/maplibre-gl.css">
-  <link rel="stylesheet" href="fonts.css">
-  <link rel="stylesheet" href="styles.css">
-  <script src="vendor/leaflet.js" defer></script>
-  <script src="vendor/maplibre-gl.js" defer></script>
-  <script src="vendor/maplibre-gl-leaflet.js" defer></script>
-  <script src="vendor/hls.min.js" defer></script>
-  <script src="cameras.js" defer></script>
-  <script src="catalog-en.js" defer></script>
-  <script src="map-geography.js" defer></script>
-  <script src="map-basemap.js" defer></script>
-  <script src="app.js" defer></script>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/vendor/leaflet.css">
+  <link rel="stylesheet" href="/vendor/maplibre-gl.css">
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/resource-loader.js" defer></script>
+  <script src="/bootstrap.js" defer></script>
+  <script src="/seo.js" defer></script>
+  <script src="/vendor/leaflet.js" defer></script>
+  <script src="/vendor/maplibre-gl.js" defer></script>
+  <script src="/vendor/maplibre-gl-leaflet.js" defer></script>
+  <script src="/map-basemap.js" defer></script>
+  <script src="/app.js" defer></script>
   <meta name="selected-catalog-sha256" content="725b29ad94bdb863ffd0f96577780c5e72e52d795863d7c08e72f8e7730a59f3">
   <meta name="selected-evidence-sha256" content="ce0be09b39300b575af0e638929ca05d9a5d7b845cfbf6773bd50f891de518b3">
+  <script id="site-schema" type="application/ld+json">{}</script>
 </head>
-<body>
+<body data-region="all">
   <a class="skip-link" href="#camera-list">Skip to cameras</a>
   <header class="topbar">
-    <a class="brand" href="#" aria-label="Korea, now. Home"><span class="brand-mark" aria-hidden="true"></span><span>Korea, now.</span></a>
+    <a class="brand" href="/" aria-label="Korea, now. Home"><span class="brand-mark" aria-hidden="true"></span><span>Korea, now.</span></a>
     <div class="search-box"><span data-icon="search" aria-hidden="true"></span><input id="search" type="search" placeholder="Search places" aria-label="Search cities or places" autocomplete="off"><span id="video-count" class="video-count" role="status" aria-live="polite" aria-atomic="true"><span id="video-matches" hidden></span><strong id="video-total"></strong><span>videos</span></span></div>
     <nav class="topnav" aria-label="Camera collection">
       <button id="explore-tab" class="nav-button active" aria-label="Explore" aria-pressed="true">All</button>
@@ -53,6 +54,7 @@
     <button id="list-toggle" class="icon-button list-toggle" aria-label="Toggle camera list" title="Camera list" aria-controls="camera-sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.1M4 12h.1M4 18h.1"/></svg></button>
   </header>
   <main id="main-content" class="workspace">
+    <h1 id="page-heading" class="sr-only">Live cameras across South Korea</h1>
     <section class="map-stage" aria-label="Map of cameras in South Korea">
       <div id="map" aria-label="Camera locations"></div>
       <div id="map-notice" class="map-notice" role="status" hidden>Map unavailable. Choose a camera from the list.</div>
@@ -84,15 +86,15 @@
     <aside id="camera-sidebar" class="sidebar" aria-label="Camera list and filters">
       <div class="sidebar-top">
         <div id="categories" class="categories" role="group" aria-label="Type of scenery"><button class="chip active" data-category="all" aria-pressed="true">All</button><button class="chip" data-category="city" aria-pressed="false">City</button><button class="chip" data-category="sea" aria-pressed="false">Coast</button><button class="chip" data-category="nature" aria-pressed="false">Nature</button></div>
-        <div class="filters"><div class="region-select"><select id="region" aria-label="Region"><option value="all">All regions</option></select><span data-icon="chevronDown" aria-hidden="true"></span></div><div class="region-select kind-select"><select id="media-kind" aria-label="Camera source"><option value="all">All sources</option><option value="iframe">Broadcast</option><option value="hls">Live camera</option></select><span data-icon="chevronDown" aria-hidden="true"></span></div></div>
+        <div class="filters"><details id="region-menu" class="region-select region-disclosure"><summary id="region-summary" aria-label="Region"><span id="region-label">All regions</span><span data-icon="chevronDown" aria-hidden="true"></span></summary><nav class="region-options" aria-label="Browse regions"><!-- REGION_LINKS --></nav></details><div class="region-select kind-select"><select id="media-kind" aria-label="Camera source"><option value="all">All sources</option><option value="iframe">Broadcast</option><option value="hls">Live camera</option></select><span data-icon="chevronDown" aria-hidden="true"></span></div></div>
       </div>
       <h2 id="list-title" class="sr-only">Places <span id="result-count">0</span></h2>
-      <div id="camera-list" class="camera-list" aria-label="Camera list" tabindex="-1"></div>
+      <div id="camera-list" class="camera-list" aria-label="Camera list" tabindex="-1"><!-- CAMERA_ROWS --></div>
       <div id="empty-state" class="empty-state" hidden><strong id="empty-title">No places found</strong><p id="empty-description">Try another search.</p><button id="reset-filters" class="secondary-button">Reset filters</button></div>
     </aside>
   </main>
   <dialog id="share-dialog" class="share-dialog" aria-labelledby="share-title"><h2 id="share-title">Share view</h2><input id="share-url" readonly aria-label="Link to this camera"><button id="close-share" class="secondary-button">Close</button></dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <noscript><div class="noscript">Enable JavaScript to use the map.</div></noscript>
+  <noscript><div class="noscript">Enable JavaScript for the interactive map and saved places. You can still browse regions and open the original camera sources from the list.</div></noscript>
 </body>
 </html>

@@ -45,6 +45,8 @@ The site has no ChatGPT Sites runtime dependency. Static files are served by Ver
 | --- | --- |
 | `web/index.html`, `web/styles.css` | Page structure and responsive visual design |
 | `web/app.js` | Map, search, filters, favorites, sharing, and player lifecycle |
+| `web/bootstrap.js`, `web/resource-loader.js` | Validated public catalog startup and shared lazy script loading |
+| `web/seo.js`, `server/seo-pages.mjs` | Shared route metadata and static collection-page generation |
 | `web/catalog-en.js` | English camera names and search aliases |
 | `web/cameras.js` | Camera source catalog, selected collection, and diagnostic candidates |
 | `web/map-basemap.js`, `web/map-style-dark.json` | Detailed dark map and Canvas compatibility renderer |
@@ -67,6 +69,24 @@ Interface text and available map labels are English. The English camera catalog 
 ### Social previews
 
 Open Graph and X card metadata are included directly in `web/index.html`, so link crawlers do not need to run JavaScript. Both use the public 1200 × 630 PNG in `web/social/`; its editable SVG source is stored beside it. When replacing the image, give it a new versioned filename and update both image tags. Keep the metadata and image copy aligned with the selected camera collection.
+
+### Rendering and loading
+
+The application uses native DOM APIs and event delegation. Camera rows are keyed by ID; filtering reuses the surviving nodes, selection updates only the previous and current rows, and favorites update only the affected controls. Marker reconciliation retains unaffected Leaflet markers. Search text is normalized once, filtered collections are cached, and projected coordinates are reused until the map zoom changes. Search and map-resize work are coalesced with animation frames.
+
+The build produces `catalog.json` with only the 400 selected, localized camera records and the fields the interface and players need. The full source catalog and English dictionary remain unchanged for maintenance, evidence, and `?qa-candidates=1`. HLS.js loads when an HLS camera is opened, and the country-outline geometry loads only if both detailed map renderers fail.
+
+The build also renders the initial camera rows into HTML. The client adopts those exact nodes rather than replacing them. If catalog startup fails, the rendered camera links remain available and open the original sources.
+
+### Search indexing
+
+The home page and 17 regional collections are generated as complete HTML pages. Each has its own title, description, heading, canonical URL, social metadata, and structured data. The compact region control contains ordinary links, so regional navigation also works without JavaScript. Camera links point to their original sources; normal in-app clicks open the player.
+
+`/sitemap.xml` lists only these 18 canonical collection URLs, and `/robots.txt` declares the sitemap. Unknown routes return a real 404. Diagnostic queries and the historical verification pages are marked `noindex`. Avoid adding a catch-all rewrite to the home page: it would turn missing URLs into misleading 200 responses.
+
+Structured data describes the website and the actual camera collections. It does not claim video rich-result eligibility, invent publication dates or thumbnails, or mark the collection pages as individual watch pages. The `#cam=` fragment remains a sharing and interface-state feature.
+
+For search-engine monitoring, verify `koreanow.site` in Google Search Console and submit `https://koreanow.site/sitemap.xml`. Indexing and ranking depend on the search engine; a successful build or deployment does not verify either.
 
 ### Video behavior
 

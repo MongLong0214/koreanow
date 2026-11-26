@@ -1,0 +1,497 @@
+{
+  "generatedAt": "2026-11-26T10:01:19.044Z",
+  "measurement": "Simulated DOM and Leaflet operation counts, not browser performance timings",
+  "limitations": [
+    "No layout, painting, FPS, Core Web Vitals, GPU work, real media delivery, or network latency is measured.",
+    "The map uses deterministic Web Mercator projection and a fixed initial zoom of 12.",
+    "Both runs use the same English production catalog; the current initial DOM is the generated home page.",
+    "Counters are reset after startup and scenario preparation. Legitimate viewer/media changes remain included."
+  ],
+  "baselineCommit": "8d41c8b79245cc78ca3a57029b15d00c76b84513",
+  "baselineTree": "a81d7f47f116e1b6409ba7afd09cbf06b09b8025",
+  "baselineBlobs": {
+    "web/app.js": "e54bb91720c3051bfe43e7912120a6d78f53622b",
+    "web/index.html": "8820ef298a8f682ebcce6d3205d27608784aafe9",
+    "web/cameras.js": "6c61e776172e10cddacdd9d068cb48fdbde7997f",
+    "web/catalog-en.js": "e8a8b26287616d0942470ff34e32a2c2190e24db"
+  },
+  "baselineAppSha256": "95e893d6308af451632e9b633b5bdfc892dffacea748478a4f76a132a223ac08",
+  "currentAppSha256": "969e85f588fc6c2f8a120699a8951eca4225fa094085e9886846029887dd15ef",
+  "cameraCount": 400,
+  "unchangedCatalogSources": {
+    "web/cameras.js": "a291abe3f7af331ae8f315bd06851b60ae414a7fa0a74af6aca422f9cef190c9",
+    "web/catalog-en.js": "3f910269830884cf6bd74b4cd9767797c8394f212b5088e865e3a233b258a433"
+  },
+  "harnessSha256": {
+    "qa/helpers/player-harness.cjs": "7ef4cc989b483f106cac9531f61f2f562d71bfe0ef88efa0b573c4e2781b0ff6",
+    "qa/helpers/instrumented-dom.cjs": "89753197f5340600e55d2b256e4095cd9f323a5da729b1b7e39c364473f7dd6b",
+    "qa/helpers/leaflet-stub.cjs": "b2cf0c81c439ed11e2a0c0288f21dcffdbd7e2a7efc669ce9d55e90339194f4a"
+  },
+  "results": [
+    {
+      "scenario": "select_one_camera",
+      "description": "Open the first camera at a fixed map zoom of 12.",
+      "finalCameraIdsSha256": "046e6201887b7c1dec3cf03d5a38c2e0e2f5db52723e921e0bad480aceb392da",
+      "baseline": {
+        "createdRowElements": 400,
+        "rowInsertions": 400,
+        "rowRemovals": 400,
+        "wholesaleListReplacements": 1,
+        "attributeWrites": 18265,
+        "markerCreates": 295,
+        "markerRemovals": 295,
+        "markerLayerClears": 1,
+        "mapInvalidations": 0,
+        "visibleRows": 400,
+        "retainedVisibleRowNodes": 0,
+        "visibleMarkers": 295,
+        "retainedVisibleMarkerObjects": 0
+      },
+      "current": {
+        "createdRowElements": 0,
+        "rowInsertions": 0,
+        "rowRemovals": 0,
+        "wholesaleListReplacements": 0,
+        "attributeWrites": 4,
+        "markerCreates": 0,
+        "markerRemovals": 0,
+        "markerLayerClears": 0,
+        "mapInvalidations": 0,
+        "visibleRows": 400,
+        "retainedVisibleRowNodes": 400,
+        "visibleMarkers": 295,
+        "retainedVisibleMarkerObjects": 295
+      },
+      "raw": {
+        "baseline": {
+          "dom": {
+            "createdElements": 5597,
+            "createdByTag": {
+              "ARTICLE": 400,
+              "BUTTON": 800,
+              "SPAN": 990,
+              "SVG": 1037,
+              "RECT": 637,
+              "PATH": 1037,
+              "H3": 400,
+              "DIV": 295,
+              "IFRAME": 1
+            },
+            "innerHTMLWrites": 296,
+            "textWrites": 12,
+            "attributeWrites": 18265,
+            "classWrites": 2487,
+            "insertions": 7351,
+            "removals": 1695,
+            "listReplacements": 1,
+            "rowInsertions": 400,
+            "rowRemovals": 400
+          },
+          "map": {
+            "markerCreates": 295,
+            "markerRemovals": 295,
+            "markerIconChanges": 0,
+            "clearLayers": 1,
+            "markerMoves": 0,
+            "invalidations": 0,
+            "fitBounds": 0,
+            "flyTo": 1
+          }
+        },
+        "current": {
+          "dom": {
+            "createdElements": 1,
+            "createdByTag": {
+              "IFRAME": 1
+            },
+            "innerHTMLWrites": 0,
+            "textWrites": 6,
+            "attributeWrites": 4,
+            "classWrites": 4,
+            "insertions": 7,
+            "removals": 5,
+            "listReplacements": 0,
+            "rowInsertions": 0,
+            "rowRemovals": 0
+          },
+          "map": {
+            "markerCreates": 0,
+            "markerRemovals": 0,
+            "markerIconChanges": 0,
+            "clearLayers": 0,
+            "markerMoves": 0,
+            "invalidations": 0,
+            "fitBounds": 0,
+            "flyTo": 1
+          }
+        }
+      }
+    },
+    {
+      "scenario": "save_one_camera",
+      "description": "Save one camera while browsing the full catalog.",
+      "finalCameraIdsSha256": "046e6201887b7c1dec3cf03d5a38c2e0e2f5db52723e921e0bad480aceb392da",
+      "baseline": {
+        "createdRowElements": 0,
+        "rowInsertions": 0,
+        "rowRemovals": 0,
+        "wholesaleListReplacements": 0,
+        "attributeWrites": 800,
+        "markerCreates": 0,
+        "markerRemovals": 0,
+        "markerLayerClears": 0,
+        "mapInvalidations": 0,
+        "visibleRows": 400,
+        "retainedVisibleRowNodes": 400,
+        "visibleMarkers": 295,
+        "retainedVisibleMarkerObjects": 295
+      },
+      "current": {
+        "createdRowElements": 0,
+        "rowInsertions": 0,
+        "rowRemovals": 0,
+        "wholesaleListReplacements": 0,
+        "attributeWrites": 2,
+        "markerCreates": 0,
+        "markerRemovals": 0,
+        "markerLayerClears": 0,
+        "mapInvalidations": 0,
+        "visibleRows": 400,
+        "retainedVisibleRowNodes": 400,
+        "visibleMarkers": 295,
+        "retainedVisibleMarkerObjects": 295
+      },
+      "raw": {
+        "baseline": {
+          "dom": {
+            "createdElements": 0,
+            "createdByTag": {},
+            "innerHTMLWrites": 0,
+            "textWrites": 2,
+            "attributeWrites": 800,
+            "classWrites": 1,
+            "insertions": 2,
+            "removals": 1,
+            "listReplacements": 0,
+            "rowInsertions": 0,
+            "rowRemovals": 0
+          },
+          "map": {
+            "markerCreates": 0,
+            "markerRemovals": 0,
+            "markerIconChanges": 0,
+            "clearLayers": 0,
+            "markerMoves": 0,
+            "invalidations": 0,
+            "fitBounds": 0,
+            "flyTo": 0
+          }
+        },
+        "current": {
+          "dom": {
+            "createdElements": 0,
+            "createdByTag": {},
+            "innerHTMLWrites": 0,
+            "textWrites": 2,
+            "attributeWrites": 2,
+            "classWrites": 1,
+            "insertions": 2,
+            "removals": 1,
+            "listReplacements": 0,
+            "rowInsertions": 0,
+            "rowRemovals": 0
+          },
+          "map": {
+            "markerCreates": 0,
+            "markerRemovals": 0,
+            "markerIconChanges": 0,
+            "clearLayers": 0,
+            "markerMoves": 0,
+            "invalidations": 0,
+            "fitBounds": 0,
+            "flyTo": 0
+          }
+        }
+      }
+    },
+    {
+      "scenario": "search_input_burst",
+      "description": "Type B, Bus and Busan before the next animation frame.",
+      "finalCameraIdsSha256": "57a272ed8afdf2e917700c002da261fb62154b108a6cadac7eb5f637af5ad970",
+      "baseline": {
+        "createdRowElements": 550,
+        "rowInsertions": 550,
+        "rowRemovals": 872,
+        "wholesaleListReplacements": 3,
+        "attributeWrites": 24535,
+        "markerCreates": 383,
+        "markerRemovals": 633,
+        "markerLayerClears": 3,
+        "mapInvalidations": 0,
+        "visibleRows": 78,
+        "retainedVisibleRowNodes": 0,
+        "visibleMarkers": 45,
+        "retainedVisibleMarkerObjects": 0
+      },
+      "current": {
+        "createdRowElements": 0,
+        "rowInsertions": 0,
+        "rowRemovals": 322,
+        "wholesaleListReplacements": 0,
+        "attributeWrites": 7,
+        "markerCreates": 0,
+        "markerRemovals": 250,
+        "markerLayerClears": 0,
+        "mapInvalidations": 0,
+        "visibleRows": 78,
+        "retainedVisibleRowNodes": 78,
+        "visibleMarkers": 45,
+        "retainedVisibleMarkerObjects": 45
+      },
+      "raw": {
+        "baseline": {
+          "dom": {
+            "createdElements": 7513,
+            "createdByTag": {
+              "ARTICLE": 550,
+              "BUTTON": 1100,
+              "SPAN": 1316,
+              "SVG": 1388,
+              "RECT": 838,
+              "PATH": 1388,
+              "H3": 550,
+              "DIV": 383
+            },
+            "innerHTMLWrites": 386,
+            "textWrites": 21,
+            "attributeWrites": 24535,
+            "classWrites": 3355,
+            "insertions": 9875,
+            "removals": 2839,
+            "listReplacements": 3,
+            "rowInsertions": 550,
+            "rowRemovals": 872
+          },
+          "map": {
+            "markerCreates": 383,
+            "markerRemovals": 633,
+            "markerIconChanges": 0,
+            "clearLayers": 3,
+            "markerMoves": 0,
+            "invalidations": 0,
+            "fitBounds": 0,
+            "flyTo": 0
+          }
+        },
+        "current": {
+          "dom": {
+            "createdElements": 0,
+            "createdByTag": {},
+            "innerHTMLWrites": 0,
+            "textWrites": 7,
+            "attributeWrites": 7,
+            "classWrites": 4,
+            "insertions": 6,
+            "removals": 578,
+            "listReplacements": 0,
+            "rowInsertions": 0,
+            "rowRemovals": 322
+          },
+          "map": {
+            "markerCreates": 0,
+            "markerRemovals": 250,
+            "markerIconChanges": 0,
+            "clearLayers": 0,
+            "markerMoves": 0,
+            "invalidations": 0,
+            "fitBounds": 0,
+            "flyTo": 0
+          }
+        }
+      }
+    },
+    {
+      "scenario": "equivalent_search",
+      "description": "Change Busan to whitespace/case-equivalent text after filtering.",
+      "finalCameraIdsSha256": "57a272ed8afdf2e917700c002da261fb62154b108a6cadac7eb5f637af5ad970",
+      "baseline": {
+        "createdRowElements": 78,
+        "rowInsertions": 78,
+        "rowRemovals": 78,
+        "wholesaleListReplacements": 1,
+        "attributeWrites": 3251,
+        "markerCreates": 45,
+        "markerRemovals": 45,
+        "markerLayerClears": 1,
+        "mapInvalidations": 0,
+        "visibleRows": 78,
+        "retainedVisibleRowNodes": 0,
+        "visibleMarkers": 45,
+        "retainedVisibleMarkerObjects": 0
+      },
+      "current": {
+        "createdRowElements": 0,
+        "rowInsertions": 0,
+        "rowRemovals": 0,
+        "wholesaleListReplacements": 0,
+        "attributeWrites": 2,
+        "markerCreates": 0,
+        "markerRemovals": 0,
+        "markerLayerClears": 0,
+        "mapInvalidations": 0,
+        "visibleRows": 78,
+        "retainedVisibleRowNodes": 78,
+        "visibleMarkers": 45,
+        "retainedVisibleMarkerObjects": 45
+      },
+      "raw": {
+        "baseline": {
+          "dom": {
+            "createdElements": 993,
+            "createdByTag": {
+              "ARTICLE": 78,
+              "BUTTON": 156,
+              "SPAN": 168,
+              "SVG": 182,
+              "RECT": 104,
+              "PATH": 182,
+              "H3": 78,
+              "DIV": 45
+            },
+            "innerHTMLWrites": 46,
+            "textWrites": 7,
+            "attributeWrites": 3251,
+            "classWrites": 449,
+            "insertions": 1309,
+            "removals": 297,
+            "listReplacements": 1,
+            "rowInsertions": 78,
+            "rowRemovals": 78
+          },
+          "map": {
+            "markerCreates": 45,
+            "markerRemovals": 45,
+            "markerIconChanges": 0,
+            "clearLayers": 1,
+            "markerMoves": 0,
+            "invalidations": 0,
+            "fitBounds": 0,
+            "flyTo": 0
+          }
+        },
+        "current": {
+          "dom": {
+            "createdElements": 0,
+            "createdByTag": {},
+            "innerHTMLWrites": 0,
+            "textWrites": 4,
+            "attributeWrites": 2,
+            "classWrites": 2,
+            "insertions": 3,
+            "removals": 3,
+            "listReplacements": 0,
+            "rowInsertions": 0,
+            "rowRemovals": 0
+          },
+          "map": {
+            "markerCreates": 0,
+            "markerRemovals": 0,
+            "markerIconChanges": 0,
+            "clearLayers": 0,
+            "markerMoves": 0,
+            "invalidations": 0,
+            "fitBounds": 0,
+            "flyTo": 0
+          }
+        }
+      }
+    },
+    {
+      "scenario": "resize_burst",
+      "description": "Deliver three different nonzero map sizes before the next frame.",
+      "finalCameraIdsSha256": "046e6201887b7c1dec3cf03d5a38c2e0e2f5db52723e921e0bad480aceb392da",
+      "baseline": {
+        "createdRowElements": 0,
+        "rowInsertions": 0,
+        "rowRemovals": 0,
+        "wholesaleListReplacements": 0,
+        "attributeWrites": 0,
+        "markerCreates": 0,
+        "markerRemovals": 0,
+        "markerLayerClears": 0,
+        "mapInvalidations": 3,
+        "visibleRows": 400,
+        "retainedVisibleRowNodes": 400,
+        "visibleMarkers": 295,
+        "retainedVisibleMarkerObjects": 295
+      },
+      "current": {
+        "createdRowElements": 0,
+        "rowInsertions": 0,
+        "rowRemovals": 0,
+        "wholesaleListReplacements": 0,
+        "attributeWrites": 0,
+        "markerCreates": 0,
+        "markerRemovals": 0,
+        "markerLayerClears": 0,
+        "mapInvalidations": 1,
+        "visibleRows": 400,
+        "retainedVisibleRowNodes": 400,
+        "visibleMarkers": 295,
+        "retainedVisibleMarkerObjects": 295
+      },
+      "raw": {
+        "baseline": {
+          "dom": {
+            "createdElements": 0,
+            "createdByTag": {},
+            "innerHTMLWrites": 0,
+            "textWrites": 0,
+            "attributeWrites": 0,
+            "classWrites": 0,
+            "insertions": 0,
+            "removals": 0,
+            "listReplacements": 0,
+            "rowInsertions": 0,
+            "rowRemovals": 0
+          },
+          "map": {
+            "markerCreates": 0,
+            "markerRemovals": 0,
+            "markerIconChanges": 0,
+            "clearLayers": 0,
+            "markerMoves": 0,
+            "invalidations": 3,
+            "fitBounds": 0,
+            "flyTo": 0
+          }
+        },
+        "current": {
+          "dom": {
+            "createdElements": 0,
+            "createdByTag": {},
+            "innerHTMLWrites": 0,
+            "textWrites": 0,
+            "attributeWrites": 0,
+            "classWrites": 0,
+            "insertions": 0,
+            "removals": 0,
+            "listReplacements": 0,
+            "rowInsertions": 0,
+            "rowRemovals": 0
+          },
+          "map": {
+            "markerCreates": 0,
+            "markerRemovals": 0,
+            "markerIconChanges": 0,
+            "clearLayers": 0,
+            "markerMoves": 0,
+            "invalidations": 1,
+            "fitBounds": 0,
+            "flyTo": 0
+          }
+        }
+      }
+    }
+  ]
+}

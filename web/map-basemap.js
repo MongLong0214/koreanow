@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const tileJsonUrl='https://tiles.openfreemap.org/planet';
-  const attribution='<a href="https://openfreemap.org/" target="_blank" rel="noopener">OpenFreeMap</a> · © <a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · <a href="vendor/maplibre-dark-style-LICENSE.txt" target="_blank" rel="noopener">Style</a>';
+  const attribution='<a href="https://openfreemap.org/" target="_blank" rel="noopener">OpenFreeMap</a> · © <a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · <a href="/vendor/maplibre-dark-style-LICENSE.txt" target="_blank" rel="noopener">Style</a>';
   let libraryPromise;
   function loadLibrary(){
     if(window.protomapsL)return Promise.resolve(window.protomapsL);
@@ -12,7 +12,7 @@
       const timer=setTimeout(()=>finish(new Error('Canvas map renderer timed out')),15000);
       script.onload=()=>finish(window.protomapsL?null:new Error('Canvas map renderer unavailable'));
       script.onerror=()=>finish(new Error('Canvas map renderer could not load'));
-      script.src='vendor/protomaps-leaflet.js';document.head.appendChild(script);
+      script.src='/vendor/protomaps-leaflet.js';document.head.appendChild(script);
     }).catch(error=>{libraryPromise=null;throw error;});
     return libraryPromise;
   }
@@ -27,10 +27,25 @@
     }finally{clearTimeout(timer);}
   }
   function makeRules(p,onFeatureDrawn){
-    const names=(_zoom,feature)=>['name:en','name_en'].filter(key=>{
-      const value=feature.props[key];
-      return typeof value==='string'&&value.trim()&&[...value].every(character=>!/\p{Letter}/u.test(character)||/\p{Script=Latin}/u.test(character));
-    });
+    const englishFields=['name:en','name_en'];
+    const asciiName=/^[\x00-\x7f]*$/;
+    const letter=/\p{Letter}/u;
+    const latin=/\p{Script=Latin}/u;
+    const nameCache=new WeakMap();
+    const validName=value=>{
+      if(typeof value!=='string'||!value.trim())return false;
+      if(asciiName.test(value))return true;
+      for(const character of value)if(letter.test(character)&&!latin.test(character))return false;
+      return true;
+    };
+    const names=(_zoom,feature)=>{
+      let fields=nameCache.get(feature.props);
+      if(!fields){
+        fields=englishFields.filter(key=>validName(feature.props[key]));
+        nameCache.set(feature.props,fields);
+      }
+      return fields;
+    };
     const isClass=(...classes)=>(_zoom,feature)=>classes.includes(feature.props.class);
     const isLine=(_zoom,feature)=>feature.geomType===p.GeomType.Line;
     const isPolygon=(_zoom,feature)=>feature.geomType===p.GeomType.Polygon;
@@ -62,13 +77,20 @@
     ];
     // Count features after the public symbolizer draws them. A tileload event
     // alone is insufficient: the Canvas library also completes failed tiles.
+    const observedRules=[];
+    let featureDrawn=false;
     for(const rule of paintRules){
       const symbolizer=rule.symbolizer;
+      observedRules.push([rule,symbolizer]);
       rule.symbolizer={
         before(context,zoom){symbolizer.before?.(context,zoom);},
-        draw(context,geometry,zoom,feature){symbolizer.draw(context,geometry,zoom,feature);if(geometry.length)onFeatureDrawn();}
+        draw(context,geometry,zoom,feature){
+          symbolizer.draw(context,geometry,zoom,feature);
+          if(!featureDrawn&&geometry.length){featureDrawn=true;onFeatureDrawn();}
+        }
       };
     }
+    const stopObserving=()=>{for(const [rule,symbolizer] of observedRules)rule.symbolizer=symbolizer;};
     const text=(size,fill='#9daeb5',weight=500)=>new p.CenteredTextSymbolizer({labelProps:names,font:weight+' '+size+'px "Jigeum Sans", sans-serif',fill,stroke:'#172125',width:2.5,maxLineChars:22});
     const rank=(a,b)=>(Number(a.rank)||100)-(Number(b.rank)||100);
     const labelRules=[
@@ -82,17 +104,17 @@
       {dataLayer:'water_name',minzoom:8,filter:isLine,symbolizer:new p.LineLabelSymbolizer({labelProps:names,font:'italic 11px "Jigeum Sans", sans-serif',fill:'#7e9aa9',stroke:'#0c161c',width:2,repeatDistance:250,maxLabelChars:28})},
       {dataLayer:'water_name',minzoom:7,filter:(_z,f)=>f.geomType===p.GeomType.Point,symbolizer:text(11,'#7e9aa9')}
     ];
-    return {paintRules,labelRules};
+    return {paintRules,labelRules,stopObserving};
   }
   async function addTo(map){
     const [p,source]=await Promise.all([loadLibrary(),loadTileJson()]);
     if(!document.createElement('canvas').getContext('2d'))throw new Error('Canvas map rendering unavailable');
     let rendered=false;
-    const rules=makeRules(p,()=>{rendered=true;});
-    const layer=p.leafletLayer({url:source.tiles[0],maxDataZoom:Number(source.maxzoom)||14,...rules,backgroundColor:'#172125',attribution,lang:'en',noWrap:true,maxZoom:20,updateWhenIdle:true,updateWhenZooming:false,keepBuffer:2,tasks:document.fonts?[document.fonts.load('500 13px "Jigeum Sans"')]:[]});
+    const {paintRules,labelRules,stopObserving}=makeRules(p,()=>{rendered=true;});
+    const layer=p.leafletLayer({url:source.tiles[0],maxDataZoom:Number(source.maxzoom)||14,paintRules,labelRules,backgroundColor:'#172125',attribution,lang:'en',noWrap:true,maxZoom:20,updateWhenIdle:true,updateWhenZooming:false,keepBuffer:2,tasks:document.fonts?[document.fonts.load('500 13px "Jigeum Sans"')]:[]});
     const ready=new Promise((resolve,reject)=>{
       let settled=false;
-      const finish=error=>{if(settled)return;settled=true;clearTimeout(timer);layer.off('tileload',check);layer.off('load',check);error?reject(error):resolve();};
+      const finish=error=>{if(settled)return;settled=true;clearTimeout(timer);layer.off('tileload',check);layer.off('load',check);stopObserving();error?reject(error):resolve();};
       const check=()=>{if(rendered)finish();};
       const timer=setTimeout(()=>finish(new Error('Map tiles could not be rendered')),20000);
       layer.on('tileload',check);layer.on('load',check);

@@ -6,288 +6,7 @@
 // The catalog/filter case below uses the real current production camera source.
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
-const vm = require('node:vm');
-
-const sourceDirectory = path.join(__dirname, '..', 'web');
-const appSource = fs.readFileSync(path.join(sourceDirectory, 'app.js'), 'utf8');
-const productionCameraSource = fs.readFileSync(path.join(sourceDirectory, 'cameras.js'), 'utf8');
-const fixtureSource = 'window.KOREA_CAMERAS = '+fs.readFileSync(path.join(__dirname, 'fixtures/player-catalog.json'), 'utf8')+';';
-const html = fs.readFileSync(path.join(sourceDirectory, 'index.html'), 'utf8');
-
-async function flushMicrotasks() {
-  for (let turn = 0; turn < 8; turn++) await Promise.resolve();
-}
-
-function createHarness({ apiReady = false, storage = new Map(), denyStorageWrites = false, hlsSupported = true, nativeHls = '', cameraSource = fixtureSource } = {}) {
-  let now = 0;
-  let nextTimer = 1;
-  const timers = new Map();
-  const elements = new Map();
-  const scripts = [];
-  const scriptRequests = [];
-  const players = [];
-  const hlsPlayers = [];
-  const videos = [];
-  const windowListeners = new Map();
-  let document;
-
-  function makeElement(tagName = 'div') {
-    const classes = new Set();
-    const element = {
-      tagName: tagName.toUpperCase(), id: '', dataset: {}, attributes: {},
-      hidden: false, value: '', textContent: '', innerHTML: '', children: [],
-      firstChild: { textContent: '' }, parentNode: null, listeners: new Map(),
-      classList: {
-        add: (...names) => names.forEach(name => classes.add(name)),
-        remove: (...names) => names.forEach(name => classes.delete(name)),
-        contains: name => classes.has(name),
-        toggle(name, force = !classes.has(name)) {
-          force ? classes.add(name) : classes.delete(name);
-          return force;
-        }
-      },
-      setAttribute(name, value) { this.attributes[name] = String(value); },
-      getAttribute(name) { return this.attributes[name] ?? null; },
-      removeAttribute(name) { delete this.attributes[name]; if (name === 'src') this.src = ''; },
-      contains(node) {
-        for (let current = node; current; current = current.parentNode) {
-          if (current === this) return true;
-        }
-        return false;
-      },
-      closest(selector) {
-        for (let current = this; current; current = current.parentNode) {
-          if (current.matches(selector)) return current;
-        }
-        return null;
-      },
-      addEventListener(name, listener) {
-        if (!this.listeners.has(name)) this.listeners.set(name, []);
-        this.listeners.get(name).push(listener);
-      },
-      appendChild(child) {
-        child.parentNode = this;
-        this.children.push(child);
-        if (this === document?.head && child.tagName === 'SCRIPT') {
-          scripts.push(child);
-          scriptRequests.push(child.src);
-        }
-        return child;
-      },
-      replaceChildren(...children) {
-        this.children.forEach(child => { child.parentNode = null; });
-        this.children = [];
-        children.forEach(child => this.appendChild(child));
-      },
-      remove() {
-        if (this.parentNode) {
-          this.parentNode.children = this.parentNode.children.filter(child => child !== this);
-          this.parentNode = null;
-        }
-        const index = scripts.indexOf(this);
-        if (index !== -1) scripts.splice(index, 1);
-      },
-      focus() { document.activeElement = this; },
-      select() {}, scrollIntoView() {},
-      showModal() { this.open = true; },
-      close() { this.open = false; },
-      matches(selector) {
-        if (selector === '[hidden]') return this.hidden;
-        return selector.split(',').some(part => part.trim().toUpperCase() === this.tagName);
-      },
-      getBoundingClientRect() { return { left: 0, top: 0, right: 100, bottom: 100 }; }
-    };
-    if (element.tagName === 'VIDEO') {
-      Object.assign(element, {
-        paused: true, readyState: 0, currentTime: 0, videoWidth: 0, videoHeight: 0,
-        playCalls: 0, pauseCalls: 0, loadCalls: 0,
-        canPlayType() { return nativeHls; },
-        play() { this.playCalls++; return Promise.resolve(); },
-        pause() { this.pauseCalls++; this.paused = true; },
-        load() { this.loadCalls++; this.readyState = 0; }
-      });
-      videos.push(element);
-    }
-    return element;
-  }
-
-  // Only static IDs are needed; rendered card clicks are delivered through the
-  // real delegated click listener, without parsing or rewriting generated HTML.
-  for (const match of html.matchAll(/<([a-z][\w:-]*)\b([^>]*?\bid=["']([^"']+)["'][^>]*)>/gi)) {
-    const element = makeElement(match[1]);
-    element.id = match[3];
-    element.hidden = /(?:^|\s)hidden(?:\s|=|$)/i.test(match[2]);
-    elements.set(element.id, element);
-  }
-  const brand = makeElement('a');
-  document = {
-    head: makeElement('head'), body: makeElement('body'), activeElement: null,
-    visibilityState: 'visible', listeners: new Map(),
-    getElementById: id => elements.get(id) ?? null,
-    createElement: makeElement,
-    querySelector(selector) {
-      if (selector === 'script[data-youtube-api]') return scripts.find(script => script.dataset.youtubeApi) ?? null;
-      if (selector === '.brand') return brand;
-      if (selector === 'dialog[open]') return [...elements.values()].find(element => element.open) ?? null;
-      return null;
-    },
-    querySelectorAll(selector) {
-      if (selector === 'script[data-youtube-api]') return scripts.filter(script => script.dataset.youtubeApi);
-      return [];
-    },
-    addEventListener(name, listener) {
-      if (!this.listeners.has(name)) this.listeners.set(name, []);
-      this.listeners.get(name).push(listener);
-    }
-  };
-
-  const context = {
-    document,
-    location: new URL('https://example.test/'),
-    history: {
-      replaceState(_state, _title, url) { context.location = new URL(url); }
-    },
-    navigator: { clipboard: { async writeText() {} } },
-    localStorage: {
-      getItem(key) { return storage.get(String(key)) ?? null; },
-      setItem(key, value) {
-        if (denyStorageWrites) throw new Error('Simulated storage permission denial');
-        storage.set(String(key), String(value));
-      }
-    },
-    matchMedia: () => ({ matches: false }), innerWidth: 1200,
-    Intl, Date, URL, URLSearchParams, Promise, Error, Math, Set, Map,
-    setTimeout(callback, delay = 0) {
-      const id = nextTimer++;
-      timers.set(id, { callback, at: now + delay });
-      return id;
-    },
-    clearTimeout: id => timers.delete(id),
-    // The unrelated wall clock must not keep the fake clock running forever.
-    setInterval() { return 0; }, clearInterval() {},
-    addEventListener(name, listener) {
-      if (!windowListeners.has(name)) windowListeners.set(name, []);
-      windowListeners.get(name).push(listener);
-    }
-  };
-  context.window = context;
-  context.Hls = class FakeHls {
-    static Events = { MANIFEST_PARSED: 'manifestParsed', ERROR: 'hlsError' };
-    static isSupported() { return hlsSupported; }
-    constructor(options) { this.options = options; this.listeners = new Map(); this.destroyed = false; this.destroyCalls = 0; hlsPlayers.push(this); }
-    on(event, listener) { if (!this.listeners.has(event)) this.listeners.set(event, []); this.listeners.get(event).push(listener); }
-    loadSource(url) { this.source = url; }
-    attachMedia(media) { this.media = media; }
-    destroy() { this.destroyed = true; this.destroyCalls++; }
-  };
-
-  function installYouTubeApi() {
-    context.YT = {
-      Player: class FakeYouTubePlayer {
-        constructor(holder, options) {
-          this.options = options;
-          this.events = options.events;
-          this.destroyed = false;
-          this.state = -1;
-          this.playCalls = 0;
-          this.muteCalls = 0;
-          this.iframe = makeElement('iframe');
-          const parent = holder.parentNode;
-          if (parent) {
-            parent.children = parent.children.map(child => child === holder ? this.iframe : child);
-            this.iframe.parentNode = parent;
-            holder.parentNode = null;
-          }
-          players.push(this);
-        }
-        getIframe() { return this.iframe; }
-        getPlayerState() { return this.state; }
-        mute() { this.muteCalls++; }
-        playVideo() { this.playCalls++; }
-        destroy() { this.destroyed = true; this.iframe.remove(); }
-      }
-    };
-  }
-
-  if (apiReady) installYouTubeApi();
-  vm.createContext(context);
-  vm.runInContext(cameraSource, context, { filename: path.join(sourceDirectory, 'cameras.js') });
-  vm.runInContext(appSource, context, { filename: path.join(sourceDirectory, 'app.js') });
-
-  function get(id) {
-    const element = elements.get(id);
-    assert.ok(element, `Expected a real element with id=${id}`);
-    return element;
-  }
-  function fire(id, name = 'click', event = {}) {
-    const element = get(id);
-    const listeners = element.listeners.get(name) ?? [];
-    assert.ok(listeners.length, `No ${name} listener for #${id}`);
-    listeners.forEach(listener => listener({ target: element, preventDefault() {}, ...event }));
-  }
-  function chooseCamera(id) {
-    assert.ok(context.KOREA_CAMERAS.some(camera => camera.id === id));
-    const button = { dataset: { select: id } };
-    fire('camera-list', 'click', {
-      target: { closest: selector => selector === '[data-select]' ? button : null }
-    });
-  }
-  function emit(player, name, data) {
-    if (name === 'onStateChange') player.state = data;
-    assert.equal(typeof player.events[name], 'function', `Missing YouTube handler ${name}`);
-    player.events[name]({ target: player, data });
-  }
-  function emitHls(instance, event, data = {}) {
-    const name = context.Hls.Events[event] || event;
-    const handlers = instance.listeners.get(name) || [];
-    assert.ok(handlers.length, `Missing HLS handler ${name}`);
-    handlers.forEach(handler => handler(name, data));
-  }
-  function emitMedia(video, event) {
-    const handlers = video.listeners.get(event) || [];
-    assert.ok(handlers.length, `Missing media handler ${event}`);
-    if (event === 'playing') { video.paused = false; video.readyState = 4; video.currentTime++; video.videoWidth = 1920; video.videoHeight = 1080; }
-    if (event === 'pause' || event === 'ended') video.paused = true;
-    handlers.forEach(handler => handler({ target: video, type: event }));
-  }
-  async function advance(milliseconds) {
-    const end = now + milliseconds;
-    for (;;) {
-      let next;
-      for (const [id, timer] of timers) {
-        if (timer.at <= end && (!next || timer.at < next[1].at)) next = [id, timer];
-      }
-      if (!next) break;
-      now = next[1].at;
-      timers.delete(next[0]);
-      next[1].callback();
-      await flushMicrotasks();
-    }
-    now = end;
-    await flushMicrotasks();
-  }
-  function completeApiLoad() {
-    installYouTubeApi();
-    assert.equal(typeof context.onYouTubeIframeAPIReady, 'function');
-    context.onYouTubeIframeAPIReady();
-  }
-  async function start() {
-    // The map starts with no selected camera. Select through the same delegated
-    // click handler a visitor uses, which opens and starts that camera.
-    chooseCamera(context.KOREA_CAMERAS[0].id);
-    await flushMicrotasks();
-    return players.at(-1);
-  }
-  function assertPlaybackError() {
-    assert.equal(get('video-error').hidden, false, 'Expected the retry/error UI');
-    assert.equal(get('playback-status').dataset.state, 'error');
-    assert.equal(get('player-mount').hidden, true);
-  }
-  return { get, fire, chooseCamera, emit, advance, start, completeApiLoad,
-    assertPlaybackError, players, scripts, scriptRequests, context, storage, hlsPlayers, videos, emitHls, emitMedia };
-}
+const { createHarness, flushMicrotasks, productionCameraSource } = require('./helpers/player-harness.cjs');
 
 test('initial map load shows all cameras without opening or requesting a player', () => {
   const h = createHarness();
@@ -512,6 +231,7 @@ test('filtering out the selected camera destroys its player and ignores later ev
   h.emit(player, 'onStateChange', 1);
   h.get('search').value = '부산';
   h.fire('search', 'input');
+  h.flushAnimationFrames();
 
   const expected = h.context.KOREA_CAMERAS.filter(camera => [camera.name, camera.region, camera.location, camera.categoryLabel, camera.provider || ''].some(value => value.includes('부산')));
   assert.ok(expected.length > 0, 'The search must retain other cameras');
@@ -543,13 +263,13 @@ test('combined category, region and search filters expose an empty state and res
   assert.ok(seaCameras.length > 0, 'Category filter must have results');
   assert.equal(Number(h.get('result-count').textContent), seaCameras.length);
 
-  h.get('region').value = '부산';
-  h.fire('region', 'change');
+  h.chooseRegion('부산');
   const busanSeaCameras = seaCameras.filter(camera => camera.region === '부산');
   assert.ok(busanSeaCameras.length > 0 && busanSeaCameras.length < seaCameras.length, 'Region must narrow the category');
   assert.equal(Number(h.get('result-count').textContent), busanSeaCameras.length);
   h.get('search').value = '호미곶';
   h.fire('search', 'input');
+  h.flushAnimationFrames();
   assert.equal(Number(h.get('result-count').textContent), 0);
   assert.equal(h.get('empty-state').hidden, false);
   assert.equal(h.get('camera-list').hidden, true);
@@ -561,7 +281,7 @@ test('combined category, region and search filters expose an empty state and res
   assert.equal(h.get('camera-list').hidden, false);
   assert.equal(h.get('random-button').disabled, false);
   assert.equal(h.get('search').value, '');
-  assert.equal(h.get('region').value, 'all');
+  assert.equal(h.get('region-label').textContent, 'All regions');
 });
 
 const favoritesKey = 'jigeum-korea:favorites:v1';
@@ -943,11 +663,11 @@ test('each media-kind filter matches the real catalog and combines with region a
     assert.equal(Number(h.get('result-count').textContent), expected.length);
     const rendered = [...h.get('camera-list').innerHTML.matchAll(/data-camera="([^"]+)"/g)].map(match => match[1]);
     assert.deepEqual(rendered, Array.from(expected, camera => camera.id));
-    h.get('region').value = expected[0].region;
-    h.fire('region', 'change');
+    h.chooseRegion(expected[0].region);
     assert.equal(Number(h.get('result-count').textContent), expected.filter(camera => camera.region === expected[0].region).length);
     h.get('search').value = 'no-such-qa-camera-73492';
     h.fire('search', 'input');
+    h.flushAnimationFrames();
     assert.equal(Number(h.get('result-count').textContent), 0);
     assert.equal(h.get('random-button').disabled, true);
   }

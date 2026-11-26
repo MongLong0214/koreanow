@@ -21,6 +21,27 @@
       "continue": true
     },
     {
+      "src": "^/index\\.html$",
+      "status": 308,
+      "headers": { "Location": "/" }
+    },
+    {
+      "src": "^/regions/([a-z-]+)(?:/index\\.html)?$",
+      "status": 308,
+      "headers": { "Location": "/regions/$1/" }
+    },
+    {
+      "src": "^/.*$",
+      "has": [{ "type": "query", "key": "qa-candidates" }],
+      "headers": { "X-Robots-Tag": "noindex, follow" },
+      "continue": true
+    },
+    {
+      "src": "^/(?:verification(?:-data\\.json|\\.html)|qa-[^/]*\\.html|playback-check\\.html|source-check\\.html)$",
+      "headers": { "X-Robots-Tag": "noindex, follow" },
+      "continue": true
+    },
+    {
       "src": "^/assets/.*$",
       "headers": { "Cache-Control": "public, max-age=3600" },
       "continue": true
@@ -30,6 +51,7 @@
       "headers": { "Cache-Control": "public, max-age=3600" },
       "continue": true
     },
-    { "src": "^/api/hls/.*$", "dest": "/api/hls" }
+    { "src": "^/api/hls/.*$", "dest": "/api/hls" },
+    { "src": "^/regions/([a-z-]+)/$", "dest": "/regions/$1/index.html" }
   ]
 }

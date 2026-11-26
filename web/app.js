@@ -1,4 +1,4 @@
-(() => {
+function startApp() {
   'use strict';
   const paths={
     search:'<circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/>',
@@ -18,357 +18,1517 @@
     locate:'<circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/>',
     shuffle:'<path d="M3 7h3c4 0 7 10 11 10h4m-4-4 4 4-4 4M3 17h3c1.6 0 3-1.6 4.5-3.5M13.5 10.5C15 8.6 16 7 18 7h3m-4-4 4 4-4 4"/>'
   };
-  const icon=(name)=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(paths[name]||paths.video)+'</svg>';
-  document.querySelectorAll('[data-icon]').forEach(el=>el.innerHTML=icon(el.dataset.icon));
-  const $=id=>document.getElementById(id);
-  const cameras=window.KOREA_DISPLAY_CAMERAS||window.KOREA_CAMERAS||[];
-  const knownIds=new Set(cameras.map(c=>c.id));
-  const storageKey='jigeum-korea:favorites:v1';
-  let favorites=new Set();
-  try{const stored=JSON.parse(localStorage.getItem(storageKey)||'[]');if(Array.isArray(stored)) favorites=new Set(stored.filter(id=>knownIds.has(id)));}catch{}
-  const state={category:'all',region:'all',kind:'all',query:'',savedOnly:false,selected:null};
-  let map=null,layer=null,player=null,playerToken=0,apiPromise=null,toastTimeout,playerTimeout=null,viewerReturnFocus=null;
-  const markerMap=new Map();
-  const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const compactViewport=matchMedia('(max-width: 760px)');
-  const modalBackground=[...document.querySelectorAll('.topbar,.sidebar,.skip-link,.map-stage > :not(#viewer)')];
+  const icons = new Map(Object.entries(paths).map(([name, path]) => [
+    name,
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + path + '</svg>',
+  ]));
+  const icon = name => icons.get(name) || icons.get('video');
+  document.querySelectorAll('[data-icon]').forEach(element => {
+    element.innerHTML = icon(element.dataset.icon);
+  });
+  const elements = new Map();
+  const $ = id => {
+    if (!elements.has(id)) elements.set(id, document.getElementById(id));
+    return elements.get(id);
+  };
+  const cameras = window.KOREA_DISPLAY_CAMERAS || window.KOREA_CAMERAS || [];
+  const camerasById = new Map(cameras.map(camera => [camera.id, camera]));
+  const knownIds = new Set(camerasById.keys());
+  const seo = window.KOREA_SEO;
+  const regions = new Set(cameras.map(camera => camera.region));
+  const initialRegion = seo?.regionFromPath(location.pathname) ||
+    document.body.dataset.region || 'all';
+  const storageKey = 'jigeum-korea:favorites:v1';
+  let favorites = new Set();
+  try {
+    const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    if (Array.isArray(stored)) favorites = new Set(stored.filter(id => knownIds.has(id)));
+  } catch {}
+  const state = {
+    category: 'all',
+    region: regions.has(initialRegion) ? initialRegion : 'all',
+    kind: $('media-kind').value || 'all',
+    query: $('search').value || '',
+    savedOnly: false,
+    selected: null,
+  };
+  let map = null;
+  let layer = null;
+  let player = null;
+  let playerToken = 0;
+  let apiPromise = null;
+  let toastTimeout = null;
+  let playerTimeout = null;
+  let viewerReturnFocus = null;
+  const markerMap = new Map();
+  const markerRecords = new Map();
+  const rows = new Map();
+  const requestFrame = window.requestAnimationFrame?.bind(window) || (callback => setTimeout(callback, 16));
+  const cancelFrame = window.cancelAnimationFrame?.bind(window) || clearTimeout;
+  let renderFrame = null;
+  let markerFrame = null;
+  let renderedCameras = null;
+  let renderedSelection = null;
+  let favoritesVersion = 0;
+  let filterKey = '';
+  let visibleCameras = cameras;
+  let visibleIds = new Set(knownIds);
+  let markerLayout = null;
+  let projectionZoom = null;
+  const projectedPoints = new Map();
+  const regionMenu = $('region-menu');
+  const regionLinks = regionMenu ? [...regionMenu.querySelectorAll('a[data-region]')] : [];
+  const pageMetadata = new Map();
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const compactViewport = matchMedia('(max-width: 760px)');
+  const modalBackground = [...document.querySelectorAll('.topbar,.sidebar,.skip-link,.map-stage > :not(#viewer)')];
   const escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const watchUrl=c=>c.sourceUrl;
-  const mediaKind=c=>c.kind||'youtube';
-  const mediaLabels={youtube:'YouTube',iframe:'Broadcast',hls:'Live camera'};
-  let hlsInstance=null,videoElement=null,sessionTimer=null;
-  function toast(message){clearTimeout(toastTimeout);$('toast').textContent=message;$('toast').classList.add('visible');toastTimeout=setTimeout(()=>$('toast').classList.remove('visible'),2600);}
-  function filtered(){const q=state.query.trim().toLocaleLowerCase('en');return cameras.filter(c=>(state.category==='all'||c.category===state.category)&&(state.region==='all'||c.region===state.region)&&(state.kind==='all'||mediaKind(c)===state.kind)&&(!state.savedOnly||favorites.has(c.id))&&(!q||[c.name,c.region,c.location,c.categoryLabel,c.provider||'',mediaLabels[mediaKind(c)],c.searchAliases||''].some(v=>String(v||'').toLocaleLowerCase('en').includes(q))));}
-  function updateSaveControls(){
-    $('saved-count').textContent=favorites.size;
-    document.querySelectorAll('[data-save]').forEach(b=>{const saved=favorites.has(b.dataset.save);b.setAttribute('aria-pressed',String(saved));const c=cameras.find(c=>c.id===b.dataset.save);b.setAttribute('aria-label',(saved?'Unsave ':'Save ')+c.name);});
-    if(state.selected){const saved=favorites.has(state.selected.id);$('viewer-save').setAttribute('aria-pressed',String(saved));$('viewer-save').setAttribute('aria-label',saved?'Unsave place':'Save place');}
+  const watchUrl = camera => camera.sourceUrl;
+  const mediaKind = camera => camera.kind || 'youtube';
+  const mediaLabels = { youtube: 'YouTube', iframe: 'Broadcast', hls: 'Live camera' };
+  // Camera data is immutable for this page. Normalize it once, not per keystroke.
+  const searchText = new Map(cameras.map(camera => [
+    camera.id,
+    [
+      camera.name,
+      camera.region,
+      camera.location,
+      camera.categoryLabel,
+      camera.provider,
+      mediaLabels[mediaKind(camera)],
+      camera.searchAliases,
+    ].filter(Boolean).join('\n').toLocaleLowerCase('en'),
+  ]));
+  let hlsInstance = null;
+  let videoElement = null;
+  let sessionTimer = null;
+
+  function toast(message) {
+    clearTimeout(toastTimeout);
+    $('toast').textContent = message;
+    $('toast').classList.add('visible');
+    toastTimeout = setTimeout(() => $('toast').classList.remove('visible'), 2600);
   }
-  function save(id){const willSave=!favorites.has(id);willSave?favorites.add(id):favorites.delete(id);let persisted=true;try{localStorage.setItem(storageKey,JSON.stringify([...favorites]));}catch{persisted=false;}if(state.savedOnly) render();else updateSaveControls();toast(persisted?(willSave?'Place saved':'Place removed from Saved'):'Saved for this visit only. Browser storage is unavailable.');}
-  function focusReference(element){
-    if(element?.dataset?.select)return {kind:'select',id:element.dataset.select};
-    if(element?.dataset?.save)return {kind:'save',id:element.dataset.save};
-    if(element?.id&&!$('viewer').contains(element))return {kind:'id',id:element.id};
+
+  // Filtering and list rendering share one derived collection.
+  function filtered() {
+    const query = state.query.trim().toLocaleLowerCase('en');
+    const key = JSON.stringify([
+      state.category, state.region, state.kind, query,
+      state.savedOnly, state.savedOnly ? favoritesVersion : 0,
+    ]);
+    if (key === filterKey) return visibleCameras;
+    filterKey = key;
+    const next = cameras.filter(camera =>
+      (state.category === 'all' || camera.category === state.category) &&
+      (state.region === 'all' || camera.region === state.region) &&
+      (state.kind === 'all' || mediaKind(camera) === state.kind) &&
+      (!state.savedOnly || favorites.has(camera.id)) &&
+      (!query || searchText.get(camera.id).includes(query))
+    );
+    if (next.length !== visibleCameras.length || next.some((camera, index) => camera !== visibleCameras[index])) {
+      visibleCameras = next;
+      visibleIds = new Set(next.map(camera => camera.id));
+    }
+    return visibleCameras;
+  }
+
+  function updateRowSaved(id) {
+    const row = rows.get(id);
+    if (!row) return;
+    const saved = favorites.has(id);
+    if (row.saved === saved) return;
+    row.saved = saved;
+    row.saveButton.setAttribute('aria-pressed', String(saved));
+    row.saveButton.setAttribute('aria-label', (saved ? 'Unsave ' : 'Save ') + camerasById.get(id).name);
+  }
+
+  function updateSaveControls(changedIds = []) {
+    $('saved-count').textContent = favorites.size;
+    changedIds.forEach(updateRowSaved);
+    if (state.selected) {
+      const saved = favorites.has(state.selected.id);
+      $('viewer-save').setAttribute('aria-pressed', String(saved));
+      $('viewer-save').setAttribute('aria-label', saved ? 'Unsave place' : 'Save place');
+    }
+  }
+
+  function save(id) {
+    if (!knownIds.has(id)) return;
+    const willSave = !favorites.has(id);
+    if (willSave) favorites.add(id);
+    else favorites.delete(id);
+    favoritesVersion++;
+    let persisted = true;
+    try {
+      localStorage.setItem(storageKey, JSON.stringify([...favorites]));
+    } catch {
+      persisted = false;
+    }
+    updateSaveControls([id]);
+    if (state.savedOnly) render();
+    toast(persisted
+      ? (willSave ? 'Place saved' : 'Place removed from Saved')
+      : 'Saved for this visit only. Browser storage is unavailable.');
+  }
+  function focusReference(element) {
+    if (element?.dataset?.select) return { kind: 'select', id: element.dataset.select };
+    if (element?.dataset?.save) return { kind: 'save', id: element.dataset.save };
+    if (element?.id && !$('viewer').contains(element)) return { kind: 'id', id: element.id };
     return null;
   }
-  function findFocusTarget(reference){
-    if(!reference)return null;
-    return reference.kind==='id'?$(reference.id):document.querySelector('[data-'+reference.kind+'="'+reference.id+'"]');
+
+  function findFocusTarget(reference) {
+    if (!reference) return null;
+    if (reference.kind === 'id') return $(reference.id);
+    const row = rows.get(reference.id);
+    if (row?.element.parentNode !== $('camera-list')) return null;
+    return reference.kind === 'select' ? row.selectButton : row.saveButton;
   }
-  function setListCollapsed(collapsed){
-    document.body.classList.toggle('list-collapsed',collapsed);
-    $('list-toggle').setAttribute('aria-expanded',String(!collapsed));
-    $('list-toggle').setAttribute('aria-label',collapsed?'Show camera list':'Hide camera list');
+  function setListCollapsed(collapsed) {
+    document.body.classList.toggle('list-collapsed', collapsed);
+    $('list-toggle').setAttribute('aria-expanded', String(!collapsed));
+    $('list-toggle').setAttribute('aria-label', collapsed ? 'Show camera list' : 'Hide camera list');
   }
   setListCollapsed(compactViewport.matches);
-  function restoreViewerFocus(){
-    let target=findFocusTarget(viewerReturnFocus)||document.querySelector('[data-select]')||$('reset-filters');
-    if(document.body.classList.contains('list-collapsed')&&target&&$('camera-list').contains(target))target=markerMap.get(state.selected?.id)?.getElement()||$('list-toggle');
-    if(target&&!target.closest('[hidden]')){
-      if($('camera-list').contains(target))target.scrollIntoView?.({block:'nearest',inline:'nearest'});
-      target.focus({preventScroll:true});
+
+  function restoreViewerFocus() {
+    let target = findFocusTarget(viewerReturnFocus) ||
+      rows.get(filtered()[0]?.id)?.selectButton || $('reset-filters');
+    if (document.body.classList.contains('list-collapsed') && target && $('camera-list').contains(target)) {
+      target = markerMap.get(state.selected?.id)?.getElement() || $('list-toggle');
     }
-    else $('explore-tab').focus({preventScroll:true});
+    if (target && !target.closest('[hidden]')) {
+      if ($('camera-list').contains(target)) target.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
+      target.focus({ preventScroll: true });
+    } else {
+      $('explore-tab').focus({ preventScroll: true });
+    }
   }
-  function syncViewerMode(){
-    const modal=compactViewport.matches&&!$('viewer').hidden;
-    $('viewer').setAttribute('role',modal?'dialog':'region');
-    if(modal)$('viewer').setAttribute('aria-modal','true');else $('viewer').removeAttribute('aria-modal');
-    modalBackground.forEach(element=>{element.inert=modal;});
-    document.body.classList.toggle('viewer-modal',modal);
+
+  function syncViewerMode() {
+    const modal = compactViewport.matches && !$('viewer').hidden;
+    $('viewer').setAttribute('role', modal ? 'dialog' : 'region');
+    if (modal) $('viewer').setAttribute('aria-modal', 'true');
+    else $('viewer').removeAttribute('aria-modal');
+    modalBackground.forEach(element => { element.inert = modal; });
+    document.body.classList.toggle('viewer-modal', modal);
     return modal;
   }
-  compactViewport.addEventListener?.('change',()=>{
+  compactViewport.addEventListener?.('change', () => {
     setListCollapsed(compactViewport.matches);
-    if(syncViewerMode()&&!$('viewer').contains(document.activeElement))$('close-viewer').focus({preventScroll:true});
-  });
-  function render(){
-    const focus=focusReference(document.activeElement);
-    map?.closePopup();
-    const visible=filtered();
-    $('camera-list').innerHTML=visible.map(c=>'<article class="camera-card'+(state.selected?.id===c.id?' active':'')+'" data-camera="'+c.id+'"><button class="camera-select" data-select="'+c.id+'" aria-label="Open '+escapeHtml(c.name)+' camera" aria-pressed="'+(state.selected?.id===c.id)+'"><span class="camera-row-icon" aria-hidden="true">'+icon('video')+'</span><h3>'+escapeHtml(c.name)+'</h3></button><button class="card-save" data-save="'+c.id+'" aria-label="Save '+escapeHtml(c.name)+'" aria-pressed="false">'+icon('bookmark')+'</button></article>').join('');
-    $('result-count').textContent=visible.length;
-    $('video-total').textContent=cameras.length.toLocaleString('en');
-    $('video-matches').hidden=visible.length===cameras.length;
-    $('video-matches').textContent=visible.length.toLocaleString('en')+' /';
-    $('video-count').setAttribute('aria-label',visible.length===cameras.length?cameras.length+' videos in total':'Showing '+visible.length+' of '+cameras.length+' videos');
-    $('empty-state').hidden=visible.length>0;$('camera-list').hidden=visible.length===0;
-    $('empty-title').textContent=state.savedOnly&&!favorites.size?'Save a place you love':'No places found';
-    $('empty-description').textContent=state.savedOnly&&!favorites.size?'Select the bookmark beside a place to keep it here.':'Try another place name or region.';
-    $('list-title').firstChild.textContent=state.savedOnly?'Saved ':'Places ';
-    $('random-button').disabled=visible.length===0;
-    updateSaveControls();renderMarkers(visible);
-    if(state.selected&&!visible.some(c=>c.id===state.selected.id))closeViewer({restoreFocus:$('viewer').contains(document.activeElement)});
-    if(focus&&focus.kind!=='id'&&!$('viewer').getAttribute('aria-modal')){
-      const target=findFocusTarget(focus)||document.querySelector('[data-'+focus.kind+']')||$('reset-filters');
-      target.focus({preventScroll:true});
+    if (syncViewerMode() && !$('viewer').contains(document.activeElement)) {
+      $('close-viewer').focus({ preventScroll: true });
     }
+  });
+
+  // Row nodes are keyed by camera ID and survive filtering and selection.
+  function createRow(camera) {
+    const element = document.createElement('article');
+    element.className = 'camera-card';
+    element.dataset.camera = camera.id;
+
+    const selectButton = document.createElement('a');
+    selectButton.className = 'camera-select';
+    selectButton.dataset.select = camera.id;
+    selectButton.href = camera.sourceUrl;
+    selectButton.target = '_blank';
+    selectButton.rel = 'noopener noreferrer';
+    selectButton.setAttribute('aria-label', 'Open ' + camera.name + ' camera');
+    selectButton.setAttribute('aria-current', String(camera.id === state.selected?.id));
+
+    const rowIcon = document.createElement('span');
+    rowIcon.className = 'camera-row-icon';
+    rowIcon.setAttribute('aria-hidden', 'true');
+    rowIcon.innerHTML = icon('video');
+    const title = document.createElement('h3');
+    title.textContent = camera.name;
+    selectButton.appendChild(rowIcon);
+    selectButton.appendChild(title);
+
+    const saveButton = document.createElement('button');
+    saveButton.type = 'button';
+    saveButton.className = 'card-save';
+    saveButton.dataset.save = camera.id;
+    saveButton.innerHTML = icon('bookmark');
+    element.appendChild(selectButton);
+    element.appendChild(saveButton);
+    element.classList.toggle('active', camera.id === state.selected?.id);
+
+    const row = { element, selectButton, saveButton, saved: null };
+    rows.set(camera.id, row);
+    updateRowSaved(camera.id);
+    return row;
   }
-  function createMarkerIcon(c){return L.divIcon({className:'camera-marker'+(state.selected?.id===c.id?' selected':''),html:'<span class="pin-marker">'+icon('video')+'</span><span class="pin-label">'+escapeHtml(c.name)+'</span>',iconSize:[44,44],iconAnchor:[22,22]});}
-  function bindMarkerActivation(marker,activate){
-    marker.on('click',activate);
-    marker.getElement()?.addEventListener('keydown',event=>{
-      if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();if(!event.repeat)activate();}
+
+  function updateSelectedRows() {
+    const next = state.selected?.id || null;
+    if (renderedSelection === next) return;
+    const previous = rows.get(renderedSelection);
+    if (previous) {
+      previous.element.classList.remove('active');
+      previous.selectButton.setAttribute('aria-current', 'false');
+    }
+    const selected = rows.get(next);
+    if (selected) {
+      selected.element.classList.add('active');
+      selected.selectButton.setAttribute('aria-current', 'true');
+    }
+    renderedSelection = next;
+  }
+
+  function adoptRows() {
+    const existing = [];
+    for (const element of [...$('camera-list').children]) {
+      const camera = camerasById.get(element.dataset.camera);
+      const selectButton = element.querySelector('[data-select]');
+      const saveButton = element.querySelector('[data-save]');
+      if (!camera || !selectButton || !saveButton) {
+        element.remove();
+        continue;
+      }
+      rows.set(camera.id, { element, selectButton, saveButton, saved: null });
+      saveButton.disabled = false;
+      updateRowSaved(camera.id);
+      existing.push(camera);
+    }
+    // Adopt build-time HTML without replacing its nodes or parsing it again.
+    if (existing.length) renderedCameras = existing;
+  }
+
+  function reconcileRows(visible) {
+    if (renderedCameras === visible) return;
+    const list = $('camera-list');
+    for (const camera of renderedCameras || []) {
+      if (!visibleIds.has(camera.id)) rows.get(camera.id).element.remove();
+    }
+    // Keep surviving DOM nodes in place, including their keyboard focus.
+    let cursor = list.firstElementChild;
+    for (const camera of visible) {
+      const row = rows.get(camera.id) || createRow(camera);
+      if (row.element === cursor) cursor = cursor.nextElementSibling;
+      else list.insertBefore(row.element, cursor);
+    }
+    renderedCameras = visible;
+  }
+
+  function scheduleRender() {
+    if (renderFrame !== null) return;
+    renderFrame = requestFrame(() => {
+      renderFrame = null;
+      render();
     });
   }
-  function renderMarkers(visible){
-    if(!map||!layer)return;layer.clearLayers();markerMap.clear();
-    const zoom=map.getZoom(),groups=new Map(),coordinateCounts=new Map();
-    for(const camera of visible){const coordinate=camera.lat+','+camera.lng;coordinateCounts.set(coordinate,(coordinateCounts.get(coordinate)||0)+1);}
-    for(const camera of visible){
-      const point=map.project([camera.lat,camera.lng],zoom);
-      const separateSelected=camera.id===state.selected?.id&&coordinateCounts.get(camera.lat+','+camera.lng)===1;
-      const key=separateSelected?camera.id:Math.floor(point.x/64)+':'+Math.floor(point.y/64);
-      if(!groups.has(key))groups.set(key,[]);groups.get(key).push(camera);
+
+  function render() {
+    if (renderFrame !== null) {
+      cancelFrame(renderFrame);
+      renderFrame = null;
     }
-    $('map').classList.toggle('quiet-labels',visible.length>12&&zoom<11);
-    for(const group of groups.values()){
-      if(group.length===1){
-        const c=group[0];const marker=L.marker([c.lat,c.lng],{icon:createMarkerIcon(c),title:c.name,alt:c.name+' camera',keyboard:true,zIndexOffset:c.id===state.selected?.id?500:0}).addTo(layer);
-        bindMarkerActivation(marker,()=>select(c.id,{focusMap:true,autoPlay:true}));markerMap.set(c.id,marker);continue;
-      }
-      const center=[group.reduce((n,c)=>n+c.lat,0)/group.length,group.reduce((n,c)=>n+c.lng,0)/group.length];
-      const regions=[...new Set(group.map(c=>c.region))];const label=regions.length===1?regions[0]:'Nearby';
-      const title='Show '+group.length+' cameras · '+label;
-      const selected=group.some(camera=>camera.id===state.selected?.id);
-      const cluster=L.marker(center,{icon:L.divIcon({className:'camera-marker camera-cluster'+(selected?' selected':''),html:'<span class="pin-marker cluster-marker">'+group.length+'</span><span class="pin-label">'+escapeHtml(label)+'</span>',iconSize:[44,44],iconAnchor:[22,22]}),title,alt:title,keyboard:true,zIndexOffset:selected?500:0}).addTo(layer);
-      bindMarkerActivation(cluster,()=>{
-        closeViewer({restoreFocus:false});
-        if(zoom>=13||new Set(group.map(c=>c.lat+','+c.lng)).size===1){
-          const choices=document.createElement('div');choices.className='cluster-choices';choices.setAttribute('role','group');choices.setAttribute('aria-label','Choose a camera at this location');
-          for(const camera of group){const button=document.createElement('button');button.type='button';button.textContent=camera.name;button.dataset.select=camera.id;button.addEventListener('click',()=>{if(!filtered().some(item=>item.id===camera.id)){map.closePopup();return;}select(camera.id,{autoPlay:true});});choices.appendChild(button);}
-          const popup=L.popup({maxHeight:240,maxWidth:260,closeButton:true}).setLatLng(center).setContent(choices).openOn(map);choices.querySelector('button')?.focus({preventScroll:true});return;
-        }
-        $('map').focus({preventScroll:true});map.fitBounds(L.latLngBounds(group.map(c=>[c.lat,c.lng])),{padding:[55,65],maxZoom:Math.min(14,zoom+3),animate:!reducedMotion});
-      });
+    const activeElement = document.activeElement;
+    const focus = focusReference(activeElement);
+    const visible = filtered();
+    const collectionChanged = renderedCameras !== visible;
+    if (collectionChanged) {
+      map?.closePopup();
+      reconcileRows(visible);
+      $('result-count').textContent = visible.length;
+      $('video-total').textContent = cameras.length.toLocaleString('en');
+      $('video-matches').hidden = visible.length === cameras.length;
+      $('video-matches').textContent = visible.length.toLocaleString('en') + ' /';
+      $('video-count').setAttribute('aria-label', visible.length === cameras.length
+        ? cameras.length + ' videos in total'
+        : 'Showing ' + visible.length + ' of ' + cameras.length + ' videos');
+      $('empty-state').hidden = visible.length > 0;
+      $('camera-list').hidden = visible.length === 0;
+      $('random-button').disabled = visible.length === 0;
+    }
+    $('empty-title').textContent = state.savedOnly && !favorites.size
+      ? 'Save a place you love' : 'No places found';
+    $('empty-description').textContent = state.savedOnly && !favorites.size
+      ? 'Select the bookmark beside a place to keep it here.'
+      : 'Try another place name or region.';
+    $('list-title').firstChild.textContent = state.savedOnly ? 'Saved ' : 'Places ';
+    updateSelectedRows();
+    updateSaveControls();
+    renderMarkers(visible);
+    if (state.selected && !visibleIds.has(state.selected.id)) {
+      closeViewer({ restoreFocus: $('viewer').contains(document.activeElement) });
+    }
+    if (focus && focus.kind !== 'id' &&
+        !$('camera-list').contains(activeElement) &&
+        !$('viewer').getAttribute('aria-modal')) {
+      const firstRow = rows.get(visible[0]?.id);
+      const target = findFocusTarget(focus) ||
+        (focus.kind === 'select' ? firstRow?.selectButton : firstRow?.saveButton) ||
+        $('reset-filters');
+      target.focus({ preventScroll: true });
     }
   }
-  function initMap(){
-    if(!window.L){$('map-notice').hidden=false;return;}
-    map=L.map('map',{zoomControl:false,attributionControl:true,minZoom:5,maxZoom:20,zoomSnap:.25,zoomDelta:1,wheelPxPerZoomLevel:100,maxBounds:[[30.5,120],[41.7,137]],maxBoundsViscosity:.7,scrollWheelZoom:true}).setView([35.7,128.3],6.7);
+
+  function markerIcon(group) {
+    const single = group.cameras.length === 1;
+    const selected = group.cameras.some(camera => camera.id === state.selected?.id);
+    return L.divIcon({
+      className: 'camera-marker' + (single ? '' : ' camera-cluster') + (selected ? ' selected' : ''),
+      html: single
+        ? '<span class="pin-marker">' + icon('video') + '</span><span class="pin-label">' + escapeHtml(group.cameras[0].name) + '</span>'
+        : '<span class="pin-marker cluster-marker">' + group.cameras.length + '</span><span class="pin-label">' + escapeHtml(group.label) + '</span>',
+      iconSize: [44, 44],
+      iconAnchor: [22, 22],
+    });
+  }
+
+  function bindMarkerActivation(marker, activate) {
+    marker.on('click', activate);
+    marker.getElement()?.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.stopPropagation();
+        if (!event.repeat) activate();
+      }
+    });
+  }
+
+  function describeGroup(key, cameras) {
+    const single = cameras.length === 1;
+    const first = cameras[0];
+    const sameRegion = cameras.every(camera => camera.region === first.region);
+    const label = sameRegion ? first.region : 'Nearby';
+    return {
+      key: single ? 'camera:' + first.id : 'cluster:' + key,
+      cameras,
+      label,
+      title: single ? first.name : 'Show ' + cameras.length + ' cameras · ' + label,
+      center: single
+        ? [first.lat, first.lng]
+        : [
+          cameras.reduce((sum, camera) => sum + camera.lat, 0) / cameras.length,
+          cameras.reduce((sum, camera) => sum + camera.lng, 0) / cameras.length,
+        ],
+      sharedLocation: cameras.every(camera => camera.lat === first.lat && camera.lng === first.lng),
+    };
+  }
+
+  function getMarkerLayout(visible, zoom) {
+    if (markerLayout?.cameras === visible && markerLayout.zoom === zoom) return markerLayout;
+    if (projectionZoom !== zoom) {
+      projectionZoom = zoom;
+      projectedPoints.clear();
+    }
+    const cells = new Map();
+    const coordinates = new Map();
+    const cameraCells = new Map();
+    for (const camera of visible) {
+      const coordinate = camera.lat + ',' + camera.lng;
+      coordinates.set(coordinate, (coordinates.get(coordinate) || 0) + 1);
+      let point = projectedPoints.get(camera.id);
+      if (!point) {
+        point = map.project([camera.lat, camera.lng], zoom);
+        projectedPoints.set(camera.id, point);
+      }
+      const key = Math.floor(point.x / 64) + ':' + Math.floor(point.y / 64);
+      if (!cells.has(key)) cells.set(key, []);
+      cells.get(key).push(camera);
+      cameraCells.set(camera.id, key);
+    }
+    const groups = new Map([...cells].map(([key, cameras]) => [key, describeGroup(key, cameras)]));
+    markerLayout = { cameras: visible, zoom, coordinates, cameraCells, groups };
+    return markerLayout;
+  }
+
+  function activateMarker(record) {
+    const group = record.group;
+    if (group.cameras.length === 1) {
+      select(group.cameras[0].id, { focusMap: true, autoPlay: true });
+      return;
+    }
+    closeViewer({ restoreFocus: false });
+    const zoom = map.getZoom();
+    if (zoom >= 13 || group.sharedLocation) {
+      const choices = document.createElement('div');
+      choices.className = 'cluster-choices';
+      choices.setAttribute('role', 'group');
+      choices.setAttribute('aria-label', 'Choose a camera at this location');
+      for (const camera of group.cameras) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = camera.name;
+        button.dataset.select = camera.id;
+        button.addEventListener('click', () => {
+          filtered();
+          if (!visibleIds.has(camera.id)) {
+            map.closePopup();
+            return;
+          }
+          select(camera.id, { autoPlay: true });
+        });
+        choices.appendChild(button);
+      }
+      L.popup({ maxHeight: 240, maxWidth: 260, closeButton: true })
+        .setLatLng(group.center).setContent(choices).openOn(map);
+      choices.firstElementChild?.focus({ preventScroll: true });
+      return;
+    }
+    $('map').focus({ preventScroll: true });
+    map.fitBounds(L.latLngBounds(group.cameras.map(camera => [camera.lat, camera.lng])), {
+      padding: [55, 65],
+      maxZoom: Math.min(14, zoom + 3),
+      animate: !reducedMotion,
+    });
+  }
+
+  function reconcileMarker(group) {
+    const selected = group.cameras.some(camera => camera.id === state.selected?.id);
+    let record = markerRecords.get(group.key);
+    if (!record) {
+      const single = group.cameras.length === 1;
+      const marker = L.marker(group.center, {
+        icon: markerIcon(group),
+        title: group.title,
+        alt: group.title + (single ? ' camera' : ''),
+        keyboard: true,
+        zIndexOffset: selected ? 500 : 0,
+      }).addTo(layer);
+      record = { marker, group, selected };
+      markerRecords.set(group.key, record);
+      bindMarkerActivation(marker, () => activateMarker(record));
+      if (single) markerMap.set(group.cameras[0].id, marker);
+      marker.getElement()?.setAttribute('aria-label', group.title + (single ? ' camera' : ''));
+      return;
+    }
+    const previous = record.group;
+    const element = record.marker.getElement();
+    if (previous.center[0] !== group.center[0] || previous.center[1] !== group.center[1]) {
+      record.marker.setLatLng(group.center);
+    }
+    if (previous.cameras.length !== group.cameras.length) {
+      const count = element?.querySelector('.cluster-marker');
+      if (count) count.textContent = group.cameras.length;
+    }
+    if (previous.label !== group.label) {
+      const label = element?.querySelector('.pin-label');
+      if (label) label.textContent = group.label;
+    }
+    if (previous.title !== group.title && element) {
+      element.setAttribute('title', group.title);
+      element.setAttribute('aria-label', group.title);
+    }
+    if (record.selected !== selected) {
+      element?.classList.toggle('selected', selected);
+      record.marker.setZIndexOffset(selected ? 500 : 0);
+      record.selected = selected;
+    }
+    record.group = group;
+  }
+
+  function renderMarkers(visible) {
+    if (markerFrame !== null) {
+      cancelFrame(markerFrame);
+      markerFrame = null;
+    }
+    if (!map || !layer) return;
+    const zoom = map.getZoom();
+    const layout = getMarkerLayout(visible, zoom);
+    const selected = state.selected;
+    const selectedCell = selected && visibleIds.has(selected.id) &&
+      layout.coordinates.get(selected.lat + ',' + selected.lng) === 1
+      ? layout.cameraCells.get(selected.id) : null;
+    const next = new Map();
+    for (const [key, group] of layout.groups) {
+      if (key === selectedCell && group.cameras.length > 1) {
+        const remaining = describeGroup(key, group.cameras.filter(camera => camera.id !== selected.id));
+        const selectedGroup = describeGroup(key, [selected]);
+        next.set(remaining.key, remaining);
+        next.set(selectedGroup.key, selectedGroup);
+      } else {
+        next.set(group.key, group);
+      }
+    }
+    $('map').classList.toggle('quiet-labels', visible.length > 12 && zoom < 11);
+    for (const [key, record] of markerRecords) {
+      if (next.has(key)) continue;
+      layer.removeLayer(record.marker);
+      markerRecords.delete(key);
+      if (record.group.cameras.length === 1) markerMap.delete(record.group.cameras[0].id);
+    }
+    for (const group of next.values()) reconcileMarker(group);
+  }
+
+  function scheduleMarkerRender() {
+    if (markerFrame !== null) return;
+    markerFrame = requestFrame(() => {
+      markerFrame = null;
+      renderMarkers(filtered());
+    });
+  }
+  function initMap() {
+    if (!window.L) {
+      $('map-notice').hidden = false;
+      return;
+    }
+    map = L.map('map', {
+      zoomControl: false,
+      attributionControl: true,
+      minZoom: 5,
+      maxZoom: 20,
+      zoomSnap: .25,
+      zoomDelta: 1,
+      wheelPxPerZoomLevel: 100,
+      maxBounds: [[30.5, 120], [41.7, 137]],
+      maxBoundsViscosity: .7,
+      scrollWheelZoom: true,
+    }).setView([35.7, 128.3], 6.7);
     map.attributionControl.setPrefix(false);
     initBasemap();
-    L.control.scale({position:'bottomleft',imperial:false,maxWidth:90,updateWhenIdle:true}).addTo(map);
-    layer=L.layerGroup().addTo(map);map.on('zoomend',()=>renderMarkers(filtered()));fitMap(false);
-    new ResizeObserver(()=>map.invalidateSize({pan:false})).observe($('map'));
+    L.control.scale({
+      position: 'bottomleft', imperial: false, maxWidth: 90, updateWhenIdle: true,
+    }).addTo(map);
+    layer = L.layerGroup().addTo(map);
+    map.on('zoomend', scheduleMarkerRender);
+    fitMap(false);
+    let resizeFrame = null;
+    let previousWidth = 0;
+    let previousHeight = 0;
+    new ResizeObserver(entries => {
+      const { width, height } = entries[0].contentRect;
+      if (!width || !height || (width === previousWidth && height === previousHeight)) return;
+      previousWidth = width;
+      previousHeight = height;
+      if (resizeFrame !== null) return;
+      resizeFrame = requestFrame(() => {
+        resizeFrame = null;
+        map.invalidateSize({ pan: false, debounceMoveend: true });
+      });
+    }).observe($('map'));
   }
-  function initBasemap(){
-    const attribution='<a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a>';
-    let vector=null,canvas=null,geography=null,ready=false,startupTimer=null,canvasStarted=false;
-    const showOverview=()=>{
-      $('map').dataset.basemap='overview';
-      $('map-notice').textContent='Map details unavailable. Cameras still work.';
-      $('map-notice').hidden=false;
-      if(!geography&&window.KOREA_GEOGRAPHY&&typeof L.geoJSON==='function'){
-        geography=L.geoJSON(window.KOREA_GEOGRAPHY,{interactive:false,smoothFactor:.8,style:feature=>({color:feature.id==='KOR'?'#58646c':'#29383e',weight:feature.id==='KOR'?1:.7,fillColor:feature.id==='KOR'?'#172127':'#11191f',fillOpacity:1,opacity:1})}).addTo(map);
+  function initBasemap() {
+    const attribution = '<a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a>';
+    let vector = null;
+    let canvas = null;
+    let geography = null;
+    let ready = false;
+    let startupTimer = null;
+    let canvasStarted = false;
+
+    const showOverview = async () => {
+      $('map').dataset.basemap = 'overview';
+      $('map-notice').textContent = 'Map details unavailable. Cameras still work.';
+      $('map-notice').hidden = false;
+      if (!window.KOREA_GEOGRAPHY && window.KOREA_LOAD_SCRIPT) {
+        try {
+          await window.KOREA_LOAD_SCRIPT('/map-geography.js');
+        } catch (error) {
+          console.warn('Overview map unavailable:', error.message);
+        }
+      }
+      if (ready) return;
+      if (!geography && window.KOREA_GEOGRAPHY && typeof L.geoJSON === 'function') {
+        geography = L.geoJSON(window.KOREA_GEOGRAPHY, {
+          interactive: false,
+          smoothFactor: .8,
+          style: feature => ({
+            color: feature.id === 'KOR' ? '#58646c' : '#29383e',
+            weight: feature.id === 'KOR' ? 1 : .7,
+            fillColor: feature.id === 'KOR' ? '#172127' : '#11191f',
+            fillOpacity: 1,
+            opacity: 1,
+          }),
+        }).addTo(map);
         map.attributionControl.addAttribution(attribution);
       }
     };
-    const showDetailed=renderer=>{
-      ready=true;clearTimeout(startupTimer);
-      if(geography){map.removeLayer(geography);geography=null;map.attributionControl.removeAttribution(attribution);}
-      $('map').dataset.basemap=renderer==='canvas'?'detailed-canvas':'detailed';$('map-notice').hidden=true;
+    const showDetailed = renderer => {
+      ready = true;
+      clearTimeout(startupTimer);
+      if (geography) {
+        map.removeLayer(geography);
+        geography = null;
+        map.attributionControl.removeAttribution(attribution);
+      }
+      $('map').dataset.basemap = renderer === 'canvas' ? 'detailed-canvas' : 'detailed';
+      $('map-notice').hidden = true;
     };
-    const removeVector=()=>{
-      if(!vector)return;
-      const previous=vector,remove=previous.onRemove;vector=null;
-      const sourceAttribution=previous.getAttribution();if(sourceAttribution)map.attributionControl.removeAttribution(sourceAttribution);
-      previous.onRemove=function(leafletMap){
-        try{if(this.getMaplibreMap())remove.call(this,leafletMap);else this.getContainer()?.remove();}
-        catch{this.getContainer()?.remove();}
+    const removeVector = () => {
+      if (!vector) return;
+      const previous = vector;
+      const remove = previous.onRemove;
+      vector = null;
+      const sourceAttribution = previous.getAttribution();
+      if (sourceAttribution) map.attributionControl.removeAttribution(sourceAttribution);
+      previous.onRemove = function(leafletMap) {
+        try {
+          if (this.getMaplibreMap()) remove.call(this, leafletMap);
+          else this.getContainer()?.remove();
+        } catch {
+          this.getContainer()?.remove();
+        }
       };
       map.removeLayer(previous);
     };
-    const startCanvas=async()=>{
-      if(canvasStarted)return;canvasStarted=true;clearTimeout(startupTimer);removeVector();
-      $('map').dataset.basemap='loading';
-      try{
-        const fallback=await window.KOREA_CANVAS_BASEMAP.addTo(map);canvas=fallback.layer;
-        await fallback.ready;showDetailed('canvas');
-      }catch(error){
-        console.warn('Map details unavailable:',error.message);
-        if(canvas){map.removeLayer(canvas);canvas=null;}
+    const startCanvas = async () => {
+      if (canvasStarted) return;
+      canvasStarted = true;
+      ready = false;
+      clearTimeout(startupTimer);
+      removeVector();
+      $('map').dataset.basemap = 'loading';
+      try {
+        const fallback = await window.KOREA_CANVAS_BASEMAP.addTo(map);
+        canvas = fallback.layer;
+        await fallback.ready;
+        showDetailed('canvas');
+      } catch (error) {
+        console.warn('Map details unavailable:', error.message);
+        if (canvas) {
+          map.removeLayer(canvas);
+          canvas = null;
+        }
         showOverview();
       }
     };
-    $('map').dataset.basemap='loading';
-    if(!window.maplibregl||typeof L.maplibreGL!=='function'){startCanvas();return;}
-    try{
-      vector=L.maplibreGL({style:'map-style-dark.json',interactive:false,padding:.1,updateInterval:16});
+
+    $('map').dataset.basemap = 'loading';
+    if (!window.maplibregl || typeof L.maplibreGL !== 'function') {
+      startCanvas();
+      return;
+    }
+    try {
+      vector = L.maplibreGL({
+        style: '/map-style-dark.json', interactive: false, padding: .1, updateInterval: 16,
+      });
       vector.addTo(map);
-      const renderer=vector.getMaplibreMap();
-      renderer.on('load',()=>{if(!canvasStarted)showDetailed('webgl');});
+      const renderer = vector.getMaplibreMap();
+      renderer.on('load', () => { if (!canvasStarted) showDetailed('webgl'); });
       // Individual source or glyph requests can recover; the deadline below
       // switches renderer only if the initial detailed map never becomes ready.
-      renderer.on('error',()=>{});
-      renderer.on('webglcontextlost',startCanvas);
-      startupTimer=setTimeout(()=>{if(!ready)startCanvas();},20000);
-    }catch{
+      renderer.on('error', () => {});
+      renderer.on('webglcontextlost', startCanvas);
+      startupTimer = setTimeout(() => { if (!ready) startCanvas(); }, 20000);
+    } catch {
       console.warn('WebGL unavailable; using the Canvas map.');
       startCanvas();
     }
   }
-  function fitMap(animate=true){if(!map)return;const points=filtered();if(!points.length)return;const bounds=L.latLngBounds(points.map(c=>[c.lat,c.lng]));const collapsed=document.body.classList.contains('list-collapsed');map.fitBounds(bounds,{paddingTopLeft:compactViewport.matches?[35,140]:[collapsed?60:332,96],paddingBottomRight:compactViewport.matches?[35,70]:[70,70],maxZoom:12,animate:animate&&!reducedMotion});}
-  function setPlayback(text,status){$('playback-text').textContent=text;$('playback-status').dataset.state=status;}
-  function clearPlaybackTimer(){clearTimeout(playerTimeout);playerTimeout=null;}
-  function watchPlayback(token){
-    if(playerTimeout!==null)return;
-    playerTimeout=setTimeout(()=>{playerTimeout=null;if(token===playerToken)showVideoError('TIMEOUT');},25000);
+  function fitMap(animate = true) {
+    if (!map) return;
+    const points = filtered();
+    if (!points.length) return;
+    const bounds = L.latLngBounds(points.map(camera => [camera.lat, camera.lng]));
+    const collapsed = document.body.classList.contains('list-collapsed');
+    map.fitBounds(bounds, {
+      paddingTopLeft: compactViewport.matches ? [35, 140] : [collapsed ? 60 : 332, 96],
+      paddingBottomRight: compactViewport.matches ? [35, 70] : [70, 70],
+      maxZoom: 12,
+      animate: animate && !reducedMotion,
+    });
   }
-  function stopPlayer(){playerToken++;clearPlaybackTimer();clearTimeout(sessionTimer);sessionTimer=null;if(hlsInstance){try{hlsInstance.destroy();}catch{}hlsInstance=null;}if(videoElement){try{videoElement.pause();videoElement.removeAttribute('src');videoElement.load();}catch{}videoElement=null;}$('video-limit').hidden=true;if(player){try{player.destroy();}catch{}player=null;}$('player-mount').replaceChildren();$('player-mount').hidden=true;}
-  function closeViewer({restoreFocus=true}={}){const wasVisible=!$('viewer').hidden;stopPlayer();$('viewer').hidden=true;syncViewerMode();if(wasVisible&&restoreFocus)restoreViewerFocus();}
-  function updateHash(id){const url=new URL(location.href);url.hash='cam='+encodeURIComponent(id);history.replaceState(null,'',url);}
-  function select(id,{focusMap=false,autoPlay=false,writeHash=true,focusViewer=autoPlay}={}){
-    const camera=cameras.find(c=>c.id===id);if(!camera)return;
-    if(focusViewer)viewerReturnFocus=focusReference(document.activeElement)||{kind:'select',id};
-    stopPlayer();state.selected=camera;
-    $('viewer-title').textContent=camera.name;
-    $('source-link').href=watchUrl(camera);$('error-source-link').href=watchUrl(camera);
-    const kind=mediaKind(camera);$('viewer').dataset.media=kind;
-    $('play-label').textContent=kind==='iframe'?'Open broadcast':kind==='hls'?'Play live camera':'Play YouTube video';
-    $('preview').hidden=false;$('video-error').hidden=true;$('viewer').hidden=false;$('viewer').scrollTop=0;setPlayback('Press play to open this camera','idle');
-    if(writeHash)updateHash(id);render();syncViewerMode();
-    if(focusViewer)$('close-viewer').focus({preventScroll:true});
-    if(focusMap&&map){const zoom=Math.max(7.5,map.getZoom());const point=map.project([camera.lat,camera.lng],zoom);if(innerWidth>760){point.x+=innerWidth>1150?125:85;}map.flyTo(map.unproject(point,zoom),zoom,{duration:reducedMotion?0:.7,animate:!reducedMotion});}
-    if(autoPlay)startVideo();
+
+  // Every playback attempt owns a token. Late library/network callbacks may not
+  // restart a closed player or replace the camera the user selected afterward.
+  function setPlayback(text, status) {
+    $('playback-text').textContent = text;
+    $('playback-status').dataset.state = status;
   }
-  function loadYouTubeApi(){
-    if(window.YT?.Player)return Promise.resolve();if(apiPromise)return apiPromise;
-    apiPromise=new Promise((resolve,reject)=>{
+
+  function clearPlaybackTimer() {
+    clearTimeout(playerTimeout);
+    playerTimeout = null;
+  }
+
+  function watchPlayback(token) {
+    if (playerTimeout !== null) return;
+    playerTimeout = setTimeout(() => {
+      playerTimeout = null;
+      if (token === playerToken) showVideoError('TIMEOUT');
+    }, 25000);
+  }
+
+  function stopPlayer() {
+    playerToken++;
+    clearPlaybackTimer();
+    clearTimeout(sessionTimer);
+    sessionTimer = null;
+    if (hlsInstance) {
+      try { hlsInstance.destroy(); } catch {}
+      hlsInstance = null;
+    }
+    if (videoElement) {
+      try {
+        videoElement.pause();
+        videoElement.removeAttribute('src');
+        videoElement.load();
+      } catch {}
+      videoElement = null;
+    }
+    $('video-limit').hidden = true;
+    if (player) {
+      try { player.destroy(); } catch {}
+      player = null;
+    }
+    $('player-mount').replaceChildren();
+    $('player-mount').hidden = true;
+  }
+
+  function closeViewer({ restoreFocus = true } = {}) {
+    const wasVisible = !$('viewer').hidden;
+    stopPlayer();
+    $('viewer').hidden = true;
+    syncViewerMode();
+    if (wasVisible && restoreFocus) restoreViewerFocus();
+  }
+
+  function updateHash(id) {
+    const url = new URL(location.href);
+    url.hash = 'cam=' + encodeURIComponent(id);
+    history.replaceState(history.state, '', url);
+  }
+
+  function select(id, {
+    focusMap = false, autoPlay = false, writeHash = true, focusViewer = autoPlay,
+  } = {}) {
+    const camera = camerasById.get(id);
+    if (!camera) return;
+    if (renderFrame !== null) {
+      render();
+      if (!visibleIds.has(id)) return;
+    }
+    if (focusViewer) viewerReturnFocus = focusReference(document.activeElement) || { kind: 'select', id };
+    stopPlayer();
+    state.selected = camera;
+    $('viewer-title').textContent = camera.name;
+    $('source-link').href = watchUrl(camera);
+    $('error-source-link').href = watchUrl(camera);
+    const kind = mediaKind(camera);
+    $('viewer').dataset.media = kind;
+    $('play-label').textContent = kind === 'iframe' ? 'Open broadcast'
+      : kind === 'hls' ? 'Play live camera' : 'Play YouTube video';
+    $('preview').hidden = false;
+    $('video-error').hidden = true;
+    $('viewer').hidden = false;
+    $('viewer').scrollTop = 0;
+    setPlayback('Press play to open this camera', 'idle');
+    if (writeHash) updateHash(id);
+    map?.closePopup();
+    updateSelectedRows();
+    updateSaveControls();
+    renderMarkers(filtered());
+    syncViewerMode();
+    if (focusViewer) $('close-viewer').focus({ preventScroll: true });
+    if (focusMap && map) {
+      const zoom = Math.max(7.5, map.getZoom());
+      const point = map.project([camera.lat, camera.lng], zoom);
+      if (innerWidth > 760) point.x += innerWidth > 1150 ? 125 : 85;
+      map.flyTo(map.unproject(point, zoom), zoom, {
+        duration: reducedMotion ? 0 : .7,
+        animate: !reducedMotion,
+      });
+    }
+    if (autoPlay) startVideo();
+  }
+
+  function loadYouTubeApi() {
+    if (window.YT?.Player) return Promise.resolve();
+    if (apiPromise) return apiPromise;
+    apiPromise = new Promise((resolve, reject) => {
       document.querySelector('script[data-youtube-api]')?.remove();
-      const script=document.createElement('script');let settled=false;
-      const finish=(error)=>{
-        if(settled)return;settled=true;clearTimeout(timer);script.onerror=null;
-        if(window.onYouTubeIframeAPIReady===ready)window.onYouTubeIframeAPIReady=undefined;
-        if(error){script.remove();reject(error);}else resolve();
+      const script = document.createElement('script');
+      let settled = false;
+      const finish = error => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        script.onerror = null;
+        if (window.onYouTubeIframeAPIReady === ready) window.onYouTubeIframeAPIReady = undefined;
+        if (error) {
+          script.remove();
+          reject(error);
+        } else {
+          resolve();
+        }
       };
-      const ready=()=>{if(window.YT?.Player)finish();};
-      const timer=setTimeout(()=>finish(new Error('API_TIMEOUT')),12000);
-      window.onYouTubeIframeAPIReady=ready;
-      script.src='https://www.youtube.com/iframe_api';script.dataset.youtubeApi='true';
-      script.onerror=()=>finish(new Error('API_LOAD_FAILED'));document.head.appendChild(script);
-    }).catch(error=>{apiPromise=null;throw error;});
+      const ready = () => { if (window.YT?.Player) finish(); };
+      const timer = setTimeout(() => finish(new Error('API_TIMEOUT')), 12000);
+      window.onYouTubeIframeAPIReady = ready;
+      script.src = 'https://www.youtube.com/iframe_api';
+      script.dataset.youtubeApi = 'true';
+      script.onerror = () => finish(new Error('API_LOAD_FAILED'));
+      document.head.appendChild(script);
+    }).catch(error => {
+      apiPromise = null;
+      throw error;
+    });
     return apiPromise;
   }
-  function showVideoError(code){
-    const mediaHadFocus=$('player-mount').contains(document.activeElement)||$('preview').contains(document.activeElement);
-    stopPlayer();const messages={100:['Camera unavailable','The broadcast may have ended or its address may have changed.'],101:['Watch this video on YouTube','This video does not allow playback on other websites.'],150:['Watch this video on YouTube','This video does not allow playback on other websites.'],153:['Connection restricted','This browser could not verify the video source. Try the original page.'],5:['Video could not play','Try a different browser or open the original source.'],NETWORK:['Player could not load','Check your connection or content blocker, then try again.'],TIMEOUT:['Taking longer than expected','Try again in a moment, or open the original source.'],MEDIA:['Video could not load','Try again or check the original stream.'],UNSUPPORTED:['Unsupported video format','Try another browser or open the original source.']};
-    const message=messages[code]||['Unable to connect','Please try again in a moment or check the original source.'];
-    $('preview').hidden=true;$('player-mount').hidden=true;$('video-error').hidden=false;$('video-error-title').textContent=message[0];$('video-error-description').textContent=message[1];setPlayback('Unable to connect','error');
-    $('reload-page').hidden=code!=='NETWORK';
-    if(mediaHadFocus)$('retry-video').focus({preventScroll:true});
-  }
-  function openOfficialFrame(camera,token){
-    const frame=document.createElement('iframe');
-    frame.title=camera.name+' official broadcast player';frame.referrerPolicy='strict-origin-when-cross-origin';
-    frame.allow='autoplay; fullscreen; picture-in-picture';frame.allowFullscreen=true;
-    frame.onload=()=>{if(token!==playerToken)return;clearPlaybackTimer();setPlayback('Official player · Use its Play and Continue controls','source');};
-    frame.onerror=()=>{if(token===playerToken)showVideoError('NETWORK');};
-    frame.src=camera.embedUrl;$('player-mount').replaceChildren(frame);$('player-mount').hidden=false;$('preview').hidden=true;
-    setPlayback('Opening the official player…','loading');watchPlayback(token);
-  }
-  function openHlsVideo(camera,token){
-    const bufferedStartup=camera.providerType==='yeongsan';
-    const video=document.createElement('video');videoElement=video;
-    video.controls=true;video.autoplay=!bufferedStartup;video.muted=true;video.playsInline=true;video.preload='auto';
-    video.setAttribute('aria-label',camera.name+' video');video.setAttribute('playsinline','');
-    let hasPlayed=false,sessionStarted=false,initialPlayRequested=false;
-    const current=()=>token===playerToken;
-    const startSession=()=>{
-      if(!current()||sessionStarted||!camera.sessionLimitSeconds)return;
-      sessionStarted=true;sessionTimer=setTimeout(()=>{
-        if(!current())return;if(!hasPlayed){showVideoError('TIMEOUT');return;}
-        const mediaHadFocus=$('player-mount').contains(document.activeElement);stopPlayer();$('preview').hidden=true;$('video-error').hidden=true;$('video-limit').hidden=false;
-        $('video-limit-text').textContent=camera.sessionLimitReason==='app'?'Your '+camera.sessionLimitSeconds+'-second viewing session has ended. Select Continue watching to reconnect.':'Playback paused at the '+camera.sessionLimitSeconds+'-second viewing limit set by '+camera.provider+'.';
-        setPlayback('Session ended · Continue watching to reconnect','paused');if(mediaHadFocus)$('continue-video').focus({preventScroll:true});
-      },camera.sessionLimitSeconds*1000);
+  function showVideoError(code) {
+    const mediaHadFocus = $('player-mount').contains(document.activeElement) ||
+      $('preview').contains(document.activeElement);
+    stopPlayer();
+    const messages = {
+      100: ['Camera unavailable', 'The broadcast may have ended or its address may have changed.'],
+      101: ['Watch this video on YouTube', 'This video does not allow playback on other websites.'],
+      150: ['Watch this video on YouTube', 'This video does not allow playback on other websites.'],
+      153: ['Connection restricted', 'This browser could not verify the video source. Try the original page.'],
+      5: ['Video could not play', 'Try a different browser or open the original source.'],
+      NETWORK: ['Player could not load', 'Check your connection or content blocker, then try again.'],
+      TIMEOUT: ['Taking longer than expected', 'Try again in a moment, or open the original source.'],
+      MEDIA: ['Video could not load', 'Try again or check the original stream.'],
+      UNSUPPORTED: ['Unsupported video format', 'Try another browser or open the original source.'],
     };
-    const play=()=>{
-      if(!current())return;
-      if(bufferedStartup){
-        if(initialPlayRequested||hasPlayed)return;
-        let ahead=0;
-        for(let i=0;i<video.buffered.length;i++)if(video.currentTime>=video.buffered.start(i)&&video.currentTime<video.buffered.end(i))ahead=Math.max(ahead,video.buffered.end(i)-video.currentTime);
-        if(ahead<3||video.readyState<2||!video.videoWidth||!video.videoHeight)return;
-        initialPlayRequested=true;
+    const message = messages[code] ||
+      ['Unable to connect', 'Please try again in a moment or check the original source.'];
+
+    $('preview').hidden = true;
+    $('player-mount').hidden = true;
+    $('video-error').hidden = false;
+    $('video-error-title').textContent = message[0];
+    $('video-error-description').textContent = message[1];
+    setPlayback('Unable to connect', 'error');
+    $('reload-page').hidden = code !== 'NETWORK';
+    if (mediaHadFocus) $('retry-video').focus({ preventScroll: true });
+  }
+
+  function openOfficialFrame(camera, token) {
+    const frame = document.createElement('iframe');
+    frame.title = camera.name + ' official broadcast player';
+    frame.referrerPolicy = 'strict-origin-when-cross-origin';
+    frame.allow = 'autoplay; fullscreen; picture-in-picture';
+    frame.allowFullscreen = true;
+    frame.onload = () => {
+      if (token !== playerToken) return;
+      clearPlaybackTimer();
+      setPlayback('Official player · Use its Play and Continue controls', 'source');
+    };
+    frame.onerror = () => {
+      if (token === playerToken) showVideoError('NETWORK');
+    };
+    frame.src = camera.embedUrl;
+    $('player-mount').replaceChildren(frame);
+    $('player-mount').hidden = false;
+    $('preview').hidden = true;
+    setPlayback('Opening the official player…', 'loading');
+    watchPlayback(token);
+  }
+
+  function openHlsVideo(camera, token, { libraryError = false } = {}) {
+    const bufferedStartup = camera.providerType === 'yeongsan';
+    const video = document.createElement('video');
+    videoElement = video;
+    video.controls = true;
+    video.autoplay = !bufferedStartup;
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = 'auto';
+    video.setAttribute('aria-label', camera.name + ' video');
+    video.setAttribute('playsinline', '');
+
+    let hasPlayed = false;
+    let sessionStarted = false;
+    let initialPlayRequested = false;
+    const current = () => token === playerToken;
+
+    const startSession = () => {
+      if (!current() || sessionStarted || !camera.sessionLimitSeconds) return;
+      sessionStarted = true;
+      sessionTimer = setTimeout(() => {
+        if (!current()) return;
+        if (!hasPlayed) {
+          showVideoError('TIMEOUT');
+          return;
+        }
+        const mediaHadFocus = $('player-mount').contains(document.activeElement);
+        stopPlayer();
+        $('preview').hidden = true;
+        $('video-error').hidden = true;
+        $('video-limit').hidden = false;
+        $('video-limit-text').textContent = camera.sessionLimitReason === 'app'
+          ? 'Your ' + camera.sessionLimitSeconds + '-second viewing session has ended. Select Continue watching to reconnect.'
+          : 'Playback paused at the ' + camera.sessionLimitSeconds + '-second viewing limit set by ' + camera.provider + '.';
+        setPlayback('Session ended · Continue watching to reconnect', 'paused');
+        if (mediaHadFocus) $('continue-video').focus({ preventScroll: true });
+      }, camera.sessionLimitSeconds * 1000);
+    };
+
+    const play = () => {
+      if (!current()) return;
+      if (bufferedStartup) {
+        if (initialPlayRequested || hasPlayed) return;
+        let ahead = 0;
+        for (let i = 0; i < video.buffered.length; i++) {
+          if (video.currentTime >= video.buffered.start(i) && video.currentTime < video.buffered.end(i)) {
+            ahead = Math.max(ahead, video.buffered.end(i) - video.currentTime);
+          }
+        }
+        if (ahead < 3 || video.readyState < 2 || !video.videoWidth || !video.videoHeight) return;
+        initialPlayRequested = true;
       }
-      const promise=video.play();promise?.catch(error=>{if(!current())return;if(error?.name==='NotAllowedError'){clearPlaybackTimer();setPlayback('Press play on the video to begin','ready');}else showVideoError('MEDIA');});
+      const promise = video.play();
+      promise?.catch(error => {
+        if (!current()) return;
+        if (error?.name === 'NotAllowedError') {
+          clearPlaybackTimer();
+          setPlayback('Press play on the video to begin', 'ready');
+        } else {
+          showVideoError('MEDIA');
+        }
+      });
     };
-    const manifestReady=()=>{if(!current())return;if(camera.providerType==='yongpyong')startSession();play();};
-    if(bufferedStartup){
-      for(const event of ['play','pause'])video.addEventListener(event,()=>{if(current())initialPlayRequested=true;});
-      for(const event of ['loadeddata','canplay','progress'])video.addEventListener(event,play);
+
+    const manifestReady = () => {
+      if (!current()) return;
+      if (camera.providerType === 'yongpyong') startSession();
+      play();
+    };
+    if (bufferedStartup) {
+      for (const event of ['play', 'pause']) {
+        video.addEventListener(event, () => {
+          if (current()) initialPlayRequested = true;
+        });
+      }
+      for (const event of ['loadeddata', 'canplay', 'progress']) {
+        video.addEventListener(event, play);
+      }
     }
-    if(camera.providerType==='busan'||camera.providerType==='wellihilli')video.addEventListener('loadeddata',startSession);
-    video.addEventListener('playing',()=>{if(!current())return;hasPlayed=true;if(camera.providerType==='phoenix')startSession();clearPlaybackTimer();setPlayback(camera.videoMode==='recent_clip'?'Recent recording playing':'Live camera playing','playing');});
-    for(const event of ['waiting','stalled'])video.addEventListener(event,()=>{if(!current())return;watchPlayback(token);setPlayback('Buffering…','loading');});
-    video.addEventListener('pause',()=>{if(!current())return;clearPlaybackTimer();setPlayback('Paused','paused');});
-    video.addEventListener('ended',()=>{if(!current())return;clearPlaybackTimer();setPlayback('Recording ended · Play again to replay','ended');});
-    video.addEventListener('error',()=>{if(current())showVideoError('MEDIA');});
-    $('player-mount').replaceChildren(video);$('player-mount').hidden=false;$('preview').hidden=true;watchPlayback(token);
-    const stream=camera.proxy?'/api/hls/'+encodeURIComponent(camera.id)+'/index.m3u8':camera.streamUrl;
-    try{
-      if(window.Hls?.isSupported()){
-        hlsInstance=new Hls({maxBufferLength:10,maxMaxBufferLength:20,backBufferLength:0,capLevelToPlayerSize:true,...(camera.providerType==='jeju'?{liveSyncDurationCount:1,liveMaxLatencyDurationCount:3}:{}),...(['high1','daegu','gwangju','changwon','cheonan','gits'].includes(camera.providerType)?{progressive:true}:{})});
-        hlsInstance.on(Hls.Events.MANIFEST_PARSED,manifestReady);
-        if(bufferedStartup)hlsInstance.on(Hls.Events.FRAG_BUFFERED,play);
-        hlsInstance.on(Hls.Events.ERROR,(_event,data)=>{if(!current())return;if(data.fatal)showVideoError('MEDIA');else if(data.details==='bufferStalledError'){watchPlayback(token);setPlayback('Buffering…','loading');}});
-        hlsInstance.loadSource(stream);hlsInstance.attachMedia(video);
-      }else if(video.canPlayType('application/vnd.apple.mpegurl')){video.src=stream;video.addEventListener('loadedmetadata',manifestReady);}
-      else {showVideoError('UNSUPPORTED');return;}
+    if (camera.providerType === 'busan' || camera.providerType === 'wellihilli') {
+      video.addEventListener('loadeddata', startSession);
+    }
+    video.addEventListener('playing', () => {
+      if (!current()) return;
+      hasPlayed = true;
+      if (camera.providerType === 'phoenix') startSession();
+      clearPlaybackTimer();
+      setPlayback(
+        camera.videoMode === 'recent_clip' ? 'Recent recording playing' : 'Live camera playing',
+        'playing',
+      );
+    });
+    for (const event of ['waiting', 'stalled']) {
+      video.addEventListener(event, () => {
+        if (!current()) return;
+        watchPlayback(token);
+        setPlayback('Buffering…', 'loading');
+      });
+    }
+    video.addEventListener('pause', () => {
+      if (!current()) return;
+      clearPlaybackTimer();
+      setPlayback('Paused', 'paused');
+    });
+    video.addEventListener('ended', () => {
+      if (!current()) return;
+      clearPlaybackTimer();
+      setPlayback('Recording ended · Play again to replay', 'ended');
+    });
+    video.addEventListener('error', () => {
+      if (current()) showVideoError('MEDIA');
+    });
+
+    $('player-mount').replaceChildren(video);
+    $('player-mount').hidden = false;
+    $('preview').hidden = true;
+    watchPlayback(token);
+    const stream = camera.proxy
+      ? '/api/hls/' + encodeURIComponent(camera.id) + '/index.m3u8'
+      : camera.streamUrl;
+    try {
+      if (window.Hls?.isSupported()) {
+        hlsInstance = new Hls({
+          maxBufferLength: 10,
+          maxMaxBufferLength: 20,
+          backBufferLength: 0,
+          capLevelToPlayerSize: true,
+          ...(camera.providerType === 'jeju'
+            ? { liveSyncDurationCount: 1, liveMaxLatencyDurationCount: 3 }
+            : {}),
+          ...(['high1', 'daegu', 'gwangju', 'changwon', 'cheonan', 'gits'].includes(camera.providerType)
+            ? { progressive: true }
+            : {}),
+        });
+        hlsInstance.on(Hls.Events.MANIFEST_PARSED, manifestReady);
+        if (bufferedStartup) hlsInstance.on(Hls.Events.FRAG_BUFFERED, play);
+        hlsInstance.on(Hls.Events.ERROR, (_event, data) => {
+          if (!current()) return;
+          if (data.fatal) {
+            showVideoError('MEDIA');
+          } else if (data.details === 'bufferStalledError') {
+            watchPlayback(token);
+            setPlayback('Buffering…', 'loading');
+          }
+        });
+        hlsInstance.loadSource(stream);
+        hlsInstance.attachMedia(video);
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = stream;
+        video.addEventListener('loadedmetadata', manifestReady);
+      } else {
+        showVideoError(libraryError ? 'NETWORK' : 'UNSUPPORTED');
+        return;
+      }
       // Match provider start points; High1 retains its connection-time 30-second cap.
-      if(!['yongpyong','phoenix','busan','wellihilli'].includes(camera.providerType))startSession();
-    }catch{if(current())showVideoError('MEDIA');}
+      if (!['yongpyong', 'phoenix', 'busan', 'wellihilli'].includes(camera.providerType)) {
+        startSession();
+      }
+    } catch {
+      if (current()) showVideoError('MEDIA');
+    }
   }
-  async function startVideo(){
-    if(!state.selected||$('viewer').hidden)return;stopPlayer();const token=playerToken;const camera=state.selected;
-    if($('preview').contains(document.activeElement)||$('video-error').contains(document.activeElement)||$('video-limit').contains(document.activeElement))$('close-viewer').focus({preventScroll:true});
-    $('preview').hidden=false;$('video-error').hidden=true;setPlayback('Connecting to the camera…','loading');
-    if(mediaKind(camera)==='iframe'){openOfficialFrame(camera,token);return;}
-    if(mediaKind(camera)==='hls'){openHlsVideo(camera,token);return;}
-    try{await loadYouTubeApi();if(token!==playerToken)return;
-      const holder=document.createElement('div');holder.id='youtube-player';$('player-mount').replaceChildren(holder);$('preview').hidden=true;$('player-mount').hidden=false;
-      watchPlayback(token);
-      player=new YT.Player(holder,{width:'100%',height:'100%',videoId:camera.videoId,playerVars:{origin:location.origin,playsinline:1,autoplay:1,mute:1,controls:1,rel:0},events:{onReady(event){if(token!==playerToken)return;const frame=event.target.getIframe();frame.setAttribute('title',camera.name+' YouTube video');frame.setAttribute('referrerpolicy','strict-origin-when-cross-origin');frame.setAttribute('allow','autoplay; encrypted-media; picture-in-picture; fullscreen');setPlayback('Ready · Starting with sound off','ready');event.target.mute();event.target.playVideo();},onStateChange(event){if(token!==playerToken)return;if(event.data===1||event.data===0||event.data===2)clearPlaybackTimer();else if(event.data===3)watchPlayback(token);const states={[-1]:['Connecting…','loading'],0:['Broadcast or recording ended','ended'],1:['Playing · Check the original player for live status','playing'],2:['Paused','paused'],3:['Loading video…','loading'],5:['Ready to play','ready']};const result=states[event.data];if(result)setPlayback(...result);},onError(event){if(token===playerToken)showVideoError(event.data);},onAutoplayBlocked(){if(token===playerToken){clearPlaybackTimer();setPlayback('Press play in the player to begin','ready');}}}});
-    }catch{if(token===playerToken)showVideoError('NETWORK');}
-  }
-  function reset(){const resetHadFocus=document.activeElement===$('reset-filters');state.category='all';state.region='all';state.kind='all';$('media-kind').value='all';state.query='';state.savedOnly=false;$('search').value='';$('region').value='all';syncFilters();render();fitMap();if(resetHadFocus)$('search').focus({preventScroll:true});}
-  function syncFilters(){document.querySelectorAll('[data-category]').forEach(b=>{const active=b.dataset.category===state.category;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});$('explore-tab').classList.toggle('active',!state.savedOnly);$('saved-tab').classList.toggle('active',state.savedOnly);$('explore-tab').setAttribute('aria-pressed',String(!state.savedOnly));$('saved-tab').setAttribute('aria-pressed',String(state.savedOnly));}
-  function random(){const visible=filtered();if(!visible.length)return;const options=visible.length>1?visible.filter(c=>c.id!==state.selected?.id):visible;const c=options[Math.floor(Math.random()*options.length)];select(c.id,{focusMap:true,autoPlay:true});const card=document.querySelector('[data-camera="'+c.id+'"]');if(card)card.scrollIntoView({behavior:reducedMotion?'auto':'smooth',block:'nearest',inline:'nearest'});}
-  $('camera-list').addEventListener('click',e=>{const bookmark=e.target.closest('[data-save]');if(bookmark){save(bookmark.dataset.save);return;}const selectButton=e.target.closest('[data-select]');if(selectButton)select(selectButton.dataset.select,{focusMap:true,autoPlay:true});});
-  $('categories').addEventListener('click',e=>{const b=e.target.closest('[data-category]');if(!b)return;state.category=b.dataset.category;syncFilters();render();fitMap();});
-  $('search').addEventListener('input',e=>{state.query=e.target.value;if(state.query.trim())setListCollapsed(false);render();});
-  [...new Set(cameras.map(c=>c.region))].sort((a,b)=>a.localeCompare(b,'en')).forEach(region=>{const option=document.createElement('option');option.value=region;option.textContent=region;$('region').appendChild(option);});
-  $('media-kind').addEventListener('change',e=>{state.kind=e.target.value;render();fitMap();});
-  $('region').addEventListener('change',e=>{state.region=e.target.value;render();fitMap();});
-  $('explore-tab').addEventListener('click',()=>{state.savedOnly=false;setListCollapsed(false);syncFilters();render();fitMap();});
-  $('saved-tab').addEventListener('click',()=>{setListCollapsed(false);state.savedOnly=true;state.category='all';state.region='all';state.kind='all';$('media-kind').value='all';state.query='';$('region').value='all';$('search').value='';syncFilters();render();fitMap();});
-  $('reset-filters').addEventListener('click',reset);$('random-button').addEventListener('click',random);$('play-button').addEventListener('click',startVideo);$('retry-video').addEventListener('click',startVideo);$('continue-video').addEventListener('click',startVideo);$('close-viewer').addEventListener('click',closeViewer);$('viewer-save').addEventListener('click',()=>{if(state.selected)save(state.selected.id);});
-  $('reload-page').addEventListener('click',()=>location.reload());
-  $('zoom-in').addEventListener('click',()=>map?.zoomIn());$('zoom-out').addEventListener('click',()=>map?.zoomOut());$('fit-map').addEventListener('click',()=>fitMap());
-  $('list-toggle').addEventListener('click',()=>setListCollapsed(!document.body.classList.contains('list-collapsed')));
-  document.querySelector('.skip-link')?.addEventListener('click',event=>{event.preventDefault();setListCollapsed(false);$('camera-list').focus({preventScroll:true});});
-  $('share-button').addEventListener('click',async()=>{if(!state.selected)return;const url=new URL(location.href);url.hash='cam='+encodeURIComponent(state.selected.id);try{await navigator.clipboard.writeText(url.href);toast('Link copied');}catch{$('share-url').value=url.href;$('share-dialog').showModal();$('share-url').select();}});
-  $('close-share').addEventListener('click',()=>$('share-dialog').close());
-  $('share-dialog').addEventListener('close',()=>{if(!$('viewer').hidden)$('share-button').focus({preventScroll:true});});
-  document.querySelector('.brand').addEventListener('click',e=>{e.preventDefault();closeViewer({restoreFocus:false});state.selected=null;const url=new URL(location.href);url.hash='';history.replaceState(null,'',url);setListCollapsed(compactViewport.matches);reset();});
-  document.addEventListener('keydown',e=>{
-    if(document.querySelector('dialog[open]'))return;
-    if($('viewer').getAttribute('aria-modal')==='true'){
-      if(e.key==='Escape'){e.preventDefault();closeViewer();}
-      else if(e.key==='Tab'){
-        const focusable=[...$('viewer').querySelectorAll('button,a[href],input,iframe,[tabindex]')].filter(element=>!element.disabled&&element.tabIndex>=0&&element.getClientRects().length);
-        const first=focusable[0],last=focusable.at(-1),active=document.activeElement;
-        if(first&&((e.shiftKey&&active===first)||(!e.shiftKey&&active===last)||!$('viewer').contains(active))){e.preventDefault();(e.shiftKey?last:first).focus();}
+
+  async function startVideo() {
+    if (!state.selected || $('viewer').hidden) return;
+    stopPlayer();
+    const token = playerToken;
+    const camera = state.selected;
+    if ($('preview').contains(document.activeElement) ||
+        $('video-error').contains(document.activeElement) ||
+        $('video-limit').contains(document.activeElement)) {
+      $('close-viewer').focus({ preventScroll: true });
+    }
+    $('preview').hidden = false;
+    $('video-error').hidden = true;
+    setPlayback('Connecting to the camera…', 'loading');
+
+    if (mediaKind(camera) === 'iframe') {
+      openOfficialFrame(camera, token);
+      return;
+    }
+    if (mediaKind(camera) === 'hls') {
+      try {
+        if (!window.Hls && window.KOREA_LOAD_SCRIPT) {
+          await window.KOREA_LOAD_SCRIPT('vendor/hls.min.js');
+        }
+        if (token === playerToken) openHlsVideo(camera, token);
+      } catch {
+        if (token === playerToken) openHlsVideo(camera, token, { libraryError: true });
       }
       return;
     }
-    if(e.target.matches('input,textarea,select'))return;
-    if(e.key==='/'&&!e.ctrlKey&&!e.metaKey){e.preventDefault();$('search').focus();}
-    else if(e.key.toLowerCase()==='r'&&!e.repeat&&!e.ctrlKey&&!e.metaKey&&!e.altKey)random();
-    else if(e.key==='Escape')closeViewer();
+
+    try {
+      await loadYouTubeApi();
+      if (token !== playerToken) return;
+      const holder = document.createElement('div');
+      holder.id = 'youtube-player';
+      $('player-mount').replaceChildren(holder);
+      $('preview').hidden = true;
+      $('player-mount').hidden = false;
+      watchPlayback(token);
+      player = new YT.Player(holder, {
+        width: '100%',
+        height: '100%',
+        videoId: camera.videoId,
+        playerVars: {
+          origin: location.origin,
+          playsinline: 1,
+          autoplay: 1,
+          mute: 1,
+          controls: 1,
+          rel: 0,
+        },
+        events: {
+          onReady(event) {
+            if (token !== playerToken) return;
+            const frame = event.target.getIframe();
+            frame.setAttribute('title', camera.name + ' YouTube video');
+            frame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+            frame.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
+            setPlayback('Ready · Starting with sound off', 'ready');
+            event.target.mute();
+            event.target.playVideo();
+          },
+          onStateChange(event) {
+            if (token !== playerToken) return;
+            if (event.data === 1 || event.data === 0 || event.data === 2) {
+              clearPlaybackTimer();
+            } else if (event.data === 3) {
+              watchPlayback(token);
+            }
+            const states = {
+              [-1]: ['Connecting…', 'loading'],
+              0: ['Broadcast or recording ended', 'ended'],
+              1: ['Playing · Check the original player for live status', 'playing'],
+              2: ['Paused', 'paused'],
+              3: ['Loading video…', 'loading'],
+              5: ['Ready to play', 'ready'],
+            };
+            const result = states[event.data];
+            if (result) setPlayback(...result);
+          },
+          onError(event) {
+            if (token === playerToken) showVideoError(event.data);
+          },
+          onAutoplayBlocked() {
+            if (token === playerToken) {
+              clearPlaybackTimer();
+              setPlayback('Press play in the player to begin', 'ready');
+            }
+          },
+        },
+      });
+    } catch {
+      if (token === playerToken) showVideoError('NETWORK');
+    }
+  }
+  function plainNavigation(event) {
+    return !event.defaultPrevented && !(event.button > 0) &&
+      !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
+  }
+
+  function syncRegionControl() {
+    if ($('region-label')) {
+      $('region-label').textContent = state.region === 'all' ? 'All regions' : state.region;
+    }
+    for (const link of regionLinks) {
+      if (link.dataset.region === state.region) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    }
+  }
+
+  function updatePageMetadata() {
+    if (!seo) return;
+    if (!pageMetadata.has(state.region)) {
+      pageMetadata.set(state.region, seo.page(cameras, state.region));
+    }
+    const page = pageMetadata.get(state.region);
+    document.title = page.title;
+    document.body.dataset.region = state.region;
+    if ($('page-heading')) $('page-heading').textContent = page.heading;
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.href = page.url;
+    for (const [selector, content] of [
+      ['meta[name="description"]', page.description],
+      ['meta[property="og:url"]', page.url],
+      ['meta[property="og:title"]', page.title],
+      ['meta[property="og:description"]', page.description],
+      ['meta[name="twitter:title"]', page.title],
+      ['meta[name="twitter:description"]', page.description],
+    ]) {
+      document.querySelector(selector)?.setAttribute('content', content);
+    }
+    if ($('site-schema')) $('site-schema').textContent = JSON.stringify(page.schema);
+  }
+
+  function filterSnapshot() {
+    return {
+      category: state.category, region: state.region, kind: state.kind,
+      query: state.query, savedOnly: state.savedOnly,
+    };
+  }
+
+  function replaceRegionUrl({ preserveHash = false } = {}) {
+    if (!seo) return;
+    const url = new URL(location.href);
+    url.pathname = seo.regionPath(state.region);
+    if (!preserveHash) url.hash = '';
+    history.replaceState({ filters: filterSnapshot() }, '', url);
+    updatePageMetadata();
+  }
+
+  function changeRegion(region) {
+    if (region !== 'all' && !regions.has(region)) return;
+    if (regionMenu) {
+      regionMenu.open = false;
+      $('region-summary')?.focus({ preventScroll: true });
+    }
+    if (state.region === region) return;
+    if (seo) {
+      history.replaceState({ filters: filterSnapshot() }, '', location.href);
+    }
+    state.region = region;
+    syncRegionControl();
+    if (seo) {
+      const url = new URL(location.href);
+      url.pathname = seo.regionPath(region);
+      url.hash = '';
+      history.pushState({ filters: filterSnapshot() }, '', url);
+      updatePageMetadata();
+    }
+    render();
+    fitMap();
+  }
+
+  function reset({ preserveHash = false } = {}) {
+    const resetHadFocus = document.activeElement === $('reset-filters');
+    state.category = 'all';
+    state.region = 'all';
+    state.kind = 'all';
+    state.query = '';
+    state.savedOnly = false;
+    $('media-kind').value = 'all';
+    $('search').value = '';
+    syncRegionControl();
+    replaceRegionUrl({ preserveHash });
+    syncFilters();
+    render();
+    fitMap();
+    if (resetHadFocus) $('search').focus({ preventScroll: true });
+  }
+
+  function syncFilters() {
+    document.querySelectorAll('[data-category]').forEach(button => {
+      const active = button.dataset.category === state.category;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+    $('explore-tab').classList.toggle('active', !state.savedOnly);
+    $('saved-tab').classList.toggle('active', state.savedOnly);
+    $('explore-tab').setAttribute('aria-pressed', String(!state.savedOnly));
+    $('saved-tab').setAttribute('aria-pressed', String(state.savedOnly));
+  }
+
+  function random() {
+    const visible = filtered();
+    if (!visible.length) return;
+    const options = visible.length > 1
+      ? visible.filter(camera => camera.id !== state.selected?.id) : visible;
+    const camera = options[Math.floor(Math.random() * options.length)];
+    select(camera.id, { focusMap: true, autoPlay: true });
+    rows.get(camera.id)?.element.scrollIntoView({
+      behavior: reducedMotion ? 'auto' : 'smooth',
+      block: 'nearest',
+      inline: 'nearest',
+    });
+  }
+
+  // One delegated listener serves the entire reusable camera list.
+  $('camera-list').addEventListener('click', event => {
+    const bookmark = event.target.closest('[data-save]');
+    if (bookmark) {
+      save(bookmark.dataset.save);
+      return;
+    }
+    const selectButton = event.target.closest('[data-select]');
+    if (selectButton && plainNavigation(event)) {
+      event.preventDefault();
+      select(selectButton.dataset.select, { focusMap: true, autoPlay: true });
+    }
   });
-  addEventListener('hashchange',()=>{const id=new URLSearchParams(location.hash.slice(1)).get('cam');if(knownIds.has(id)){reset();select(id,{focusMap:true,writeHash:false,focusViewer:true});}});
-  addEventListener('storage',e=>{if(e.key!==storageKey)return;try{const values=JSON.parse(e.newValue||'[]');favorites=new Set(Array.isArray(values)?values.filter(id=>knownIds.has(id)):[]);render();}catch{}});
-  $('viewer').hidden=true;initMap();const requested=new URLSearchParams(location.hash.slice(1)).get('cam');const validRequest=knownIds.has(requested);if(validRequest)select(requested,{focusMap:true,writeHash:false,focusViewer:compactViewport.matches});else{render();syncViewerMode();}
-})();
+  $('categories').addEventListener('click', event => {
+    const button = event.target.closest('[data-category]');
+    if (!button) return;
+    state.category = button.dataset.category;
+    syncFilters();
+    render();
+    fitMap();
+  });
+  $('search').addEventListener('input', event => {
+    state.query = event.target.value;
+    if (state.query.trim()) setListCollapsed(false);
+    scheduleRender();
+  });
+  $('media-kind').addEventListener('change', event => {
+    state.kind = event.target.value;
+    render();
+    fitMap();
+  });
+  regionMenu?.addEventListener('click', event => {
+    const link = event.target.closest('[data-region]');
+    if (!link || !plainNavigation(event)) return;
+    event.preventDefault();
+    changeRegion(link.dataset.region);
+  });
+  document.addEventListener('click', event => {
+    if (regionMenu?.open && !regionMenu.contains(event.target)) regionMenu.open = false;
+  });
+  $('explore-tab').addEventListener('click', () => {
+    state.savedOnly = false;
+    setListCollapsed(false);
+    syncFilters();
+    render();
+    fitMap();
+  });
+  $('saved-tab').addEventListener('click', () => {
+    setListCollapsed(false);
+    state.savedOnly = true;
+    state.category = 'all';
+    state.region = 'all';
+    state.kind = 'all';
+    state.query = '';
+    $('media-kind').value = 'all';
+    syncRegionControl();
+    $('search').value = '';
+    syncFilters();
+    replaceRegionUrl();
+    render();
+    fitMap();
+  });
+  $('reset-filters').addEventListener('click', reset);
+  $('random-button').addEventListener('click', random);
+  $('play-button').addEventListener('click', startVideo);
+  $('retry-video').addEventListener('click', startVideo);
+  $('continue-video').addEventListener('click', startVideo);
+  $('close-viewer').addEventListener('click', closeViewer);
+  $('viewer-save').addEventListener('click', () => {
+    if (state.selected) save(state.selected.id);
+  });
+  $('reload-page').addEventListener('click', () => location.reload());
+  $('zoom-in').addEventListener('click', () => map?.zoomIn());
+  $('zoom-out').addEventListener('click', () => map?.zoomOut());
+  $('fit-map').addEventListener('click', () => fitMap());
+  $('list-toggle').addEventListener('click', () => {
+    setListCollapsed(!document.body.classList.contains('list-collapsed'));
+  });
+  document.querySelector('.skip-link')?.addEventListener('click', event => {
+    event.preventDefault();
+    setListCollapsed(false);
+    $('camera-list').focus({ preventScroll: true });
+  });
+  $('share-button').addEventListener('click', async () => {
+    if (!state.selected) return;
+    const url = new URL(location.href);
+    url.hash = 'cam=' + encodeURIComponent(state.selected.id);
+    try {
+      await navigator.clipboard.writeText(url.href);
+      toast('Link copied');
+    } catch {
+      $('share-url').value = url.href;
+      $('share-dialog').showModal();
+      $('share-url').select();
+    }
+  });
+  $('close-share').addEventListener('click', () => $('share-dialog').close());
+  $('share-dialog').addEventListener('close', () => {
+    if (!$('viewer').hidden) $('share-button').focus({ preventScroll: true });
+  });
+  document.querySelector('.brand').addEventListener('click', event => {
+    if (!plainNavigation(event)) return;
+    event.preventDefault();
+    closeViewer({ restoreFocus: false });
+    state.selected = null;
+    const url = new URL(location.href);
+    url.pathname = '/';
+    url.hash = '';
+    history.replaceState(null, '', url);
+    setListCollapsed(compactViewport.matches);
+    reset();
+    updatePageMetadata();
+  });
+  document.addEventListener('keydown', event => {
+    if (document.querySelector('dialog[open]')) return;
+    if (event.key === 'Escape' && regionMenu?.open) {
+      event.preventDefault();
+      regionMenu.open = false;
+      $('region-summary')?.focus({ preventScroll: true });
+      return;
+    }
+    if ($('viewer').getAttribute('aria-modal') === 'true') {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeViewer();
+      } else if (event.key === 'Tab') {
+        const focusable = [...$('viewer').querySelectorAll('button,a[href],input,iframe,[tabindex]')]
+          .filter(element => !element.disabled && element.tabIndex >= 0 && element.getClientRects().length);
+        const first = focusable[0];
+        const last = focusable.at(-1);
+        const active = document.activeElement;
+        if (first && ((event.shiftKey && active === first) ||
+            (!event.shiftKey && active === last) || !$('viewer').contains(active))) {
+          event.preventDefault();
+          (event.shiftKey ? last : first).focus();
+        }
+      }
+      return;
+    }
+    if (event.target.matches('input,textarea,select')) return;
+    if (event.key === '/' && !event.ctrlKey && !event.metaKey) {
+      event.preventDefault();
+      $('search').focus();
+    } else if (event.key.toLowerCase() === 'r' && !event.repeat &&
+        !event.ctrlKey && !event.metaKey && !event.altKey) {
+      random();
+    } else if (event.key === 'Escape') {
+      closeViewer();
+    }
+  });
+  addEventListener('hashchange', () => {
+    const id = new URLSearchParams(location.hash.slice(1)).get('cam');
+    if (!knownIds.has(id)) return;
+    if (state.selected?.id === id && !$('viewer').hidden) return;
+    filtered();
+    if (!visibleIds.has(id)) reset({ preserveHash: true });
+    select(id, { focusMap: true, writeHash: false, focusViewer: true });
+  });
+  addEventListener('popstate', event => {
+    if (!seo) return;
+    closeViewer({ restoreFocus: false });
+    state.selected = null;
+    const restored = event.state?.filters;
+    state.region = seo.regionFromPath(location.pathname) || 'all';
+    state.category = ['all', 'city', 'sea', 'nature'].includes(restored?.category)
+      ? restored.category : 'all';
+    state.kind = ['all', 'hls', 'iframe', 'youtube'].includes(restored?.kind)
+      ? restored.kind : 'all';
+    state.query = typeof restored?.query === 'string' ? restored.query : '';
+    state.savedOnly = restored?.savedOnly === true;
+    $('search').value = state.query;
+    $('media-kind').value = state.kind;
+    syncRegionControl();
+    syncFilters();
+    updatePageMetadata();
+    render();
+    fitMap();
+    const requested = new URLSearchParams(location.hash.slice(1)).get('cam');
+    if (visibleIds.has(requested)) {
+      select(requested, { focusMap: true, writeHash: false, focusViewer: false });
+    }
+  });
+  addEventListener('storage', event => {
+    if (event.key !== storageKey) return;
+    try {
+      const values = JSON.parse(event.newValue || '[]');
+      const next = new Set(Array.isArray(values) ? values.filter(id => knownIds.has(id)) : []);
+      const changedIds = [...new Set([...favorites, ...next])]
+        .filter(id => favorites.has(id) !== next.has(id));
+      if (!changedIds.length) return;
+      favorites = next;
+      favoritesVersion++;
+      updateSaveControls(changedIds);
+      if (state.savedOnly) render();
+    } catch {}
+  });
+
+  $('viewer').hidden = true;
+  adoptRows();
+  syncRegionControl();
+  initMap();
+  render();
+  const requested = new URLSearchParams(location.hash.slice(1)).get('cam');
+  if (knownIds.has(requested)) {
+    if (!visibleIds.has(requested)) reset({ preserveHash: true });
+    select(requested, { focusMap: true, writeHash: false, focusViewer: compactViewport.matches });
+  } else {
+    syncViewerMode();
+  }
+}
+
+function showStartupError(error) {
+  console.error('Camera catalog unavailable:', error);
+  const list = document.getElementById('camera-list');
+  const hasStaticRows = list.children.length > 0;
+  list.hidden = !hasStaticRows;
+  document.getElementById('empty-state').hidden = hasStaticRows;
+  document.getElementById('random-button').disabled = true;
+  let retry;
+  if (hasStaticRows) {
+    const notice = document.getElementById('map-notice');
+    notice.textContent = 'The map could not load. Camera links still work. ';
+    notice.hidden = false;
+    retry = document.createElement('button');
+    retry.type = 'button';
+    retry.className = 'secondary-button';
+    notice.appendChild(retry);
+  } else {
+    document.getElementById('empty-title').textContent = 'Cameras could not load';
+    document.getElementById('empty-description').textContent = 'Check your connection and refresh to try again.';
+    document.getElementById('result-count').textContent = '—';
+    document.getElementById('video-total').textContent = '—';
+    retry = document.getElementById('reset-filters');
+  }
+  retry.textContent = 'Reload cameras';
+  retry.addEventListener('click', () => location.reload(), { once: true });
+}
+
+if (window.KOREA_CATALOG_READY) {
+  window.KOREA_CATALOG_READY.then(startApp).catch(showStartupError);
+} else {
+  startApp();
+}
