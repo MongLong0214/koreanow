@@ -826,15 +826,23 @@ function startApp() {
     const play = () => {
       if (!current()) return;
       if (bufferedStartup) {
-        if (initialPlayRequested || hasPlayed) return;
-        let ahead = 0;
-        for (let i = 0; i < video.buffered.length; i++) {
-          if (video.currentTime >= video.buffered.start(i) && video.currentTime < video.buffered.end(i)) {
-            ahead = Math.max(ahead, video.buffered.end(i) - video.currentTime);
+        if (initialPlayRequested || hasPlayed || !video.paused) return;
+        if (video.readyState < 2 || !video.videoWidth || !video.videoHeight) return;
+        const buffered = video.buffered;
+        const position = video.currentTime;
+        let startAt = null;
+        for (let i = 0; i < buffered.length; i++) {
+          const candidate = Math.max(position, buffered.start(i));
+          if (buffered.end(i) - candidate >= 3) {
+            startAt = candidate;
+            break;
           }
         }
-        if (ahead < 3 || video.readyState < 2 || !video.videoWidth || !video.videoHeight) return;
+        if (startAt === null) return;
+        // A short first range or a nonzero media start must not strand prefill
+        // at time zero. Align once to three contiguous buffered seconds.
         initialPlayRequested = true;
+        if (startAt > position) video.currentTime = startAt;
       }
       const promise = video.play();
       promise?.catch(error => {
