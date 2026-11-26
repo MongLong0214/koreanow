@@ -186,11 +186,15 @@ function startApp() {
     return reference.kind === 'select' ? row.selectButton : row.saveButton;
   }
   function setListCollapsed(collapsed) {
+    if (window.KOREA_MAP_VIEW) {
+      window.KOREA_MAP_VIEW.setListCollapsed(collapsed);
+      return;
+    }
     document.body.classList.toggle('list-collapsed', collapsed);
     $('list-toggle').setAttribute('aria-expanded', String(!collapsed));
     $('list-toggle').setAttribute('aria-label', collapsed ? 'Show camera list' : 'Hide camera list');
   }
-  setListCollapsed(compactViewport.matches);
+  if (!window.KOREA_MAP_VIEW) setListCollapsed(compactViewport.matches);
 
   function restoreViewerFocus() {
     let target = findFocusTarget(viewerReturnFocus) ||
@@ -216,7 +220,7 @@ function startApp() {
     return modal;
   }
   compactViewport.addEventListener?.('change', () => {
-    setListCollapsed(compactViewport.matches);
+    if (!window.KOREA_MAP_VIEW) setListCollapsed(compactViewport.matches);
     if (syncViewerMode() && !$('viewer').contains(document.activeElement)) {
       $('close-viewer').focus({ preventScroll: true });
     }
@@ -563,165 +567,25 @@ function startApp() {
     });
   }
   function initMap() {
-    if (!window.L) {
+    const view = window.KOREA_MAP_VIEW;
+    map = view?.map || null;
+    if (!map) {
       $('map-notice').hidden = false;
       return;
     }
-    map = L.map('map', {
-      zoomControl: false,
-      attributionControl: true,
-      minZoom: 5,
-      maxZoom: 20,
-      zoomSnap: .25,
-      zoomDelta: 1,
-      wheelPxPerZoomLevel: 100,
-      maxBounds: [[30.5, 120], [41.7, 137]],
-      maxBoundsViscosity: .7,
-      scrollWheelZoom: true,
-    }).setView([35.7, 128.3], 6.7);
-    map.attributionControl.setPrefix(false);
-    initBasemap();
-    L.control.scale({
-      position: 'bottomleft', imperial: false, maxWidth: 90, updateWhenIdle: true,
-    }).addTo(map);
     layer = L.layerGroup().addTo(map);
     map.on('zoomend', scheduleMarkerRender);
-    fitMap(false);
-    let resizeFrame = null;
-    let previousWidth = 0;
-    let previousHeight = 0;
-    new ResizeObserver(entries => {
-      const { width, height } = entries[0].contentRect;
-      if (!width || !height || (width === previousWidth && height === previousHeight)) return;
-      previousWidth = width;
-      previousHeight = height;
-      if (resizeFrame !== null) return;
-      resizeFrame = requestFrame(() => {
-        resizeFrame = null;
-        map.invalidateSize({ pan: false, debounceMoveend: true });
-      });
-    }).observe($('map'));
-  }
-  function initBasemap() {
-    const attribution = '<a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a>';
-    let vector = null;
-    let canvas = null;
-    let geography = null;
-    let ready = false;
-    let startupTimer = null;
-    let canvasStarted = false;
-
-    const showOverview = async () => {
-      $('map').dataset.basemap = 'overview';
-      $('map-notice').textContent = 'Map details unavailable. Cameras still work.';
-      $('map-notice').hidden = false;
-      if (!window.KOREA_GEOGRAPHY && window.KOREA_LOAD_SCRIPT) {
-        try {
-          await window.KOREA_LOAD_SCRIPT('/map-geography.js');
-        } catch (error) {
-          console.warn('Overview map unavailable:', error.message);
-        }
-      }
-      if (ready) return;
-      if (!geography && window.KOREA_GEOGRAPHY && typeof L.geoJSON === 'function') {
-        geography = L.geoJSON(window.KOREA_GEOGRAPHY, {
-          interactive: false,
-          smoothFactor: .8,
-          style: feature => ({
-            color: feature.id === 'KOR' ? '#58646c' : '#29383e',
-            weight: feature.id === 'KOR' ? 1 : .7,
-            fillColor: feature.id === 'KOR' ? '#172127' : '#11191f',
-            fillOpacity: 1,
-            opacity: 1,
-          }),
-        }).addTo(map);
-        map.attributionControl.addAttribution(attribution);
-      }
-    };
-    const showDetailed = renderer => {
-      ready = true;
-      clearTimeout(startupTimer);
-      if (geography) {
-        map.removeLayer(geography);
-        geography = null;
-        map.attributionControl.removeAttribution(attribution);
-      }
-      $('map').dataset.basemap = renderer === 'canvas' ? 'detailed-canvas' : 'detailed';
-      $('map-notice').hidden = true;
-    };
-    const removeVector = () => {
-      if (!vector) return;
-      const previous = vector;
-      const remove = previous.onRemove;
-      vector = null;
-      const sourceAttribution = previous.getAttribution();
-      if (sourceAttribution) map.attributionControl.removeAttribution(sourceAttribution);
-      previous.onRemove = function(leafletMap) {
-        try {
-          if (this.getMaplibreMap()) remove.call(this, leafletMap);
-          else this.getContainer()?.remove();
-        } catch {
-          this.getContainer()?.remove();
-        }
-      };
-      map.removeLayer(previous);
-    };
-    const startCanvas = async () => {
-      if (canvasStarted) return;
-      canvasStarted = true;
-      ready = false;
-      clearTimeout(startupTimer);
-      removeVector();
-      $('map').dataset.basemap = 'loading';
-      try {
-        const fallback = await window.KOREA_CANVAS_BASEMAP.addTo(map);
-        canvas = fallback.layer;
-        await fallback.ready;
-        showDetailed('canvas');
-      } catch (error) {
-        console.warn('Map details unavailable:', error.message);
-        if (canvas) {
-          map.removeLayer(canvas);
-          canvas = null;
-        }
-        showOverview();
-      }
-    };
-
-    $('map').dataset.basemap = 'loading';
-    if (!window.maplibregl || typeof L.maplibreGL !== 'function') {
-      startCanvas();
-      return;
-    }
-    try {
-      vector = L.maplibreGL({
-        style: '/map-style-dark.json', interactive: false, padding: .1, updateInterval: 16,
-      });
-      vector.addTo(map);
-      const renderer = vector.getMaplibreMap();
-      renderer.on('load', () => { if (!canvasStarted) showDetailed('webgl'); });
-      // Individual source or glyph requests can recover; the deadline below
-      // switches renderer only if the initial detailed map never becomes ready.
-      renderer.on('error', () => {});
-      renderer.on('webglcontextlost', startCanvas);
-      startupTimer = setTimeout(() => { if (!ready) startCanvas(); }, 20000);
-    } catch {
-      console.warn('WebGL unavailable; using the Canvas map.');
-      startCanvas();
-    }
+    view.setFitHandler(fitMap);
+    // Adopting the map must preserve a visitor's pan/zoom while data loaded.
+    // Only an actual restored filter or the diagnostic catalog needs a new fit.
+    if (!view.hasInitialBounds || state.query.trim() || state.kind !== 'all' ||
+      new URLSearchParams(location.search).get('qa-candidates') === '1') fitMap(false);
   }
   function fitMap(animate = true) {
     if (!map) return;
     const points = filtered();
     if (!points.length) return;
-    const bounds = L.latLngBounds(points.map(camera => [camera.lat, camera.lng]));
-    const collapsed = document.body.classList.contains('list-collapsed');
-    map.fitBounds(bounds, {
-      paddingTopLeft: compactViewport.matches ? [35, 140] : [collapsed ? 60 : 332, 96],
-      paddingBottomRight: compactViewport.matches ? [35, 70] : [70, 70],
-      maxZoom: 12,
-      animate: animate && !reducedMotion,
-    });
+    window.KOREA_MAP_VIEW.fitBounds(points.map(camera => [camera.lat, camera.lng]), animate);
   }
 
   // Every playback attempt owns a token. Late library/network callbacks may not
@@ -1361,10 +1225,7 @@ function startApp() {
     if (state.selected) save(state.selected.id);
   });
   $('reload-page').addEventListener('click', () => location.reload());
-  $('zoom-in').addEventListener('click', () => map?.zoomIn());
-  $('zoom-out').addEventListener('click', () => map?.zoomOut());
-  $('fit-map').addEventListener('click', () => fitMap());
-  $('list-toggle').addEventListener('click', () => {
+  if (!window.KOREA_MAP_VIEW) $('list-toggle').addEventListener('click', () => {
     setListCollapsed(!document.body.classList.contains('list-collapsed'));
   });
   document.querySelector('.skip-link')?.addEventListener('click', event => {
@@ -1491,6 +1352,8 @@ function startApp() {
   syncRegionControl();
   initMap();
   render();
+  $('map').dataset.camerasReadyAt = String(Math.round(window.performance.now()));
+  window.performance.mark?.('koreanow:cameras-ready');
   const requested = new URLSearchParams(location.hash.slice(1)).get('cam');
   if (knownIds.has(requested)) {
     if (!visibleIds.has(requested)) reset({ preserveHash: true });
@@ -1510,7 +1373,8 @@ function showStartupError(error) {
   let retry;
   if (hasStaticRows) {
     const notice = document.getElementById('map-notice');
-    notice.textContent = 'The map could not load. Camera links still work. ';
+    notice.dataset.catalogError = 'true';
+    notice.textContent = 'Camera locations could not load. Source links still work. ';
     notice.hidden = false;
     retry = document.createElement('button');
     retry.type = 'button';

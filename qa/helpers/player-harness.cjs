@@ -8,6 +8,7 @@ const { createLeafletStub } = require('./leaflet-stub.cjs');
 
 const sourceDirectory = path.join(__dirname, '..', '..', 'web');
 const appSource = fs.readFileSync(path.join(sourceDirectory, 'app.js'), 'utf8');
+const mapViewSource = fs.readFileSync(path.join(sourceDirectory, 'map-view.js'), 'utf8');
 const productionCameraSource = fs.readFileSync(path.join(sourceDirectory, 'cameras.js'), 'utf8');
 const englishCameraSource = productionCameraSource + '\n' + fs.readFileSync(path.join(sourceDirectory, 'catalog-en.js'), 'utf8');
 const fixtureSource = 'window.KOREA_CAMERAS = '+fs.readFileSync(path.join(__dirname, '..', 'fixtures/player-catalog.json'), 'utf8')+';';
@@ -20,6 +21,7 @@ async function flushMicrotasks() {
 function createHarness({ apiReady = false, storage = new Map(), denyStorageWrites = false,
   hlsSupported = true, nativeHls = '', cameraSource = fixtureSource, appCode = appSource,
   htmlSource = html, withMap = false, mapZoom = 12, lazyHls = false,
+  mapCode = appCode === appSource ? mapViewSource : '',
   withSeo = false, deferCatalog = false, initialUrl = 'https://example.test/',
   useRegionMenu = true, beforeApp = () => {} } = {}) {
   let now = 0;
@@ -219,6 +221,7 @@ function createHarness({ apiReady = false, storage = new Map(), denyStorageWrite
     });
   }
   beforeApp({document, context, dom});
+  if (withMap && mapCode) vm.runInContext(mapCode, context, {filename: path.join(sourceDirectory, 'map-view.js')});
   vm.runInContext(appCode, context, { filename: path.join(sourceDirectory, 'app.js') });
 
   function get(id) {

@@ -76,6 +76,27 @@ test('camera links remain useful without JavaScript and have the same identity h
     'Bookmarks stay disabled until the client adopts the static rows');
 });
 
+test('each collection embeds its precise initial map bounds without waiting for the catalog', async () => {
+  const {cameras, pages, regions, seo} = await model;
+  let singleCameraPages = 0;
+  for (const region of regions) {
+    const subset = region === 'all' ? cameras : cameras.filter(camera => camera.region === region);
+    const html = pages.get(seo.regionPath(region));
+    const match = /<div id="map"[^>]* data-bounds="([^"]+)"/.exec(html);
+    assert.ok(match, region + ' must have initial map bounds in its HTML');
+    const bounds = JSON.parse(unescape(match[1]));
+    assert.deepEqual(bounds, [
+      [Math.min(...subset.map(camera => camera.lat)), Math.min(...subset.map(camera => camera.lng))],
+      [Math.max(...subset.map(camera => camera.lat)), Math.max(...subset.map(camera => camera.lng))],
+    ], region);
+    if (subset.length === 1) {
+      singleCameraPages++;
+      assert.deepEqual(bounds[0], bounds[1], region + ' uses the actual single location');
+    }
+  }
+  assert.equal(singleCameraPages, 2, 'Daejeon and Ulsan each have a single camera');
+});
+
 test('native region navigation exposes all canonical internal links with exactly one current region', async () => {
   const {pages, regions, seo} = await model;
   for (const region of regions) {

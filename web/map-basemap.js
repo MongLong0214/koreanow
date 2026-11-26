@@ -1,6 +1,8 @@
 (() => {
   'use strict';
   const tileJsonUrl='https://tiles.openfreemap.org/planet';
+  // Canvas labels must be drawable before the interface web font arrives.
+  const labelFontFamily='system-ui, sans-serif';
   const attribution='<a href="https://openfreemap.org/" target="_blank" rel="noopener">OpenFreeMap</a> · © <a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · <a href="/vendor/maplibre-dark-style-LICENSE.txt" target="_blank" rel="noopener">Style</a>';
   let libraryPromise;
   function loadLibrary(){
@@ -91,7 +93,7 @@
       };
     }
     const stopObserving=()=>{for(const [rule,symbolizer] of observedRules)rule.symbolizer=symbolizer;};
-    const text=(size,fill='#9daeb5',weight=500)=>new p.CenteredTextSymbolizer({labelProps:names,font:weight+' '+size+'px "Jigeum Sans", sans-serif',fill,stroke:'#172125',width:2.5,maxLineChars:22});
+    const text=(size,fill='#9daeb5',weight=500)=>new p.CenteredTextSymbolizer({labelProps:names,font:weight+' '+size+'px '+labelFontFamily,fill,stroke:'#172125',width:2.5,maxLineChars:22});
     const rank=(a,b)=>(Number(a.rank)||100)-(Number(b.rank)||100);
     const labelRules=[
       {dataLayer:'place',maxzoom:7,filter:isClass('country'),symbolizer:text(14,'#bdc9ce',600),sort:rank},
@@ -100,8 +102,8 @@
       {dataLayer:'place',minzoom:8,filter:isClass('town'),symbolizer:text(12),sort:rank},
       {dataLayer:'place',minzoom:11,filter:isClass('village','suburb'),symbolizer:text(11),sort:rank},
       {dataLayer:'place',minzoom:13,filter:isClass('neighbourhood','quarter','hamlet'),symbolizer:text(11),sort:rank},
-      {dataLayer:'transportation_name',minzoom:12,filter:isLine,symbolizer:new p.LineLabelSymbolizer({labelProps:names,font:'500 10px "Jigeum Sans", sans-serif',fill:'#9baab0',stroke:'#1a2429',width:2,repeatDistance:220,maxLabelChars:34})},
-      {dataLayer:'water_name',minzoom:8,filter:isLine,symbolizer:new p.LineLabelSymbolizer({labelProps:names,font:'italic 11px "Jigeum Sans", sans-serif',fill:'#7e9aa9',stroke:'#0c161c',width:2,repeatDistance:250,maxLabelChars:28})},
+      {dataLayer:'transportation_name',minzoom:12,filter:isLine,symbolizer:new p.LineLabelSymbolizer({labelProps:names,font:'500 10px '+labelFontFamily,fill:'#9baab0',stroke:'#1a2429',width:2,repeatDistance:220,maxLabelChars:34})},
+      {dataLayer:'water_name',minzoom:8,filter:isLine,symbolizer:new p.LineLabelSymbolizer({labelProps:names,font:'italic 11px '+labelFontFamily,fill:'#7e9aa9',stroke:'#0c161c',width:2,repeatDistance:250,maxLabelChars:28})},
       {dataLayer:'water_name',minzoom:7,filter:(_z,f)=>f.geomType===p.GeomType.Point,symbolizer:text(11,'#7e9aa9')}
     ];
     return {paintRules,labelRules,stopObserving};
@@ -111,7 +113,19 @@
     if(!document.createElement('canvas').getContext('2d'))throw new Error('Canvas map rendering unavailable');
     let rendered=false;
     const {paintRules,labelRules,stopObserving}=makeRules(p,()=>{rendered=true;});
-    const layer=p.leafletLayer({url:source.tiles[0],maxDataZoom:Number(source.maxzoom)||14,paintRules,labelRules,backgroundColor:'#172125',attribution,lang:'en',noWrap:true,maxZoom:20,updateWhenIdle:true,updateWhenZooming:false,keepBuffer:2,tasks:document.fonts?[document.fonts.load('500 13px "Jigeum Sans"')]:[]});
+    const layer=p.leafletLayer({
+      url:source.tiles[0],
+      maxDataZoom:Number(source.maxzoom)||14,
+      paintRules,labelRules,
+      backgroundColor:'#172125',
+      attribution,
+      lang:'en',
+      noWrap:true,
+      maxZoom:20,
+      updateWhenIdle:true,
+      updateWhenZooming:false,
+      keepBuffer:2
+    });
     const ready=new Promise((resolve,reject)=>{
       let settled=false;
       const finish=error=>{if(settled)return;settled=true;clearTimeout(timer);layer.off('tileload',check);layer.off('load',check);stopObserving();error?reject(error):resolve();};

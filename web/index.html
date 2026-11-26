@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#080808">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin="anonymous">
+  <link rel="preload" href="/catalog.json" as="fetch" type="application/json" crossorigin="anonymous">
+  <link rel="preload" href="/map-style-dark.json" as="fetch" type="application/json" crossorigin="anonymous">
+  <link rel="preload" href="https://tiles.openfreemap.org/planet" as="fetch" type="application/json" crossorigin="anonymous">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="description" content="Explore 400 live cameras across South Korea. Find cities, coastlines, and nature on an interactive map.">
   <link rel="canonical" href="https://koreanow.site/">
@@ -37,6 +41,7 @@
   <script src="/vendor/maplibre-gl.js" defer></script>
   <script src="/vendor/maplibre-gl-leaflet.js" defer></script>
   <script src="/map-basemap.js" defer></script>
+  <script src="/map-view.js" defer></script>
   <script src="/app.js" defer></script>
   <meta name="selected-catalog-sha256" content="725b29ad94bdb863ffd0f96577780c5e72e52d795863d7c08e72f8e7730a59f3">
   <meta name="selected-evidence-sha256" content="ce0be09b39300b575af0e638929ca05d9a5d7b845cfbf6773bd50f891de518b3">
@@ -56,7 +61,7 @@
   <main id="main-content" class="workspace">
     <h1 id="page-heading" class="sr-only">Live cameras across South Korea</h1>
     <section class="map-stage" aria-label="Map of cameras in South Korea">
-      <div id="map" aria-label="Camera locations"></div>
+      <div id="map" data-bounds="" aria-label="Camera locations"></div>
       <div id="map-notice" class="map-notice" role="status" hidden>Map unavailable. Choose a camera from the list.</div>
       <article id="viewer" class="viewer" tabindex="-1" aria-labelledby="viewer-title" hidden>
         <div class="viewer-topline"><h1 id="viewer-title"></h1><button id="close-viewer" class="icon-button" aria-label="Close video" title="Close"><span data-icon="x" aria-hidden="true"></span></button></div>
@@ -76,10 +81,10 @@
         </div>
       </article>
       <div class="map-controls" aria-label="Map controls">
-        <button id="zoom-in" class="map-control" aria-label="Zoom in" title="Zoom in"><span data-icon="plus" aria-hidden="true"></span></button>
-        <button id="zoom-out" class="map-control" aria-label="Zoom out" title="Zoom out"><span data-icon="minus" aria-hidden="true"></span></button>
+        <button id="zoom-in" class="map-control" aria-label="Zoom in" title="Zoom in"><span data-icon="plus" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <button id="zoom-out" class="map-control" aria-label="Zoom out" title="Zoom out"><span data-icon="minus" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></span></button>
         <span class="control-separator" aria-hidden="true"></span>
-        <button id="fit-map" class="map-control" aria-label="Show all cameras" title="Show all cameras"><span data-icon="locate" aria-hidden="true"></span></button>
+        <button id="fit-map" class="map-control" aria-label="Show all cameras" title="Show all cameras"><span data-icon="locate" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/></svg></span></button>
         <button id="random-button" class="map-control" aria-label="Random camera" title="Random camera (R)"><span data-icon="shuffle" aria-hidden="true"></span></button>
       </div>
     </section>

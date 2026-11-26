@@ -255,6 +255,27 @@ test('initial deferred scripts load bootstrap before the app and omit diagnostic
   assert.ok(scripts.every(script => script.path.startsWith('/')), 'Nested regional pages need root-absolute scripts');
   assert.ok(names.indexOf('resource-loader.js') < names.indexOf('bootstrap.js'));
   assert.ok(names.indexOf('bootstrap.js') < names.indexOf('app.js'));
+  assert.ok(names.includes('map-view.js'));
+  assert.ok(names.indexOf('vendor/leaflet.js') < names.indexOf('map-view.js'));
+  assert.ok(names.indexOf('map-basemap.js') < names.indexOf('map-view.js'));
+  assert.ok(names.indexOf('map-view.js') < names.indexOf('app.js'));
   assert.ok(scripts.every(script => /\bdefer\b/.test(script.tag)));
   for (const source of ['cameras.js', 'catalog-en.js', 'map-geography.js', 'vendor/hls.min.js']) assert.equal(names.includes(source), false, source);
+});
+
+test('map startup fetches are discoverable in the head with matching anonymous CORS credentials', () => {
+  const html = read('index.html');
+  const preloads = [...html.matchAll(/<link rel="preload" href="([^"]+)"[^>]*>/g)];
+  assert.deepEqual(preloads.map(match => match[1]), [
+    '/catalog.json', '/map-style-dark.json', 'https://tiles.openfreemap.org/planet',
+  ]);
+  for (const preload of preloads) {
+    assert.match(preload[0], /as="fetch"/);
+    assert.match(preload[0], /crossorigin="anonymous"/);
+    assert.ok(preload.index < html.indexOf('<link rel="stylesheet"'));
+  }
+  const preconnects = [...html.matchAll(/<link rel="preconnect"[^>]*>/g)];
+  assert.equal(preconnects.length, 1);
+  assert.match(preconnects[0][0], /href="https:\/\/tiles\.openfreemap\.org"/);
+  assert.match(preconnects[0][0], /crossorigin="anonymous"/);
 });

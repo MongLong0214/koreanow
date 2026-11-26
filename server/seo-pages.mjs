@@ -37,6 +37,14 @@ export function createSeoAssets(webDirectory, cameras = createPublicCatalog(webD
     const metadata = seo.page(cameras, region);
     const subset = region === 'all' ? cameras : cameras.filter(camera => camera.region === region);
     if (!subset.length) throw new Error('Cannot publish an empty regional collection: ' + region);
+    // The map can frame this collection before the client catalog arrives.
+    const bounds = [[Infinity, Infinity], [-Infinity, -Infinity]];
+    for (const {lat, lng} of subset) {
+      bounds[0][0] = Math.min(bounds[0][0], lat);
+      bounds[0][1] = Math.min(bounds[0][1], lng);
+      bounds[1][0] = Math.max(bounds[1][0], lat);
+      bounds[1][1] = Math.max(bounds[1][1], lng);
+    }
     let html = replace(template, /<title>[\s\S]*?<\/title>/, '<title>' + escape(metadata.title) + '</title>');
     for (const [kind, key, content] of [
       ['name', 'description', metadata.description], ['property', 'og:url', metadata.url],
@@ -46,6 +54,8 @@ export function createSeoAssets(webDirectory, cameras = createPublicCatalog(webD
       '<meta ' + kind + '="' + key + '" content="' + escape(content) + '">');
     html = replace(html, /<link rel="canonical" href="[^"]*">/, '<link rel="canonical" href="' + metadata.url + '">');
     html = replace(html, /<body data-region="[^"]*">/, '<body data-region="' + escape(region) + '">');
+    html = replace(html, /(<div id="map"[^>]* data-bounds=")[^"]*(")/,
+      (_all, start, end) => start + escape(JSON.stringify(bounds)) + end);
     html = replace(html, /(<h1 id="page-heading"[^>]*>)[\s\S]*?(<\/h1>)/, (_all, start, end) => start + escape(metadata.heading) + end);
     html = replace(html, /(<script id="site-schema" type="application\/ld\+json">)[\s\S]*?(<\/script>)/,
       (_all, start, end) => start + JSON.stringify(metadata.schema).replace(/</g, '\\u003c') + end);

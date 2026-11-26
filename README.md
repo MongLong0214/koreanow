@@ -44,7 +44,8 @@ The site has no ChatGPT Sites runtime dependency. Static files are served by Ver
 | Path | Purpose |
 | --- | --- |
 | `web/index.html`, `web/styles.css` | Page structure and responsive visual design |
-| `web/app.js` | Map, search, filters, favorites, sharing, and player lifecycle |
+| `web/app.js` | Camera markers, search, filters, favorites, sharing, and player lifecycle |
+| `web/map-view.js` | Catalog-independent map startup, viewport, controls, and renderer recovery |
 | `web/bootstrap.js`, `web/resource-loader.js` | Validated public catalog startup and shared lazy script loading |
 | `web/seo.js`, `server/seo-pages.mjs` | Shared route metadata and static collection-page generation |
 | `web/catalog-en.js` | English camera names and search aliases |
@@ -77,6 +78,12 @@ The application uses native DOM APIs and event delegation. Camera rows are keyed
 The build produces `catalog.json` with only the 400 selected, localized camera records and the fields the interface and players need. The full source catalog and English dictionary remain unchanged for maintenance, evidence, and `?qa-candidates=1`. HLS.js loads when an HLS camera is opened, and the country-outline geometry loads only if both detailed map renderers fail.
 
 The build also renders the initial camera rows into HTML. The client adopts those exact nodes rather than replacing them. If catalog startup fails, the rendered camera links remain available and open the original sources.
+
+The basemap starts independently of catalog loading and list hydration. Each collection page includes its exact camera bounds in HTML, so the initial viewport is fitted before the renderer requests tiles. The app later attaches camera markers to that same map without recentering a visitor who already panned or zoomed. Map zoom and fit controls work while the catalog is pending. Restored filters, diagnostic candidates, and camera deep links can still change the viewport when their data arrives.
+
+Fetch preloads start the catalog, map style, and OpenFreeMap TileJSON early, with one preconnect to the tile origin. Canvas compatibility labels use the system font and do not wait for the interface's downloadable font. Both detailed renderers retain their readiness and failure checks; an empty tile or a loaded script alone does not mean the map is ready.
+
+For startup diagnostics, the Performance timeline exposes `koreanow:map-start`, `koreanow:map-ready`, `koreanow:map-startup`, and `koreanow:cameras-ready`. The map element also records `data-map-started-at`, `data-map-ready-at`, and `data-cameras-ready-at` in milliseconds since navigation. MapLibre readiness is its first visually complete `load` event; Canvas readiness requires a drawn feature and tile completion. These signals have different thresholds and are not interchangeable with browser paint or field Core Web Vitals. The first ready timestamp remains intact during renderer recovery.
 
 ### Search indexing
 
