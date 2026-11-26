@@ -302,6 +302,12 @@ button svg {
   font-family: var(--font);
 }
 
+/* Camera overlays become visible only after the basemap has painted. Keep the
+   same rule during renderer recovery; hidden markers cannot receive focus. */
+#map[data-presentation="loading"] :is(.leaflet-marker-pane, .leaflet-tooltip-pane, .leaflet-popup-pane) {
+  visibility: hidden;
+}
+
 /* Camera sidebar and filters */
 .sidebar {
   position: absolute;

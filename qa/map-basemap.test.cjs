@@ -100,7 +100,7 @@ function assertObservationCleanedUp(layer, timers) {
   });
 }
 
-test('Canvas labels and the first drawn tile do not depend on the interface web font', async () => {
+test('Canvas readiness waits for the visible tile set without depending on the interface web font', async () => {
   const fixture = harness();
   const map = {};
   const {layer, ready} = await fixture.addTo(map);
@@ -110,7 +110,14 @@ test('Canvas labels and the first drawn tile do not depend on the interface web 
     assert.match(rule.symbolizer.options.font, /\b(?:\d+px) system-ui, sans-serif$/);
     assert.doesNotMatch(rule.symbolizer.options.font, /Jigeum Sans/);
   }
+  let resolved = false;
+  ready.then(() => { resolved = true; });
   await layer.drawTile(geometry);
+  await Promise.resolve();
+  assert.equal(resolved, false, 'One drawn tile cannot reveal cameras over still-loading tiles');
+  assert.ok(layer.listeners.has('load'));
+  assert.equal(layer.listeners.has('tileload'), false);
+  layer.emit('load');
   await ready;
   assert.equal(layer.originalSymbolizers[0].drawCalls.length, 1);
   assertObservationCleanedUp(layer, fixture.timers);
@@ -127,11 +134,15 @@ test('blank tile completions do not signal readiness until a map feature is draw
   assert.equal(resolved, false, 'A failed tile can emit completion without drawing a map');
 
   await layer.drawTile([]);
+  layer.emit('load');
   await Promise.resolve();
   assert.equal(resolved, false, 'An empty feature cannot make the map ready');
-  assert.ok(layer.listeners.has('tileload'));
+  assert.ok(layer.listeners.has('load'));
 
   await layer.drawTile(geometry);
+  await Promise.resolve();
+  assert.equal(resolved, false, 'Feature drawing still waits for all visible tiles to complete');
+  layer.emit('load');
   await ready;
   assert.equal(resolved, true);
   assertObservationCleanedUp(layer, fixture.timers);
@@ -149,6 +160,7 @@ test('a blank map times out cleanly and a subsequent map can become ready', asyn
 
   const retry = await fixture.addTo({});
   await retry.layer.drawTile(geometry);
+  retry.layer.emit('load');
   await retry.ready;
   assertObservationCleanedUp(retry.layer, fixture.timers);
   assert.equal(fixture.fontLoads, 0);

@@ -42,8 +42,11 @@ test('selecting cameras keeps all 400 row identities and changes only the select
   assert.equal(h.operations.rowRemovals, 0);
 });
 
-test('bookmark changes affect one control without rebuilding rows or map markers', () => {
+test('bookmark changes affect one control without rebuilding rows or map markers', async () => {
   const h = make({withMap: true});
+  await flushMicrotasks();
+  h.flushAnimationFrames(); h.flushAnimationFrames();
+  assert.ok(h.mapFixture.groups[0].getLayers().length > 0);
   const initial = rowMap(h), first = cameras(h)[0];
   h.resetOperations(); h.mapFixture.resetOperations();
   save(h, first.id);
@@ -136,8 +139,10 @@ test('reset cancels queued search work so a stale frame cannot restore the old q
   assert.equal(h.get('empty-state').hidden, true);
 });
 
-test('selection at a stable map zoom preserves every unaffected marker object', () => {
+test('selection at a stable map zoom preserves every unaffected marker object', async () => {
   const h = make({withMap: true, mapZoom: 12});
+  await flushMicrotasks();
+  h.flushAnimationFrames(); h.flushAnimationFrames();
   const group = h.mapFixture.groups[0];
   const initial = new Set(group.getLayers());
   assert.ok(initial.size > 200, 'The production catalog must exercise many marker groups');

@@ -53,6 +53,7 @@ function startApp() {
     selected: null,
   };
   let map = null;
+  let mapView = null;
   let layer = null;
   let player = null;
   let playerToken = 0;
@@ -531,7 +532,9 @@ function startApp() {
       cancelFrame(markerFrame);
       markerFrame = null;
     }
-    if (!map || !layer) return;
+    // Do not spend the map's first frame on projecting and mounting cameras.
+    // The basemap owns readiness, including WebGL-to-Canvas recovery.
+    if (!map || !layer || !mapView.isReady) return;
     const zoom = map.getZoom();
     const layout = getMarkerLayout(visible, zoom);
     const selected = state.selected;
@@ -557,17 +560,21 @@ function startApp() {
       if (record.group.cameras.length === 1) markerMap.delete(record.group.cameras[0].id);
     }
     for (const group of next.values()) reconcileMarker(group);
+    if (!$('map').dataset.markersReadyAt) {
+      $('map').dataset.markersReadyAt = String(Math.round(window.performance.now()));
+      window.performance.mark?.('koreanow:markers-ready');
+    }
   }
 
   function scheduleMarkerRender() {
-    if (markerFrame !== null) return;
+    if (!mapView?.isReady || markerFrame !== null) return;
     markerFrame = requestFrame(() => {
       markerFrame = null;
       renderMarkers(filtered());
     });
   }
   function initMap() {
-    const view = window.KOREA_MAP_VIEW;
+    const view = mapView = window.KOREA_MAP_VIEW;
     map = view?.map || null;
     if (!map) {
       $('map-notice').hidden = false;
@@ -575,6 +582,9 @@ function startApp() {
     }
     layer = L.layerGroup().addTo(map);
     map.on('zoomend', scheduleMarkerRender);
+    // This event follows the basemap's paint barrier. Reconcile synchronously
+    // so recovery never reveals stale markers from a filter changed in flight.
+    map.on('basemapready', () => renderMarkers(filtered()));
     view.setFitHandler(fitMap);
     // Adopting the map must preserve a visitor's pan/zoom while data loaded.
     // Only an actual restored filter or the diagnostic catalog needs a new fit.

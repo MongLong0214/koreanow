@@ -128,10 +128,14 @@
     });
     const ready=new Promise((resolve,reject)=>{
       let settled=false;
-      const finish=error=>{if(settled)return;settled=true;clearTimeout(timer);layer.off('tileload',check);layer.off('load',check);stopObserving();error?reject(error):resolve();};
+      const finish=error=>{if(settled)return;settled=true;clearTimeout(timer);layer.off('load',check);stopObserving();error?reject(error):resolve();};
       const check=()=>{if(rendered)finish();};
       const timer=setTimeout(()=>finish(new Error('Map tiles could not be rendered')),20000);
-      layer.on('tileload',check);layer.on('load',check);
+      // GridLayer "load" completes the visible tile set. A single "tileload"
+      // can be an ocean/edge tile while the camera locations are still blank.
+      // Keep the drawn-feature check because this renderer also completes
+      // failed/empty tile requests without a Leaflet tileerror event.
+      layer.on('load',check);
     });
     layer.addTo(map);
     return {layer,ready};

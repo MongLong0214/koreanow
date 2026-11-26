@@ -30,7 +30,7 @@ function createLeafletStub(document, fixedZoom = 12) {
         unproject(value,zoom=this.zoom) { const size=256*2**zoom; return {lng:value.x/size*360-180,lat:(2*Math.atan(Math.exp((.5-value.y/size)*2*Math.PI))-Math.PI/2)*180/Math.PI}; },
         on(name, listener) { if (!events.has(name)) events.set(name,[]); events.get(name).push(listener); return this; },
         off(name, listener) { events.set(name,(events.get(name)||[]).filter(item=>item!==listener)); return this; },
-        fire(name) { for(const listener of events.get(name)||[]) listener({target:this}); return this; },
+        fire(name, data = {}) { for(const listener of events.get(name)||[]) listener({...data, target:this}); return this; },
         fitBounds(bounds, config) { operations.fitBounds++; this.bounds=bounds; this.fitOptions=config; return this; },
         flyTo(center, zoom) { operations.flyTo++; this.center=ll(center); const changed=this.zoom!==zoom; this.zoom=zoom; if(changed)this.fire('zoomend'); return this; },
         zoomIn() { this.zoom++; this.fire('zoomend'); return this; },
