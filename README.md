@@ -49,6 +49,7 @@ The site has no ChatGPT Sites runtime dependency. Static files are served by Ver
 | `web/cameras.js` | Camera source catalog, selected collection, and diagnostic candidates |
 | `web/map-basemap.js`, `web/map-style-dark.json` | Detailed dark map and Canvas compatibility renderer |
 | `web/map-geography.js` | Country-outline fallback |
+| `web/social/` | Social preview PNG and editable vector source |
 | `web/vendor/` | Pinned libraries, fonts, licenses, and provenance |
 | `api/hls.js` | Vercel function entry point |
 | `server/` | Shared catalog loading and request adapter |
@@ -62,6 +63,10 @@ The site has no ChatGPT Sites runtime dependency. Static files are served by Ver
 The basemap uses [OpenFreeMap](https://openfreemap.org/) vector tiles based on OpenStreetMap, with roads, railway, building footprints, parks, waterways, and geographic labels. MapLibre GL is the primary renderer; a Canvas2D renderer supports browsers without working graphics acceleration. If both detailed renderers fail, the map shows the outline fallback and a short status message.
 
 Interface text and available map labels are English. The English camera catalog is a separate presentation layer so original IDs, provider URLs, coordinates, and evidence stay intact. Provider-controlled footage and embedded official players can contain Korean text. Search accepts original Korean place names as well as English labels.
+
+### Social previews
+
+Open Graph and X card metadata are included directly in `web/index.html`, so link crawlers do not need to run JavaScript. Both use the public 1200 × 630 PNG in `web/social/`; its editable SVG source is stored beside it. When replacing the image, give it a new versioned filename and update both image tags. Keep the metadata and image copy aligned with the selected camera collection.
 
 ### Video behavior
 
