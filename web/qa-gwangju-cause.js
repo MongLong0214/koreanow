@@ -1,0 +1,53 @@
+(() => {
+  'use strict';
+  const $=id=>document.getElementById(id);
+  const ids=['gwangju-cctv000001','gwangju-cctv000017','gwangju-cctv000003'];
+  const cameras=ids.map(id=>window.KOREA_CAMERAS.find(c=>c.id===id));
+  if(cameras.some(c=>!c)){ $('status').textContent='qa-candidates=1 카탈로그가 필요합니다'; return; }
+  for(const c of cameras)$('source').add(new Option(c.id+' · '+c.name,c.id));
+  const run={schemaVersion:1,purpose:'local_configuration_diagnostic_not_release_evidence',origin:location.origin,startedAt:null,endedAt:null,hlsVersion:Hls.version,appSha256:null,attempts:[],plans:[]};
+  let busy=false,stopRequested=false,finishActive=null;
+  const sha=async bytes=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('');
+  const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+  function buttons(){ $('single').disabled=$('batch').disabled=busy;$('stop').disabled=!busy;$('download').disabled=!run.attempts.length; }
+  function render(){ $('rows').replaceChildren(...run.attempts.map(a=>{const tr=document.createElement('tr');for(const text of [a.name+' / '+a.mode,a.firstDecodedFrameMs===null?'—':(a.firstDecodedFrameMs/1000).toFixed(3)+'s',a.naturalProgressSeconds.toFixed(3)+'s',String(a.errors.length),(a.maxFrameSilenceMs/1000).toFixed(3)+'s']){const td=document.createElement('td');td.textContent=text;tr.append(td);}return tr;})); }
+  async function measure(id,mode){
+    const c=cameras.find(c=>c.id===id),video=document.createElement('video');video.controls=true;video.muted=true;video.playsInline=true;video.setAttribute('playsinline','');video.preload=mode==='source-check'?'metadata':'auto';video.autoplay=mode==='app';$('mount').replaceChildren(video);
+    const opts={maxBufferLength:10,maxMaxBufferLength:20,backBufferLength:0,capLevelToPlayerSize:true,progressive:true};
+    const a={id:c.id,name:c.name,mode,streamUrl:c.streamUrl,sourceUrl:c.sourceUrl,startedAt:new Date().toISOString(),endedAt:null,sessionLimitSeconds:30,config:opts,videoAutoplay:video.autoplay,preload:video.preload,firstDecodedFrameMs:null,firstPlayableSampleMs:null,playRequestedAtMs:null,firstFrameMetadata:null,naturalProgressSeconds:0,maxFrameSilenceMs:0,maxTimelineFreezeMs:0,maxSampleGapMs:0,timelineJumps:[],samples:[],frameCallbacks:[],events:[],errors:[],preflight:null,captures:[],cleanup:null,endReason:null};
+    const start=performance.now();let player,interval,capTimer,rafId,finished=false,requestedPlay=false,previous=null,stallStart=null,lastFrameAt=null,resolveDone,firstCapture=false;
+    const controller=new AbortController();const done=new Promise(resolve=>resolveDone=resolve);const elapsed=()=>performance.now()-start;
+    function ranges(){const r=[];for(let i=0;i<video.buffered.length;i++)r.push([video.buffered.start(i),video.buffered.end(i)]);return r;}
+    function forward(){for(let i=0;i<video.buffered.length;i++)if(video.currentTime>=video.buffered.start(i)-.05&&video.currentTime<=video.buffered.end(i))return Math.max(0,video.buffered.end(i)-video.currentTime);return 0;}
+    function point(){const q=video.getVideoPlaybackQuality();return {elapsedMs:elapsed(),currentTime:video.currentTime,readyState:video.readyState,networkState:video.networkState,width:video.videoWidth,height:video.videoHeight,paused:video.paused,ended:video.ended,visibility:document.visibilityState,frameCallbackCount:a.frameCallbacks.length,totalVideoFrames:q.totalVideoFrames,droppedVideoFrames:q.droppedVideoFrames,buffered:ranges(),forwardBuffer:forward(),mediaError:video.error?.code??null};}
+    function log(event,extra={}){const p=point();a.events.push({event,...p,...extra});}
+    function playable(s){return s.width>0&&s.height>0&&s.readyState>=2&&!s.paused&&!s.ended;}
+    async function capture(phase){if(video.readyState<2||!video.videoWidth)return;try{const canvas=document.createElement('canvas');canvas.width=320;canvas.height=180;const ctx=canvas.getContext('2d');ctx.drawImage(video,0,0,320,180);a.captures.push({phase,elapsedMs:elapsed(),dataUrl:canvas.toDataURL('image/jpeg',.7),sha256:await sha(ctx.getImageData(0,0,320,180).data)});}catch(e){a.captures.push({phase,error:e.name});}}
+    function play(){if(requestedPlay||finished)return;requestedPlay=true;a.playRequestedAtMs=elapsed();log('play-requested');video.play().catch(e=>{if(!finished)log('play-rejected',{message:e.name+': '+e.message});});}
+    async function finish(reason){if(finished)return;finished=true;a.endReason=reason;clearInterval(interval);clearTimeout(capTimer);controller.abort();if(rafId!==undefined)video.cancelVideoFrameCallback(rafId);const captureJob=capture('end');player?.destroy();video.pause();video.removeAttribute('src');video.load();await captureJob;a.cleanup={paused:video.paused,srcRemoved:!video.hasAttribute('src'),playerDestroyed:!player||player.media===null};a.endedAt=new Date().toISOString();a.observedDurationMs=elapsed();run.attempts.push(a);render();$('details').textContent=JSON.stringify({id,mode,endReason:reason,firstDecodedFrameMs:a.firstDecodedFrameMs,naturalProgressSeconds:a.naturalProgressSeconds,maxFrameSilenceMs:a.maxFrameSilenceMs,errors:a.errors,preflight:a.preflight,cleanup:a.cleanup},null,2);finishActive=null;resolveDone();}
+    finishActive=()=>finish('operator_stop');capTimer=setTimeout(()=>finish('30_second_connection_limit'),30000);
+    if(video.requestVideoFrameCallback){const callback=(_now,m)=>{if(finished)return;const t=elapsed();if(a.firstDecodedFrameMs===null){a.firstDecodedFrameMs=t;a.firstFrameMetadata={mediaTime:m.mediaTime,presentedFrames:m.presentedFrames};}lastFrameAt=t;a.frameCallbacks.push([t,m.mediaTime,m.presentedFrames]);rafId=video.requestVideoFrameCallback(callback);};rafId=video.requestVideoFrameCallback(callback);}
+    for(const event of ['loadedmetadata','loadeddata','canplay','playing','waiting','stalled','seeking','seeked','pause','ended','error'])video.addEventListener(event,()=>{if(!finished)log('native-'+event);});
+    interval=setInterval(()=>{if(finished)return;const s=point();a.samples.push(s);if(s.visibility!=='visible'){finish('hidden_observation');return;}if(a.firstPlayableSampleMs===null&&playable(s))a.firstPlayableSampleMs=s.elapsedMs;
+      if(previous){const dt=(s.elapsedMs-previous.elapsedMs)/1000,delta=s.currentTime-previous.currentTime;a.maxSampleGapMs=Math.max(a.maxSampleGapMs,dt*1000);if(playable(s)&&playable(previous)&&delta>0&&delta<=Math.min(dt*1.5+.25,dt+1)){a.naturalProgressSeconds+=Math.min(delta,dt);stallStart=null;}else if(a.firstDecodedFrameMs!==null&&delta<=.001&&!s.ended){if(stallStart===null)stallStart=previous.elapsedMs;a.maxTimelineFreezeMs=Math.max(a.maxTimelineFreezeMs,s.elapsedMs-stallStart);}else{if(delta<0||delta>Math.min(dt*1.5+.25,dt+1))a.timelineJumps.push({elapsedMs:s.elapsedMs,delta,wallSeconds:dt});stallStart=null;}}
+      if(lastFrameAt!==null)a.maxFrameSilenceMs=Math.max(a.maxFrameSilenceMs,s.elapsedMs-lastFrameAt);if(!firstCapture&&a.firstDecodedFrameMs!==null&&s.elapsedMs-a.firstDecodedFrameMs>=5000){firstCapture=true;capture('early');}
+      if(!requestedPlay&&((mode==='hold2'&&s.forwardBuffer>=2)||(mode==='hold3'&&s.forwardBuffer>=3)))play();previous=s;$('status').textContent=c.name+' / '+mode+' · '+(s.elapsedMs/1000).toFixed(1)+'초 · 실제진행 '+a.naturalProgressSeconds.toFixed(2)+' · 버퍼 '+s.forwardBuffer.toFixed(2)+' · 오류 '+a.errors.length;
+    },250);
+    if(mode==='source-check'){
+      const before=elapsed();try{const response=await fetch(c.streamUrl,{credentials:'omit',cache:'no-store',signal:controller.signal});const text=await response.text();a.preflight={startedMs:before,endedMs:elapsed(),status:response.status,isManifest:text.startsWith('#EXTM3U'),bytes:text.length};}catch(e){a.preflight={startedMs:before,endedMs:elapsed(),error:e.name+': '+e.message};}
+    }
+    if(!finished){
+      player=new Hls(opts);a.resolvedConfig={maxBufferLength:player.config.maxBufferLength,maxMaxBufferLength:player.config.maxMaxBufferLength,backBufferLength:player.config.backBufferLength,capLevelToPlayerSize:player.config.capLevelToPlayerSize,progressive:player.config.progressive,liveSyncDurationCount:player.config.liveSyncDurationCount,startPosition:player.config.startPosition};
+      for(const name of ['MANIFEST_LOADING','MANIFEST_LOADED','MANIFEST_PARSED','LEVEL_LOADING','LEVEL_LOADED','FRAG_LOADING','FRAG_LOADED','FRAG_BUFFERED','BUFFER_APPENDED'])player.on(Hls.Events[name],(_e,d)=>{if(finished)return;log(name,{sn:d.frag?.sn??null,fragDuration:d.frag?.duration??null,stats:d.stats?{loaded:d.stats.loaded,total:d.stats.total,loading:d.stats.loading}:null,playlist:d.details?{startSN:d.details.startSN,endSN:d.details.endSN,targetduration:d.details.targetduration,live:d.details.live,totalduration:d.details.totalduration}:null});});
+      player.on(Hls.Events.MANIFEST_PARSED,()=>{if(mode==='app'||mode==='source-check')play();});
+      player.on(Hls.Events.ERROR,(_e,d)=>{if(finished)return;const e={elapsedMs:elapsed(),type:d.type,details:d.details,fatal:d.fatal===true,frameCallbackCount:a.frameCallbacks.length,firstDecodedFrameMs:a.firstDecodedFrameMs,currentTime:video.currentTime,readyState:video.readyState,forwardBuffer:forward(),status:d.response?.code??d.networkDetails?.status??null,reason:d.reason??d.error?.message??null};a.errors.push(e);log('hls-error',e);if(d.fatal)finish('fatal_hls');});
+      player.loadSource(c.streamUrl);player.attachMedia(video);
+    }
+    await done;
+  }
+  async function execute(plan){if(busy)return;busy=true;stopRequested=false;run.startedAt??=new Date().toISOString();run.plans.push({startedAt:new Date().toISOString(),plan});buttons();try{const b=await(await fetch('/app.js',{cache:'no-store'})).arrayBuffer();run.appSha256=await sha(b);for(const p of plan){if(stopRequested)break;await measure(p.id,p.mode);await sleep(200);}}catch(e){$('status').textContent=e.stack||e.message;}finally{busy=false;run.endedAt=new Date().toISOString();$('status').textContent='완료 · '+run.attempts.length+'개 연결 · 출시 판정 아님';buttons();}}
+  $('single').onclick=()=>execute([{id:$('source').value,mode:$('mode').value}]);
+  $('batch').onclick=()=>execute([{id:ids[0],mode:'app'},{id:ids[0],mode:'source-check'},{id:ids[0],mode:'hold2'},{id:ids[0],mode:'app'},{id:ids[1],mode:'app'},{id:ids[1],mode:'hold2'},{id:ids[2],mode:'app'},{id:ids[2],mode:'hold2'}]);
+  $('stop').onclick=()=>{stopRequested=true;finishActive?.();};
+  $('download').onclick=()=>{const blob=new Blob([JSON.stringify(run,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='gwangju-local-buffer-cause.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
+})();

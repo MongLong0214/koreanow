@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>하천 초기 버퍼 비교 — 로컬 진단</title>
+<style>body{margin:16px;background:#111;color:#eee;font:15px system-ui}header{display:flex;gap:12px;align-items:center;flex-wrap:wrap}h1{font-size:19px;margin:0}button,select{font:inherit;padding:9px}video{display:block;width:min(1100px,100%);height:360px;object-fit:contain;background:#000;margin:12px 0}pre{max-height:260px;overflow:auto;white-space:pre-wrap;font-size:12px}table{border-collapse:collapse;width:100%}td,th{padding:5px 10px;border-bottom:1px solid #333;text-align:left}p{margin:8px 0}#status{font-variant-numeric:tabular-nums}</style>
+<header><h1>하천 초기 버퍼 비교</h1><select id="source" aria-label="원본"></select><select id="mode" aria-label="설정"><option value="app">현재 앱 · 초기 목록1개</option><option value="manifest3">초기 목록3개</option><option value="manifest4">초기 목록4개</option></select><button id="single">한 연결 측정</button><button id="batch">6개 비교 시작</button><button id="stop" disabled>중지</button><button id="download" disabled>JSON 다운로드</button></header>
+<p>출시 합격 증거와 별개인 로컬 원인 검사. 연결 시작부터 40초 제한·단일 영상·원본 그대로·강제 seek 없음.</p>
+<p id="plan">신기교1 → 강동교4 → 신기교3 → 강동교1 → 신기교4 → 강동교3. 동일 원본·40초 연결 제한·사전 예열 요청 없음.</p>
+<strong id="status">대기</strong><div id="mount"></div><table><thead><tr><th>카메라 / 조건</th><th>첫 콜백</th><th>자연 진행</th><th>오류</th><th>최대 프레임 공백</th></tr></thead><tbody id="rows"></tbody></table><pre id="details"></pre>
+<script src="/vendor/hls.min.js"></script><script src="/cameras.js"></script><script src="/qa-river-cause.js"></script></html>

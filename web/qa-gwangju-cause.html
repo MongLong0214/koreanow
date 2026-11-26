@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>광주 초기 버퍼 비교 — 로컬 진단</title>
+<style>body{margin:16px;background:#111;color:#eee;font:15px system-ui}header{display:flex;gap:12px;align-items:center;flex-wrap:wrap}h1{font-size:19px;margin:0}button,select{font:inherit;padding:9px}video{display:block;width:min(1100px,100%);height:360px;object-fit:contain;background:#000;margin:12px 0}pre{max-height:260px;overflow:auto;white-space:pre-wrap;font-size:12px}table{border-collapse:collapse;width:100%}td,th{padding:5px 10px;border-bottom:1px solid #333;text-align:left}p{margin:8px 0}#status{font-variant-numeric:tabular-nums}</style>
+<header><h1>광주 초기 버퍼 비교</h1><select id="source" aria-label="원본"></select><select id="mode" aria-label="설정"><option value="app">앱 설정 그대로</option><option value="source-check">source-check 선행 요청·수동 시작</option><option value="hold2">자동재생 끔·전방 버퍼 2초 대기</option><option value="hold3">자동재생 끔·전방 버퍼 3초 대기</option></select><button id="single">한 연결 측정</button><button id="batch">8개 비교 시작</button><button id="stop" disabled>중지</button><button id="download" disabled>JSON 다운로드</button></header>
+<p>출시 합격 증거와 별개인 로컬 원인 검사. 연결 시작부터 30초 제한·단일 영상·원본 그대로·강제 seek 없음.</p>
+<p id="plan">백운광장: 앱 → source-check → 2초 대기 → 앱 / 중외공원: 앱 → 2초 대기 / 조대: 앱 → 2초 대기</p>
+<strong id="status">대기</strong><div id="mount"></div><table><thead><tr><th>카메라 / 조건</th><th>첫 콜백</th><th>자연 진행</th><th>오류</th><th>최대 프레임 공백</th></tr></thead><tbody id="rows"></tbody></table><pre id="details"></pre>
+<script src="/vendor/hls.min.js"></script><script src="/cameras.js"></script><script src="/qa-gwangju-cause.js"></script></html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>지금, 한국 — 운영 영상 검증</title>
+  <script src="cameras.js" defer></script>
+  <script src="playback-check.js" defer></script>
+  <style>
+    :root{color-scheme:dark;font:14px/1.45 system-ui,sans-serif;background:#101819;color:#e6eee9}*{box-sizing:border-box}body{margin:0;height:100dvh;display:flex;flex-direction:column;gap:9px;padding:12px 16px;overflow:hidden}h1{font-size:19px;margin:0}p{margin:3px 0;color:#b9c8c0}header{flex:none}a{color:#c4e693}button,select{font:inherit;color:inherit;background:#24332e;border:1px solid #516256;border-radius:5px;padding:6px 10px}button{cursor:pointer}button:disabled{opacity:.45;cursor:default}button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #d1ef9a;outline-offset:2px}#start{background:#c2df8d;color:#182015;border-color:#c2df8d}details{flex:none;background:#182321;border:1px solid #35443e;border-radius:6px;padding:6px 10px}summary{cursor:pointer;font-weight:600}.filters{display:flex;gap:10px;flex-wrap:wrap;padding-top:8px;align-items:end}label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:#c8d4cd}select{max-width:330px;min-height:32px}.actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap;flex:none}.actions span{font-size:12px;color:#c7d1c8}#message{margin-left:auto;max-width:48%;text-align:right}#message[data-error=true]{color:#ffc7ba}#stage{display:grid;grid-template-columns:repeat(var(--columns,1),minmax(0,1fr));gap:10px;flex:1;min-height:280px}.slot{display:flex;flex-direction:column;min-width:0;min-height:0;border:1px solid #46554b;border-radius:7px;overflow:hidden;background:#1a2621}.slot-label{flex:none;min-height:36px;padding:5px 9px;font-size:12px}.slot-label strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.slot-label span{color:#b9cba7}.slot iframe{display:block;flex:1;width:100%;min-height:0;border:0;background:#111b18}.slot-empty{padding:18px;color:#a6b9ae}.results{flex:0 0 min(25vh,210px);min-height:115px;overflow:auto;border:1px solid #3a4c40;border-radius:6px}table{border-collapse:collapse;width:100%;font-size:12px}th,td{padding:7px 9px;border-bottom:1px solid #304139;vertical-align:top;text-align:left}th{position:sticky;top:0;background:#203026;z-index:1}td small{display:block;color:#a6b6aa;overflow-wrap:anywhere}.status{white-space:nowrap}.status[data-state=pass]{color:#c1e595}.status[data-state=fail]{color:#ffb7a6}.thumbs{display:flex;gap:4px;min-height:32px}.thumbs img{width:80px;height:45px;object-fit:contain;background:#060a08;border:1px solid #62705b}.thumbs a{display:block}.thumbs span{max-width:180px;font-size:11px;color:#c9bfa6}.review{min-width:130px;max-width:170px;font-size:11px;padding:4px}.progress{font-variant-numeric:tabular-nums}#storage-note{font-size:11px;color:#b8c4b9;flex:none}#storage-note[data-error=true]{color:#ffc7ba}[hidden]{display:none!important}@media(max-width:700px){body{padding:9px;gap:6px}header p{font-size:12px}.filters{gap:6px}select{max-width:270px}.actions button{font-size:12px;padding:5px 7px}#message{max-width:none;margin:0;text-align:left;flex-basis:100%}.results{flex-basis:140px}th,td{padding:5px}.optional{display:none}}@media(max-height:650px){header p{display:none}.results{flex-basis:115px;min-height:90px}#storage-note{font-size:10px}body{gap:6px}}
+    .id-list-label{margin-top:8px}#explicit-ids{width:100%;min-height:52px;max-height:120px;resize:vertical;font:12px/1.4 ui-monospace,monospace;color:inherit;background:#24332e;border:1px solid #516256;border-radius:5px;padding:6px 10px}#explicit-ids:focus-visible{outline:3px solid #d1ef9a;outline-offset:2px}#explicit-ids[aria-invalid=true]{border-color:#ffc7ba}#selection-note{font-size:12px}
+  </style>
+</head>
+<body>
+  <header><h1>실제 앱의 운영 영상 검증</h1><p>카메라마다 두 독립 연결 · 1회차 전체 완료 후 2회차 · 500ms 원시 표본 · 화면 검토 후 최종 통과</p></header>
+  <details id="settings" open>
+    <summary>검증 범위와 기준 <span id="catalog-count"></span></summary>
+    <div class="filters">
+      <label>제공 방식<select id="kind"><option value="hls">현장 영상 HLS</option><option value="all">모든 유형</option><option value="iframe">공식 CCTV iframe</option><option value="youtube">YouTube</option></select></label>
+      <label>시작 ID<select id="start-id"></select></label>
+      <label>끝 ID<select id="end-id"></select></label>
+      <label>동시 화면 수<select id="concurrency"><option>1</option><option>2</option><option selected>3</option></select></label>
+    </div>
+    <label class="id-list-label">카메라 ID 목록 (선택)<textarea id="explicit-ids" rows="2" spellcheck="false" autocapitalize="none" aria-describedby="selection-note" placeholder="카메라 ID를 줄바꿈 또는 쉼표로 구분해 입력"></textarea></label>
+    <p id="selection-note">비워 두면 시작 ID부터 끝 ID까지 검사합니다.</p>
+    <p style="font-size:12px">시작 10초 이내, 일반 25초·하이원 20초·창원 17초·용평 12초 실제 진행. 창원·용평은 정상 제한 종료까지 관측합니다. 2초 정지·3초 버퍼링·네트워크/미디어 오류·10% 초과 프레임 손실은 미통과. 교차 출처 영상은 수동 검증이 필요합니다.</p>
+  </details>
+  <div class="actions">
+    <button id="start">검증 시작</button><button id="resume" hidden>저장 지점 이어서</button><button id="stop" disabled>중지</button><button id="download" disabled>JSON 다운로드</button>
+    <span id="progress" class="progress">대기 중</span><span id="message" role="status" aria-live="polite"></span>
+  </div>
+  <section id="stage" aria-label="검증 중인 실제 앱 화면"><div class="slot"><div class="slot-empty">검증 시작을 누르면 이 영역에 실제 앱을 엽니다.</div></div></section>
+  <section class="results" aria-label="카메라별 검사 기록">
+    <table><thead><tr><th>카메라</th><th>1회차</th><th>2회차</th><th class="optional">실제 캡처: 초반 / 마지막</th><th>화면 검토</th><th>최종 판정</th></tr></thead><tbody id="rows"></tbody></table>
+  </section>
+  <div id="storage-note">시작 전에는 영상을 연결하지 않습니다. 탭을 숨기거나 영상이 화면 밖으로 나가면 검사를 중단합니다.</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "koreanow",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "node --use-env-proxy scripts/dev.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "node --test qa/*.test.cjs",
+    "check": "npm run build && npm test"
+  }
+}

@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Muju Webcam</title>
+
+</head>
+<style>body{margin:0;}</style>
+<body>
+  <link href="/comm/Js/video-js.css" rel="stylesheet">
+  <script src="/comm/Js/jquery-1.12.4.min.js"></script>
+  
+
+<video id=muju-video autoplay preload="auto" width=810 height=500 class="video-js vjs-default-skin" controls>
+  <source
+     src="http://muju.cache.cdn.cloudn.co.kr/mujuresort/_definst_/cam11.stream/playlist.m3u8?e=REDACTED_PUBLIC_EPHEMERAL_VALUE&h=REDACTED_PUBLIC_EPHEMERAL_VALUE"
+     type="application/x-mpegURL">
+</video>
+
+<script src="/comm/Js/video.js"></script>
+<script src="/comm/Js/videojs-flash.js"></script>
+<script src="/comm/Js/videojs-contrib-hls.js"></script>
+
+
+<script>
+	
+	var player = videojs('muju-video');
+	player.ready(function() {
+        setTimeout(function() {
+        player.autoplay('muted');
+        player.fluid('true')
+        }, 500);
+    });
+	
+</script>
+
+<!-- 30초 후 자동 종료 스크립트 생성 -->
+<script type="text/javascript">
+    var time = 30000;
+
+    var x = setInterval(function () {
+        time = time - 1000;
+        if (time < 0) {
+            player.pause();
+            player.src('');             
+        }
+
+
+    }, 1000);
+</script>
+
+
+
+
+
+
+</body>
+</html>

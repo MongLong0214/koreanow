@@ -1,0 +1,711 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-26T08:08:56.243Z",
+  "deploymentId": "dpl_5jAHvJy2TSZrdEad8qXeE5m2zDEX",
+  "origin": "https://koreanow.site",
+  "scope": "Bounded production HTTP smoke of four existing provider routes and rejection cases, with separately attributed browser playback observations. This is not a new audit of the 400-camera catalog.",
+  "timings": "Milliseconds from this QA client through its configured HTTP proxy; header and first-body-byte observations include network latency and possible function cold starts.",
+  "safety": "No provider ephemeral tokens, full manifests, external redirect paths, or media bodies are retained. Segment requests stop after their first validated TS prefix.",
+  "providers": [
+    {
+      "cameraId": "paju-35",
+      "steps": [
+        {
+          "path": "/api/hls/paju-35/index.m3u8",
+          "method": "GET",
+          "requestedAt": "2026-11-26T08:08:56.246Z",
+          "status": 200,
+          "headersMs": 7152,
+          "contentType": "application/vnd.apple.mpegurl",
+          "cacheControl": "no-store",
+          "contentLength": "184",
+          "vercelRequestId": "cle1::icn1::mb79p-1795680542952-ef05e2e9197e",
+          "firstByteMs": 7153,
+          "reachedEOF": true,
+          "bodyBytesObserved": 184,
+          "manifest": {
+            "type": "master",
+            "mediaUriCount": 1,
+            "everyMediaUriLocal": true
+          }
+        },
+        {
+          "path": "/api/hls/paju-35/resource",
+          "method": "GET",
+          "requestedAt": "2026-11-26T08:09:03.407Z",
+          "status": 200,
+          "headersMs": 5018,
+          "contentType": "application/vnd.apple.mpegurl",
+          "cacheControl": "no-store",
+          "contentLength": "411",
+          "vercelRequestId": "cle1::icn1::jllst-1795680548066-17a9577f7bcd",
+          "firstByteMs": 5019,
+          "reachedEOF": true,
+          "bodyBytesObserved": 411,
+          "manifest": {
+            "type": "media",
+            "mediaUriCount": 3,
+            "everyMediaUriLocal": true
+          }
+        },
+        {
+          "path": "/api/hls/paju-35/resource",
+          "method": "GET",
+          "requestedAt": "2026-11-26T08:09:08.426Z",
+          "status": 200,
+          "headersMs": 5320,
+          "contentType": "video/mp2t",
+          "cacheControl": "no-store",
+          "contentLength": "334452",
+          "vercelRequestId": "cle1::icn1::249pj-1795680553379-c1aa932628d1",
+          "firstByteMs": 5362,
+          "bodyBytesObserved": 8192,
+          "cancelledAfterPrefix": true,
+          "tsSyncAt0_188_376": [
+            true,
+            true,
+            true
+          ],
+          "validTransportStreamPrefix": true
+        }
+      ],
+      "passed": true,
+      "result": "Manifest chain and progressive MPEG-TS prefix verified; request cancelled after prefix."
+    },
+    {
+      "cameraId": "cheongju-11",
+      "steps": [
+        {
+          "path": "/api/hls/cheongju-11/index.m3u8",
+          "method": "GET",
+          "requestedAt": "2026-11-26T08:09:13.791Z",
+          "status": 200,
+          "headersMs": 5331,
+          "contentType": "application/vnd.apple.mpegurl",
+          "cacheControl": "no-store",
+          "contentLength": "115",
+          "vercelRequestId": "cle1::icn1::hmmmg-1795680558556-9a2e61a8a32e",
+          "firstByteMs": 5331,
+          "reachedEOF": true,
+          "bodyBytesObserved": 115,
+          "manifest": {
+            "type": "master",
+            "mediaUriCount": 1,
+            "everyMediaUriLocal": true
+          }
+        },
+        {
+          "path": "/api/hls/cheongju-11/resource",
+          "method": "GET",
+          "requestedAt": "2026-11-26T08:09:19.123Z",
+          "status": 200,
+          "headersMs": 5080,
+          "contentType": "application/vnd.apple.mpegurl",
+          "cacheControl": "no-store",
+          "contentLength": "990",
+          "vercelRequestId": "cle1::icn1::gbgh8-1795680563863-1b820807df72",
+          "firstByteMs": 5080,
+          "reachedEOF": true,
+          "bodyBytesObserved": 990,
+          "manifest": {
+            "type": "media",
+            "mediaUriCount": 10,
+            "everyMediaUriLocal": true
+          }
+        },
+        {
+          "path": "/api/hls/cheongju-11/resource",
+          "method": "GET",
+          "requestedAt": "2026-11-26T08:09:24.204Z",
+          "status": 502,
+          "headersMs": 4937,
+          "contentType": "application/json; charset=utf-8",
+          "cacheControl": "no-store",
+          "contentLength": null,
+          "vercelRequestId": "cle1::icn1::hljdd-1795680568865-6df6c0e6d6ac",
+          "firstByteMs": 4938,
+          "reachedEOF": true,
+          "bodyBytesObserved": 134,
+          "errorCode": "UPSTREAM_STATUS"
+        }
+      ],
+      "passed": true,
+      "result": "Initial oldest segment returned UPSTREAM_STATUS; one fresh manifest chain and penultimate segment then returned a valid progressive MPEG-TS prefix. The initial failure is retained.",
+      "targetedRetry": {
+        "reason": "The first/oldest listed Cheongju segment returned UPSTREAM_STATUS. One fresh manifest chain and a penultimate live-window segment are checked to distinguish an expired segment from broken proxy routing.",
+        "startedAt": "2026-11-26T08:11:16.605Z",
+        "steps": [
+          {
+            "path": "/api/hls/cheongju-11/index.m3u8",
+            "status": 200,
+            "headersMs": 6068,
+            "contentType": "application/vnd.apple.mpegurl",
+            "cacheControl": "no-store",
+            "contentLength": "115",
+            "vercelRequestId": "cle1::icn1::bv56t-1795680682395-6b851f934d3c",
+            "bodyCompleteMs": 6069,
+            "manifest": {
+              "type": "master",
+              "mediaUriCount": 1,
+              "selectedUriIndex": 0,
+              "everyMediaUriLocal": true
+            }
+          },
+          {
+            "path": "/api/hls/cheongju-11/resource",
+            "status": 200,
+            "headersMs": 5895,
+            "contentType": "application/vnd.apple.mpegurl",
+            "cacheControl": "no-store",
+            "contentLength": "990",
+            "vercelRequestId": "cle1::icn1::kbbk9-1795680688298-3bfa77ea2131",
+            "bodyCompleteMs": 5937,
+            "manifest": {
+              "type": "media",
+              "mediaUriCount": 10,
+              "selectedUriIndex": 8,
+              "everyMediaUriLocal": true
+            }
+          },
+          {
+            "path": "/api/hls/cheongju-11/resource",
+            "status": 200,
+            "headersMs": 5056,
+            "contentType": "video/mp2t",
+            "cacheControl": "no-store",
+            "contentLength": "139308",
+            "vercelRequestId": "cle1::icn1::ppppx-1795680693338-4487e1a1496c",
+            "firstByteMs": 5056,
+            "bodyBytesObserved": 10759,
+            "tsSyncAt0_188_376": [
+              true,
+              true,
+              true
+            ],
+            "validTransportStreamPrefix": true,
+            "cancelledAfterPrefix": true
+          }
+        ],
+        "passed": true,
+        "finishedAt": "2026-11-26T08:11:33.674Z"
+      }
+    },
+    {
+      "cameraId": "gits-5253",
+      "steps": [
+        {
+          "path": "/api/hls/gits-5253/index.m3u8",
+          "method": "GET",
+          "requestedAt": "2026-11-26T08:09:29.143Z",
+          "status": 302,
+          "headersMs": 4991,
+          "contentType": null,
+          "cacheControl": "no-store",
+          "contentLength": null,
+          "vercelRequestId": "cle1::icn1::gffmw-1795680573778-d35fe1e22063",
+          "redirect": {
+            "sameOrigin": false,
+            "origin": "https://cctvsec.ktict.co.kr:8082"
+          }
+        }
+      ],
+      "passed": true,
+      "result": "Fresh public resolver returned the expected external media origin. Token-bearing location was neither followed nor retained."
+    },
+    {
+      "cameraId": "yeongsan-110014",
+      "steps": [
+        {
+          "path": "/api/hls/yeongsan-110014/index.m3u8",
+          "method": "GET",
+          "requestedAt": "2026-11-26T08:09:34.136Z",
+          "status": 302,
+          "headersMs": 5227,
+          "contentType": null,
+          "cacheControl": "no-store",
+          "contentLength": null,
+          "vercelRequestId": "cle1::icn1::czltd-1795680579031-0d23bc9a70d1",
+          "redirect": {
+            "sameOrigin": true,
+            "origin": "https://koreanow.site",
+            "path": "/api/hls/yeongsan-110014/resource"
+          }
+        },
+        {
+          "path": "/api/hls/yeongsan-110014/resource",
+          "method": "GET",
+          "requestedAt": "2026-11-26T08:09:39.364Z",
+          "status": 200,
+          "headersMs": 5240,
+          "contentType": "application/vnd.apple.mpegurl",
+          "cacheControl": "no-store",
+          "contentLength": "626",
+          "vercelRequestId": "cle1::icn1::kk4nb-1795680584308-d8cc2f18ce15",
+          "firstByteMs": 5240,
+          "reachedEOF": true,
+          "bodyBytesObserved": 626,
+          "manifest": {
+            "type": "media",
+            "mediaUriCount": 5,
+            "everyMediaUriLocal": true
+          }
+        },
+        {
+          "path": "/api/hls/yeongsan-110014/resource",
+          "method": "GET",
+          "requestedAt": "2026-11-26T08:09:44.604Z",
+          "status": 200,
+          "headersMs": 4887,
+          "contentType": "video/mp2t",
+          "cacheControl": "no-store",
+          "contentLength": "63168",
+          "vercelRequestId": "cle1::icn1::thhbn-1795680589204-bd6867260c35",
+          "firstByteMs": 4923,
+          "bodyBytesObserved": 8192,
+          "cancelledAfterPrefix": true,
+          "tsSyncAt0_188_376": [
+            true,
+            true,
+            true
+          ],
+          "validTransportStreamPrefix": true
+        }
+      ],
+      "passed": true,
+      "result": "Manifest chain and progressive MPEG-TS prefix verified; request cancelled after prefix."
+    }
+  ],
+  "rejections": [
+    {
+      "label": "Unknown camera",
+      "expectedStatus": 404,
+      "passed": true,
+      "path": "/api/hls/unknown/index.m3u8",
+      "method": "GET",
+      "requestedAt": "2026-11-26T08:09:49.529Z",
+      "status": 404,
+      "headersMs": 4953,
+      "contentType": "application/json; charset=utf-8",
+      "cacheControl": "no-store",
+      "contentLength": null,
+      "vercelRequestId": "cle1::icn1::c8875-1795680594229-71bceea406f2",
+      "firstByteMs": 4955,
+      "reachedEOF": true,
+      "bodyBytesObserved": 133,
+      "errorCode": "UNKNOWN_CAMERA"
+    },
+    {
+      "label": "Index query override",
+      "expectedStatus": 400,
+      "passed": true,
+      "path": "/api/hls/paju-35/index.m3u8",
+      "method": "GET",
+      "requestedAt": "2026-11-26T08:09:54.486Z",
+      "status": 400,
+      "headersMs": 4890,
+      "contentType": "application/json; charset=utf-8",
+      "cacheControl": "no-store",
+      "contentLength": null,
+      "vercelRequestId": "cle1::icn1::pzccm-1795680599155-1144834fe342",
+      "firstByteMs": 4890,
+      "reachedEOF": true,
+      "bodyBytesObserved": 136,
+      "errorCode": "QUERY_NOT_ALLOWED"
+    },
+    {
+      "label": "Unapproved resource path",
+      "expectedStatus": 400,
+      "passed": true,
+      "path": "/api/hls/paju-35/resource",
+      "method": "GET",
+      "requestedAt": "2026-11-26T08:09:59.377Z",
+      "status": 400,
+      "headersMs": 4951,
+      "contentType": "application/json; charset=utf-8",
+      "cacheControl": "no-store",
+      "contentLength": null,
+      "vercelRequestId": "cle1::icn1::wc2tj-1795680604080-08b4a73e6ecd",
+      "firstByteMs": 4952,
+      "reachedEOF": true,
+      "bodyBytesObserved": 135,
+      "errorCode": "INVALID_RESOURCE"
+    },
+    {
+      "label": "POST rejection",
+      "expectedStatus": 405,
+      "passed": true,
+      "path": "/api/hls/paju-35/index.m3u8",
+      "method": "POST",
+      "requestedAt": "2026-11-26T08:10:04.330Z",
+      "status": 405,
+      "headersMs": 4860,
+      "contentType": "application/json; charset=utf-8",
+      "cacheControl": "no-store",
+      "contentLength": null,
+      "vercelRequestId": "cle1::icn1::5fppp-1795680608976-60df5e58a83c",
+      "firstByteMs": 4860,
+      "reachedEOF": true,
+      "bodyBytesObserved": 137,
+      "errorCode": "METHOD_NOT_ALLOWED"
+    },
+    {
+      "label": "HEAD has no body",
+      "expectedStatus": 404,
+      "passed": true,
+      "path": "/api/hls/unknown/index.m3u8",
+      "method": "HEAD",
+      "requestedAt": "2026-11-26T08:10:09.191Z",
+      "status": 404,
+      "headersMs": 5772,
+      "contentType": "application/json; charset=utf-8",
+      "cacheControl": "no-store",
+      "contentLength": null,
+      "vercelRequestId": "cle1::icn1::cm44j-1795680614738-41de8a090542",
+      "bodyBytes": 0
+    }
+  ],
+  "previousAttempts": [
+    {
+      "schemaVersion": 1,
+      "checkedAt": "2026-11-26T07:33:30.244Z",
+      "deploymentId": "dpl_KcujWVhB14fHM6CFoFLtHxAPBC9K",
+      "origin": "https://koreanow.site",
+      "scope": "Low-volume production HTTP smoke of four existing provider routes and rejection cases. This is not a new audit of the 400-camera catalog or a browser playback certification.",
+      "timings": "Milliseconds from this QA client through its configured HTTP proxy; header and first-body-byte observations include network latency and possible function cold starts.",
+      "safety": "No provider ephemeral tokens, full manifests, external redirect paths, or media bodies are retained. Segment requests stop after their first validated TS prefix.",
+      "providers": [
+        {
+          "cameraId": "paju-35",
+          "steps": [
+            {
+              "path": "/api/hls/paju-35/index.m3u8",
+              "method": "GET",
+              "requestedAt": "2026-11-26T07:33:30.246Z",
+              "status": 400,
+              "headersMs": 7977,
+              "contentType": "application/json; charset=utf-8",
+              "cacheControl": "no-store",
+              "contentLength": null,
+              "vercelRequestId": "cle1::icn1::rn2m9-1795678418000-b2c6e1359d0d",
+              "firstByteMs": 7979,
+              "reachedEOF": true,
+              "bodyBytesObserved": 136,
+              "errorCode": "QUERY_NOT_ALLOWED"
+            }
+          ],
+          "passed": false,
+          "result": "Provider did not return the next valid local manifest/resource route."
+        },
+        {
+          "cameraId": "cheongju-11",
+          "steps": [
+            {
+              "path": "/api/hls/cheongju-11/index.m3u8",
+              "method": "GET",
+              "requestedAt": "2026-11-26T07:33:38.231Z",
+              "status": 400,
+              "headersMs": 5260,
+              "contentType": "application/json; charset=utf-8",
+              "cacheControl": "no-store",
+              "contentLength": null,
+              "vercelRequestId": "cle1::icn1::mb79p-1795678423279-60c3426d4a55",
+              "firstByteMs": 5304,
+              "reachedEOF": true,
+              "bodyBytesObserved": 136,
+              "errorCode": "QUERY_NOT_ALLOWED"
+            }
+          ],
+          "passed": false,
+          "result": "Provider did not return the next valid local manifest/resource route."
+        },
+        {
+          "cameraId": "gits-5253",
+          "steps": [
+            {
+              "path": "/api/hls/gits-5253/index.m3u8",
+              "method": "GET",
+              "requestedAt": "2026-11-26T07:33:43.536Z",
+              "status": 400,
+              "headersMs": 5612,
+              "contentType": "application/json; charset=utf-8",
+              "cacheControl": "no-store",
+              "contentLength": null,
+              "vercelRequestId": "cle1::icn1::klvmp-1795678428921-f34db8e4a4d5",
+              "firstByteMs": 5612,
+              "reachedEOF": true,
+              "bodyBytesObserved": 144,
+              "errorCode": "INVALID_PUBLIC_CONNECTION"
+            }
+          ],
+          "passed": false,
+          "result": "Provider did not return the next valid local manifest/resource route."
+        },
+        {
+          "cameraId": "yeongsan-110014",
+          "steps": [
+            {
+              "path": "/api/hls/yeongsan-110014/index.m3u8",
+              "method": "GET",
+              "requestedAt": "2026-11-26T07:33:49.150Z",
+              "status": 400,
+              "headersMs": 5224,
+              "contentType": "application/json; charset=utf-8",
+              "cacheControl": "no-store",
+              "contentLength": null,
+              "vercelRequestId": "cle1::icn1::v99jm-1795678434153-f7e0117125b5",
+              "firstByteMs": 5224,
+              "reachedEOF": true,
+              "bodyBytesObserved": 144,
+              "errorCode": "INVALID_PUBLIC_CONNECTION"
+            }
+          ],
+          "passed": false,
+          "result": "Provider did not return the next valid local manifest/resource route."
+        }
+      ],
+      "rejections": [
+        {
+          "label": "Unknown camera",
+          "expectedStatus": 404,
+          "passed": true,
+          "path": "/api/hls/unknown/index.m3u8",
+          "method": "GET",
+          "requestedAt": "2026-11-26T07:33:54.375Z",
+          "status": 404,
+          "headersMs": 5238,
+          "contentType": "application/json; charset=utf-8",
+          "cacheControl": "no-store",
+          "contentLength": null,
+          "vercelRequestId": "cle1::icn1::pzccm-1795678439346-c1fc651a5914",
+          "firstByteMs": 5241,
+          "reachedEOF": true,
+          "bodyBytesObserved": 133,
+          "errorCode": "UNKNOWN_CAMERA"
+        },
+        {
+          "label": "Index query override",
+          "expectedStatus": 400,
+          "passed": true,
+          "path": "/api/hls/paju-35/index.m3u8",
+          "method": "GET",
+          "requestedAt": "2026-11-26T07:33:59.618Z",
+          "status": 400,
+          "headersMs": 5225,
+          "contentType": "application/json; charset=utf-8",
+          "cacheControl": "no-store",
+          "contentLength": null,
+          "vercelRequestId": "cle1::icn1::m5cp7-1795678444622-be906430aff1",
+          "firstByteMs": 5225,
+          "reachedEOF": true,
+          "bodyBytesObserved": 136,
+          "errorCode": "QUERY_NOT_ALLOWED"
+        },
+        {
+          "label": "Unapproved resource path",
+          "expectedStatus": 400,
+          "passed": true,
+          "path": "/api/hls/paju-35/resource",
+          "method": "GET",
+          "requestedAt": "2026-11-26T07:34:04.846Z",
+          "status": 400,
+          "headersMs": 5412,
+          "contentType": "application/json; charset=utf-8",
+          "cacheControl": "no-store",
+          "contentLength": null,
+          "vercelRequestId": "cle1::icn1::rhlsw-1795678450024-7f16ba684238",
+          "firstByteMs": 5412,
+          "reachedEOF": true,
+          "bodyBytesObserved": 135,
+          "errorCode": "INVALID_RESOURCE"
+        },
+        {
+          "label": "POST rejection",
+          "expectedStatus": 405,
+          "passed": true,
+          "path": "/api/hls/paju-35/index.m3u8",
+          "method": "POST",
+          "requestedAt": "2026-11-26T07:34:10.261Z",
+          "status": 405,
+          "headersMs": 6136,
+          "contentType": "application/json; charset=utf-8",
+          "cacheControl": "no-store",
+          "contentLength": null,
+          "vercelRequestId": "cle1::icn1::mb79p-1795678456035-5ee94aa255f1",
+          "firstByteMs": 6137,
+          "reachedEOF": true,
+          "bodyBytesObserved": 137,
+          "errorCode": "METHOD_NOT_ALLOWED"
+        },
+        {
+          "label": "HEAD has no body",
+          "expectedStatus": 404,
+          "passed": true,
+          "path": "/api/hls/unknown/index.m3u8",
+          "method": "HEAD",
+          "requestedAt": "2026-11-26T07:34:16.408Z",
+          "status": 404,
+          "headersMs": 5119,
+          "contentType": "application/json; charset=utf-8",
+          "cacheControl": "no-store",
+          "contentLength": null,
+          "vercelRequestId": "cle1::icn1::82wvk-1795678461309-7675faccdcd0",
+          "bodyBytes": 0
+        }
+      ],
+      "finishedAt": "2026-11-26T07:34:21.528Z",
+      "summary": {
+        "providerRoutesChecked": 4,
+        "providerRoutesPassed": 0,
+        "tsPrefixesVerified": 0,
+        "rejectionCasesPassed": 5,
+        "rejectionCasesTotal": 5,
+        "all400Retested": false,
+        "browserPlaybackCertified": false
+      },
+      "routingRegression": {
+        "observed": "Clean provider index requests acquired a query from the named Vercel rewrite capture, so the strict relay correctly rejected them before upstream fetch.",
+        "affectedProviders": [
+          "paju-35",
+          "cheongju-11",
+          "gits-5253",
+          "yeongsan-110014"
+        ],
+        "oldRule": {
+          "source": "/api/hls/:path*",
+          "destination": "/api/hls"
+        },
+        "fixedRule": {
+          "src": "^/api/hls/.*$",
+          "dest": "/api/hls"
+        },
+        "queryParametersStripped": false,
+        "relayChanged": false,
+        "localTests": {
+          "passed": 103,
+          "failed": 0
+        },
+        "fixStatus": "Awaiting deployment and repeated production smoke",
+        "reference": "https://vercel.com/docs/project-configuration/vercel-json#route-parameters"
+      }
+    }
+  ],
+  "browserObservations": [
+    {
+      "reportedBy": "Root agent, from its production browser inspection",
+      "deploymentId": "dpl_KcujWVhB14fHM6CFoFLtHxAPBC9K",
+      "map": {
+        "engine": "detailedCanvas",
+        "renderedTiles": 24,
+        "visibleVideoCount": 400
+      },
+      "playback": {
+        "cameraId": "busan-ctv0000040",
+        "movingVideoObserved": true,
+        "videoWidth": 320,
+        "videoHeight": 240,
+        "currentTimeSamples": [
+          9.3519,
+          24.1429
+        ],
+        "paused": false,
+        "sourceKind": "Direct HLS; does not exercise the same-origin proxy route"
+      }
+    },
+    {
+      "reportedBy": "Root agent, from its production browser inspection",
+      "deploymentId": "dpl_5jAHvJy2TSZrdEad8qXeE5m2zDEX",
+      "url": "https://koreanow.site/#cam=paju-35",
+      "map": {
+        "engine": "detailedCanvas",
+        "detailedMapVisible": true,
+        "visibleVideoCount": 400
+      },
+      "playback": {
+        "cameraId": "paju-35",
+        "displayName": "Geomsan Junction",
+        "status": "Live camera playing",
+        "movingVideoObserved": true,
+        "roadTrafficVisible": true,
+        "videoWidth": 320,
+        "videoHeight": 240,
+        "currentTimeSamples": [
+          2.5156,
+          6.9483
+        ],
+        "paused": false,
+        "readyState": 4,
+        "sourceKind": "Proxied HLS; exercises the corrected same-origin API route",
+        "viewingLimit": {
+          "seconds": 30,
+          "stoppedAtLimitObserved": true,
+          "continueWatchingReconnected": true,
+          "behavior": "The existing 30-second camera viewing limit remains in place. Continue watching successfully started a new connection."
+        }
+      }
+    }
+  ],
+  "finishedAt": "2026-11-26T08:11:33.674Z",
+  "summary": {
+    "providerRoutesChecked": 4,
+    "providerRoutesPassed": 4,
+    "tsPrefixesVerified": 3,
+    "rejectionCasesPassed": 5,
+    "rejectionCasesTotal": 5,
+    "all400Retested": false,
+    "httpSmokeAloneCertifiesBrowserPlayback": false,
+    "browserPlaybackObservationsRetained": 2,
+    "providerRoutesPassedWithoutRetry": 3,
+    "targetedRetries": [
+      "cheongju-11"
+    ],
+    "staticChecksPassed": 2,
+    "currentDeploymentBrowserPlaybackObserved": true,
+    "currentDeploymentBrowserCameraId": "paju-35"
+  },
+  "staticChecks": [
+    {
+      "path": "/",
+      "method": "HEAD",
+      "status": 200,
+      "headersMs": 5848,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, max-age=0, must-revalidate",
+      "nosniff": "nosniff",
+      "referrerPolicy": "strict-origin-when-cross-origin",
+      "passed": true
+    },
+    {
+      "path": "/vendor/hls.min.js",
+      "method": "HEAD",
+      "status": 200,
+      "headersMs": 5848,
+      "contentType": "application/javascript; charset=utf-8",
+      "cacheControl": "public, max-age=3600",
+      "nosniff": "nosniff",
+      "referrerPolicy": "strict-origin-when-cross-origin",
+      "passed": true
+    }
+  ],
+  "routingRegressionResolution": {
+    "failedDeploymentId": "dpl_KcujWVhB14fHM6CFoFLtHxAPBC9K",
+    "fixedDeploymentId": "dpl_5jAHvJy2TSZrdEad8qXeE5m2zDEX",
+    "status": "Verified on production",
+    "proof": "All four provider index routes now reach their intended public connection flow; three relay manifest/resource chains return valid progressive MPEG-TS prefixes. Original caller query rejections remain intact.",
+    "queryParametersStripped": false,
+    "relayChanged": false,
+    "localTests": {
+      "passed": 103,
+      "failed": 0
+    }
+  },
+  "verificationLimits": [
+    "Only four proxied provider camera routes were checked, not the complete 400-camera catalog.",
+    "MPEG-TS prefix validation verifies HTTP media transport, not decoded or continuously moving browser playback.",
+    "The GITS check ended at the expected fresh external redirect; its ephemeral URL was not followed or retained.",
+    "Cheongju initially rejected the oldest playlist segment with UPSTREAM_STATUS. One fresh playlist and penultimate segment succeeded. Live-window expiry is an inference, not a proven upstream error cause.",
+    "Browser observations cover two individual cameras on the specified deployments: direct Busan HLS on the initial deployment and proxied Paju HLS on the corrected deployment. They do not certify all 400 sources.",
+    "Reported timings include the QA client network proxy and are not a general user latency benchmark.",
+    "The observed Paju camera retains its 30-second viewing limit. Continue watching reconnected successfully; continuous unlimited playback is not claimed."
+  ],
+  "reportFinalizedAt": "2026-11-26T08:16:21.306076+00:00"
+}

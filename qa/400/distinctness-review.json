@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 1,
+  "pairs": [
+    {
+      "pairId": "b59d595db5a3f8",
+      "cameraIds": [
+        "busan-ctv0000026",
+        "busan-ctv0000098"
+      ],
+      "status": "different_scene",
+      "reason": "Upper scene is a divided road passing under an overbridge; lower scene is a long bridge over water with a merging side ramp and different rail geometry. All four captures per camera reviewed.",
+      "frameSha256": [
+        "0724416670ba6ae81ebec10f0b44930242837a1a9e5737b6e1ef9b0b88926be9",
+        "1e55137be4dd5198ee84baf1174961513fe9202cb24301173fa32077b4cb8d7e",
+        "7f4dd240b0dc78a6bf72f8370718d455026d3d2e8e9a2a567174dd4f9356958e",
+        "8f254eb8defe86c54edcc1ab670608c50d3482ec7668f0558a0b080395f7d257",
+        "99307c64e5743c5baa4a8f08e5844c553e0871c2e5bc5388aade35469ebcad7f",
+        "ca45d680b08be6220fb79aa3bfac10e1dbec0860df7a466f264e9412ea69397e",
+        "ccf7526224f98402f3f0b48d7ff4c9615e35634fa920590454d08b8a37389754",
+        "dc937884c992a78f8b5c8da4010774fb1e44233e1b48c1864def65f1d26b4c34"
+      ],
+      "reviewedAt": "2026-11-25T23:00:18.125191+00:00",
+      "contactSheet": "qa/400/distinctness-suspects/b59d595db5a3f8.jpg"
+    },
+    {
+      "pairId": "f21179512c52dd",
+      "cameraIds": [
+        "busan-ctv0000104",
+        "changwon-57"
+      ],
+      "status": "different_scene",
+      "reason": "Busan scene has broad lanes, a near crosswalk and a long roadside fence; Changwon scene has a tree-lined boulevard and different intersection/median geometry. Traffic arrangements and fixed landmarks differ.",
+      "frameSha256": [
+        "0ab6933ed8f57d8331ba47066d9844aa6c0b66984e365ea80101074996c25eda",
+        "23ea1cdeca5da610de228c93ef8e493aaa1a7653f1feeed42d41f48cde2cdace",
+        "2f9276e17c8c682bcc8a749066bb47d3e0e5233c2de676e9630cd159243b5841",
+        "792c5c89a4dbffa35b81a0f5fd53a5bf1b837e7aede88a9c72b25704639253e5",
+        "b20eaaf35c1e1f885740f823ef2812fa94e4f414445abc14c658cb08d1928643",
+        "badf220f665950fd3284f7717e34f1a4f2671826dd2ccd8720b1543e429d05df",
+        "e763317df6651c5867279720579bb903b94654e1f3f881f9663bc7fc00ac7975",
+        "e995c257a44fcf299082b4874d470920d32b7e56f498809098954d9bb8b968bb"
+      ],
+      "reviewedAt": "2026-11-25T23:00:18.125191+00:00",
+      "contactSheet": "qa/400/distinctness-suspects/f21179512c52dd.jpg"
+    },
+    {
+      "pairId": "4a9df2c358dcd0",
+      "cameraIds": [
+        "busan-ctv0000042",
+        "busan-ctv0000214"
+      ],
+      "status": "different_scene",
+      "reason": "Upper scene is a broad surface-road junction; lower scene has a descending separated tunnel approach, retaining wall and side lane. The fixed road geometry differs across all four captures.",
+      "frameSha256": [
+        "2a7a77bb806851116c8e6eeaae29c2f401e4286ae4c73b831a3a4cba5f64e75d",
+        "316e5a81b96f4954c12ab7e758df0202883a786766afa5862fe88e10a505fc5f",
+        "3d4a52582fe8300013aeffa3d049891d6ede343627a452cd53dca51376a274cb",
+        "489cafedf70450d40075ecb0d78aebd7b20b51ba369b65f9e2565b59d267667f",
+        "8bb15de05306e84a6eb744ce191431fa10243a7a33e039db866638e022a92d36",
+        "9e551c9318f4a59e8d95b5742ea7586d81fd5ec6483c4b17229340f440cde70f",
+        "dd7901cc0b3e3ec2b0421cfc9db1809aacfdb12f98b97c41e15fb7ec23204530",
+        "f3f80bc6278c5a1fa42b19f1dd78ce6ecc065dbad0bef8114b0545d9b9301d15"
+      ],
+      "reviewedAt": "2026-11-25T23:00:18.125191+00:00",
+      "contactSheet": "qa/400/distinctness-suspects/4a9df2c358dcd0.jpg"
+    },
+    {
+      "pairId": "5ca0449a82f32b",
+      "cameraIds": [
+        "busan-ctv0000263",
+        "changwon-72"
+      ],
+      "status": "different_scene",
+      "reason": "One camera shows the interior of a tiled tunnel with a close wall; the other shows an open tree-lined urban intersection with a crosswalk. They are different scenes.",
+      "frameSha256": [
+        "33b48d91cb390ab44c389320815d17d176d8d791d7a90820f9885975becdab5c",
+        "4229f6ed0f1a852fa00c35e6a9e956f9e31dec7abb02d4cbdd34dd67835048c0",
+        "893f0cbd2bc93d8cfb7e4e4daae64f8cf9442a8ebd85da269f1b7bb8c3bd49c5",
+        "89fbb1c18a71f3bcf2cfed3d7ba1488868b2f966a3afbd98741934124be9e37c",
+        "905153f7ddc2f909f1ffd6d87a7bd57c4c316165619741dc0e67b3d883e0bd41",
+        "c40d7a646c58bc49320df7d7dc3c0abc65f604ca3ff61b8d612f2e34c42c9f10",
+        "d5df8f4d2722cb4e5808d31c57ef566e099355c112a56eb83ccb788fe89d50da",
+        "d6875ed744116554b8be907aaace887b51682d236659a57a35916905cbc7bc12"
+      ],
+      "reviewedAt": "2026-11-25T23:00:18.125191+00:00",
+      "contactSheet": "qa/400/distinctness-suspects/5ca0449a82f32b.jpg"
+    },
+    {
+      "pairId": "83da3eb65891f6",
+      "cameraIds": [
+        "busan-ctv0000112",
+        "changwon-110"
+      ],
+      "status": "different_scene",
+      "reason": "Upper camera shows dense commercial frontage and a narrow perspective; lower camera shows a broad junction with a large left-side striped area and different lane/median geometry. The fixed landmarks differ.",
+      "frameSha256": [
+        "0dcbd950cf588c44deed07d1d7d8fc557e88fd2037dca7a7989f3d372f2028be",
+        "37f7ae0c1e74a91de9d0ac2246179731dc693013c15627a45a17241113dc4972",
+        "459936e5ae2dcb8e8962326fbf8fe5ab8ec34d884edbb8b44f560833c75d8bf2",
+        "45c1b739f87b635c4961555775dd9daa256e0a5aef71af651c5685db95885314",
+        "62ce848b1e692821f76e8c9309c9c039275740db987becf95e81bf5416837ae3",
+        "73c0074d05990f161fbc13736513238c042a9afea5e30b0a37d952e7ee8df6fe",
+        "e62ff7e41d70e31b56e2ed49994826d1739ccc205a77dd5134fc7bde3474efcd",
+        "f0dd99f31c581b314cdf5f72f6df27017a8301448a1c7fc2b636669ac5b2ed8a"
+      ],
+      "reviewedAt": "2026-11-25T23:00:18.125191+00:00",
+      "contactSheet": "qa/400/distinctness-suspects/83da3eb65891f6.jpg"
+    },
+    {
+      "pairId": "661b377e274c2b",
+      "cameraIds": [
+        "jinju-1000001200",
+        "jinju-1000001204"
+      ],
+      "status": "different_scene",
+      "reason": "Both are published viewpoints at Gae-yang junction, facing different approach roads. Camera1200 has green guides sweeping toward the foreground and a narrow right traffic island; camera1204 looks across horizontal foreground lanes with a pink edge line and a different crosswalk and pole arrangement. Fixed road geometry and traffic positions differ in all four captures per source; these are separate camera viewpoints at one junction, not different junctions.",
+      "frameSha256": [
+        "0311945b5c8bf5dd4543bf76be33369d1e8b9dd7b7966c0168b2cc69c88c0c31",
+        "2fece1045e0cd5196fcf1bf13b601e3bb926877364d5f1833c7cbe6c95eb516e",
+        "33e595e0098a418778f7f6309a774a351847ad067cb8876b5bf3be83523a8a91",
+        "3cba2c66cb0f1ad9b37b124a3c0273a0d9ec03125aaff237f222428706a1eec2",
+        "490139636d625db6cd78e64381df3f30f72d7ceea50aa7f9dc6ac71c44e8dd32",
+        "6e9bb4a2feb7718af5e71704a376e878b98c02fee2e5fe05d5572d2b9b8e106f",
+        "8e9d5833a7c14fdc33cd69804680859166c85245597d5952e853f68008c96f32",
+        "a6035da5ebb2189a36137c525479e4e06ac45ef2d442e76c229f257b37577eb8"
+      ],
+      "reviewedAt": "2026-11-26T00:43:06.379178+00:00",
+      "contactSheet": "qa/400/distinctness-suspects/661b377e274c2b.jpg"
+    },
+    {
+      "pairId": "ee47151c73a508",
+      "cameraIds": [
+        "jinju-1000002180",
+        "sejong-cc1901005"
+      ],
+      "status": "different_scene",
+      "reason": "Jinju2180 is a close view of a signalized street approach with a yellow hatched island, foreground turning vehicles and a near crosswalk. Sejong1005 is an elevated long view down a wider tree-lined boulevard with a blue-marked lane and a distant junction. Their fixed layout and field of view differ. The day/night difference alone was not used as evidence.",
+      "frameSha256": [
+        "2bea201d383e824eed60b5ef500dced78f87b42537d999537a6bae8c87f82975",
+        "6023fa884aa6a5c87f421e42936dfe1c5553860fce0b2fe1090e6258492d2665",
+        "8fcffc551a343be4c2b72f00b87db1ba1f21abfb3cd5cc72139a6fb1450e6277",
+        "a60ace113adf2c9b4759e7f08a651c47cde9a1520fabaeee496b8c0861b7030e",
+        "a8892cc8781a88b0bd63a435815452ca62b3ca92cd9ca9dfc66484ccf7dc72f7",
+        "add0b7f76b567f704c992595ff8fa855373acf119cdfcb9b66f10df223fd7f3e",
+        "e52b03025108dbd3880140a3a4f1a893918d63e341edbef50ce32f675a008a7f",
+        "f9ee36b81ec53ad3fcd193d3ddf309cbaf233e0741263b2e7df2038719f7deed"
+      ],
+      "reviewedAt": "2026-11-26T00:43:06.379243+00:00",
+      "contactSheet": "qa/400/distinctness-suspects/ee47151c73a508.jpg"
+    },
+    {
+      "pairId": "49475aec6cc164",
+      "cameraIds": [
+        "busan-ctv0000212",
+        "gimpo-cctv011"
+      ],
+      "status": "different_scene",
+      "reason": "Busan212 shows separated bridge decks crossing open water, with long continuous bridge barriers and dense traffic. Gimpo011 shows a broad surface boulevard bordered by apartment blocks, trees, sidewalks and a near street junction. The fixed terrain and road geometry differ in every capture; the day/night difference alone was not used.",
+      "frameSha256": [
+        "11d5cb51ba38671e6521fb6307e6caed8821da8d8a3de4d9a8aa174e33cfe4ca",
+        "1e2ee1f659c291238ed203e386f6933e5aed3c7e0767d156a5131b02b42f45af",
+        "6407cba1e012fae7362dc149eecf614440f645ca9f21460590410c0e1a809308",
+        "7f4001bbe68c612614d4a4c5386d2726e6d60daab0379a20ee0067a7c1c613f9",
+        "a9fc57b8a2fbe764eab136cd687effb313e9faf095880ad3318b8db00540a22c",
+        "e26840cb1ef944b2c2cabafb0981eaf8daa0861f48919ac719b95f0f2e5bcef9",
+        "f558eaf37ec4ec372a173c94ba5434ab4f532f216c71e3e1d759980be4a2a1fc",
+        "fc22459822bce15e2d67a9d649aa5488cfabd50f2f44c86a0af70f46f131a3d6"
+      ],
+      "reviewedAt": "2026-11-26T01:06:19.273777+00:00",
+      "contactSheet": "qa/400/distinctness-suspects/49475aec6cc164.jpg"
+    },
+    {
+      "pairId": "263a327931d7c3",
+      "cameraIds": [
+        "jinju-1000001202",
+        "jinju-1000002180"
+      ],
+      "status": "different_scene",
+      "reason": "Root directly inspected all eight original approved captures, four per camera. The upper scene is a broad junction viewed across horizontal green guide lanes, with a zebra crossing, buses and a queue facing the camera. The lower scene is a much closer oblique approach with a yellow hatched median, differently oriented white dashed lane lines and different roadside geometry. Moving vehicles differ in all observed pairs. The two exact official camera IDs, distinct media paths and separately reported coordinates support the visibly different scenes; geographic metadata alone was not used as the verdict.",
+      "frameSha256": [
+        "11b3f35cdbe7142413ec6b355a0170cbecfbc2089eb53594f5a4fb2d50779f42",
+        "48d1ab75d6b9bccb3d1cf995940d0ee395cff21de8bb17b66a2c3d623317fce9",
+        "7c845a9a68a4bb93364de5b2dba6f5f1989f0b32c152dbc2f16d3ee0f1348f1d",
+        "a60ace113adf2c9b4759e7f08a651c47cde9a1520fabaeee496b8c0861b7030e",
+        "a8892cc8781a88b0bd63a435815452ca62b3ca92cd9ca9dfc66484ccf7dc72f7",
+        "e52b03025108dbd3880140a3a4f1a893918d63e341edbef50ce32f675a008a7f",
+        "e7448b793ab23bfacef8e2d151387d10333cbdc484d1eb1cc63dd3ea89b10c12",
+        "f9ee36b81ec53ad3fcd193d3ddf309cbaf233e0741263b2e7df2038719f7deed"
+      ],
+      "reviewedAt": "2026-11-26T03:24:07.325509+00:00",
+      "contactSheet": "qa/400/distinctness-suspects/263a327931d7c3.jpg",
+      "contactSheetSha256": "8195eae82dfff1bbaecf25b268ba2816a42a28ef37c994157d3b31e39420dc8e"
+    }
+  ],
+  "coordinateGroups": [
+    {
+      "cameraIds": [
+        "wellihilli-04",
+        "wellihilli-07"
+      ],
+      "status": "distinct_views_shared_landmark_coordinates",
+      "reason": "The published resort coordinates are shared. Camera04 shows the mountain slope, foreground trees and snowmaking; camera07 shows a separately framed illuminated Waterplanet facility/open area. All eight captures show distinct fixed scenes; original coordinates are preserved.",
+      "frameSha256": [
+        "021a9d489c529b11e957f67c507ec5b88c14cae4c9edbbdb74d34a1f0c86e52f",
+        "25a3a951bb611b51b27ceb9b4866307bc79d442645e5df46bb93f149c6da798f",
+        "29efa438fe173a41b4d025d4ee6d51c5f6a3e19b733d406ce4444d73968bd61d",
+        "40b480e0ed3ca75082193abe4c418a60fde42d9e6341c9c73b6b27c6289ad0f7",
+        "7dce60c8313c1c2a88aa5cbfd3c429c1e840bae786215ef33cecc2aac4bab2f7",
+        "8d394be8ced8008f81ca6ae709b8f5e99c49c0f4276e9f41b6586fb5e047a2ad",
+        "a744a08d9415a34078adf887ac2fcb9fa9ec3ead582d8dcbde9c1a3129c22769",
+        "ff0f982bab67face4c88df9ac8afd97a333b4571f32c3bb9f8424c9acb421e1f"
+      ],
+      "reviewedAt": "2026-11-25T23:00:18.125191+00:00",
+      "contactSheet": "qa/400/distinctness-suspects/coordinates-7ece2e52468de4.jpg"
+    },
+    {
+      "cameraIds": [
+        "jinju-1000003070",
+        "jinju-1000003074"
+      ],
+      "status": "distinct_views_shared_landmark_coordinates",
+      "reason": "Both share the published Sinan intersection coordinates, preserved unchanged. Camera3070 looks diagonally across the curving junction and its foreground traffic island; camera3074 looks lengthwise down the approaching street with a different crosswalk, pole arrangement and lane geometry. All four real captures per source reviewed independently; traffic positions change in each connection.",
+      "frameSha256": [
+        "0070ba7fd0b005ee866d858eca45c2a713d83bd4d351f40ca13e3283988bdcc4",
+        "01175a81ed5bc774104a37dfa634c48b727e0eec414eec26f961647e92b15c3b",
+        "04ebf3cc06164f08a3a0a09dee6c3579d3ffac1bff04cbe72d7aa2b9bbdf6c1a",
+        "09e51e3055a497297ce2392d7c658aff13e9458783be7fbd159791b78d53e131",
+        "496505e5eb8bf424daaf0fe64d875427e2bebe4b36cee5312b0d63770f8cb2aa",
+        "b02cc5d5e6489594603bc34749b74d165904d725588dd1da79c922ac5184697b",
+        "e22d6110d161748769cfa2270a6434411785acb64d3f243426333e5e1899c438",
+        "fe641048e205a20bb31ed548d3d6e7a13c1d34363ae64ba79e73942f50d58e5d"
+      ],
+      "reviewedAt": "2026-11-25T23:14:21.964799+00:00",
+      "contactSheet": "qa/400/investigations/jinju-pilot-v19-frames/contact-01.jpg",
+      "rawSha256": "1e97011defd1e2be67cdc4bc47f760946733b4505da73621aebe2d8e6409f02b"
+    }
+  ],
+  "lastReviewedEvidenceFile": "qa/400/selected-evidence.json",
+  "lastReviewedEvidenceSha256": "ce0be09b39300b575af0e638929ca05d9a5d7b845cfbf6773bd50f891de518b3",
+  "scopeNotice": "Reviews are bound to exact original approved frame hashes. The latest review covers the selected400; previous reviews remain for their original bound frames. KBS iframe imagery does not receive an automated pixel-dedup claim."
+}

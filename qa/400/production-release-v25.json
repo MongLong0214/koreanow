@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-26T04:19:07Z",
+  "projectId": "appgprj_6b066a80589c819196459396c7207347",
+  "releaseVersion": 25,
+  "deployment": {
+    "id": "appgdep_6b07b1aec87c8191b4439ccfc3085003",
+    "project_id": "appgprj_6b066a80589c819196459396c7207347",
+    "title": "지금, 한국",
+    "version_id": "appgprj_6b066a80589c819196459396c7207347~appgver_f9cc3aed93c88191a7102f07c3eed5be",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://jigeum-korea-1125.monglong.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "release---3ba2f64f70848191aa028ca965b17305",
+    "failure_message": null,
+    "env_set_revision": 0,
+    "updated_at": "2026-11-26T04:12:43.465195+00:00"
+  },
+  "deployedSourceCommit": "55fee021d0b9ebbd8991adc7b5ced0ef492337b2",
+  "siteUrl": "https://jigeum-korea-1125.monglong.chatgpt.site/",
+  "verificationUrl": "https://jigeum-korea-1125.monglong.chatgpt.site/verification.html",
+  "selected": {
+    "uniqueVideos": 400,
+    "regions": 17,
+    "hls": 368,
+    "officialKbsIframes": 32,
+    "busan": 78
+  },
+  "boundedEvidence": {
+    "observations": 800,
+    "carriedVideos": 116,
+    "carriedObservations": 232,
+    "expansionVideos": 284,
+    "expansionObservations": 568,
+    "rawRecomputedSelectedPass": 400,
+    "newObservationsDuringThisResumption": 0
+  },
+  "releaseChecks": {
+    "publicFilesMatch": true,
+    "final400Gate": "passed",
+    "bundledAssetByteMatches": 39,
+    "existingTestsPassed": 87,
+    "provenanceTestsPassed": 5
+  },
+  "productionChecks": {
+    "visibleCatalogItems": 400,
+    "visibleVerificationRows": 400,
+    "visibleObservationCount": 800,
+    "verificationSearchAndCameraDeepLink": "passed",
+    "samples": [
+      {
+        "id": "kbs-109242",
+        "name": "서울 용산 남산송신소",
+        "result": "Official KBS iframe displayed LIVE and an actual Namsan/Seoul scene; production visual smoke check only."
+      },
+      {
+        "id": "paju-35",
+        "name": "검산삼거리",
+        "result": "Actual road scene and advancing video currentTime observed.",
+        "currentTimeSeconds": [
+          0.7758,
+          15.5173
+        ],
+        "paused": false,
+        "readyState": 4,
+        "videoWidth": 320,
+        "videoHeight": 240
+      },
+      {
+        "id": "gits-5253",
+        "name": "서원주IC",
+        "result": "Actual road scene, currentTime 1.8319 and 정상 40초 시청 구간 종료 followed by 계속 보기 observed.",
+        "currentTimeSeconds": [
+          1.8319
+        ],
+        "paused": false,
+        "readyState": 4,
+        "videoWidth": 1280,
+        "videoHeight": 720
+      }
+    ]
+  },
+  "scope": "The 800 observations retain their original acquisition dates and raw evidence. Production checks are additional UI and playback smoke checks, not a new full 800-observation audit or a 24-hour uptime guarantee. Provider session limits remain in place."
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" role="img" aria-labelledby="favicon-title">
+  <title id="favicon-title">Korea, now.</title>
+  <!-- Original identity: one observation point and two open broadcast rings. -->
+  <rect id="field" width="32" height="32" rx="8" fill="#000"/>
+  <g id="signal" transform="translate(1.6 1.6) scale(1.2)" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round">
+    <circle id="outer-orbit" cx="12" cy="12" r="9" stroke-dasharray="43.9823 12.5664" transform="rotate(-5 12 12)"/>
+    <circle id="inner-orbit" cx="12" cy="12" r="5" stroke-dasharray="26.1799 5.2360" transform="rotate(-15 12 12)"/>
+    <circle id="observation-point" cx="12" cy="12" r="1.8" fill="#fff" stroke="none"/>
+  </g>
+</svg>

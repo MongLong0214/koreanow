@@ -1,0 +1,150 @@
+{
+  "site": "https://jigeum-korea-1125.monglong.chatgpt.site/",
+  "generatedAt": "2026-11-26T12:24:39.236896+09:00",
+  "target": 400,
+  "selectedCameraCount": 400,
+  "selectedConnectionCount": 800,
+  "evidenceOriginCounts": {
+    "carry_forward_selected_200": 116,
+    "new_400_measurement": 284
+  },
+  "carryForwardCameraCount": 116,
+  "carryForwardConnectionCount": 232,
+  "newCameraCount": 284,
+  "newConnectionCount": 568,
+  "observedIntervalKst": {
+    "start": "2026-11-25T18:07:03.655000+09:00",
+    "end": "2026-11-26T12:15:26.767000+09:00",
+    "display": "2026-11-25 18:07:03–2026-11-26 12:15:26 KST"
+  },
+  "observationIntervalsByOrigin": {
+    "carry_forward_selected_200": {
+      "start": "2026-11-25T18:07:03.655000+09:00",
+      "end": "2026-11-25T18:59:59.173000+09:00",
+      "display": "2026-11-25 18:07:03–2026-11-25 18:59:59 KST"
+    },
+    "new_400_measurement": {
+      "start": "2026-11-25T21:25:16.848000+09:00",
+      "end": "2026-11-26T12:15:26.767000+09:00",
+      "display": "2026-11-25 21:25:16–2026-11-26 12:15:26 KST"
+    }
+  },
+  "candidateCatalogCount": 1522,
+  "auditedCameraCount": 980,
+  "passedCandidateCount": 484,
+  "providerCounts": {
+    "KBS 재난포털": 32,
+    "영산강홍수통제소": 67,
+    "세종특별자치시 교통정보시스템": 12,
+    "대구교통종합정보": 15,
+    "김포시 교통정보센터": 25,
+    "충주시 교통정보센터": 35,
+    "구미시 교통정보센터": 46,
+    "창원시 교통정보센터": 31,
+    "부산광역시 교통정보서비스": 76,
+    "모나용평": 7,
+    "천안시 교통정보센터": 1,
+    "당진시 교통정보센터": 3,
+    "경기도교통정보센터 / 서울시설공단": 1,
+    "웰리힐리파크": 2,
+    "경기도교통정보센터 / 민자고속도로-제2영동고속도로": 2,
+    "경기도교통정보센터 / 경기도교통정보센터-경기도": 3,
+    "경기도교통정보센터 / 한국도로공사": 1,
+    "경기도교통정보센터 / 경찰청UTIS-안산시": 1,
+    "파주시 교통정보센터": 13,
+    "여수시 교통정보센터": 2,
+    "진주시 교통정보센터": 20,
+    "청주통합교통정보센터": 5
+  },
+  "regionCounts": {
+    "서울": 8,
+    "부산": 78,
+    "대구": 16,
+    "인천": 2,
+    "광주": 7,
+    "대전": 1,
+    "울산": 1,
+    "세종": 12,
+    "경기": 45,
+    "강원": 12,
+    "충북": 41,
+    "충남": 6,
+    "전북": 29,
+    "전남": 34,
+    "경북": 47,
+    "경남": 55,
+    "제주": 6
+  },
+  "regionCoverageCount": 17,
+  "missingRegions": [],
+  "busanRatio": 0.195,
+  "firstFrameSeconds": {
+    "min": 0.947,
+    "median": 3.041900000000372,
+    "p95": 5.779699999999255,
+    "max": 8.732300000000745
+  },
+  "totalVerifiedNaturalProgressSeconds": 19474.695372998012,
+  "maxObservedTimelineFreezeMs": 0,
+  "maxObservedHlsFrameSilenceMs": 1950.7000000001863,
+  "hlsDroppedFrameRatio": {
+    "min": 0.0,
+    "median": 0.04118410940025972,
+    "max": 0.09961685823754789,
+    "limit": 0.1
+  },
+  "hlsCapturedFramesReviewed": 1472,
+  "staticCameraPhotos": 0,
+  "hlsEventPolicy": "single_proven_predecode_initialization_event_v2",
+  "pinnedHlsBundleSha256": "cfc70cc9e9fc63d071919e087670abc760c8fd1bc889b88588026e4d22193bbe",
+  "hlsRecordedEventCount": 22,
+  "hlsInitialAlignmentConnectionCount": 6,
+  "hlsInitialAlignmentCameraCount": 3,
+  "hlsStartupAbortConnectionCount": 16,
+  "hlsStartupAbortCameraCount": 11,
+  "startupAbortPolicySha256": "daeec79dcf5cb4e1d4e6e49fc5de6916921c78590046599094e20f7823432699",
+  "startupAbortCollectorSha256": "d03059ee816ef6c7e9dc47fae0379360b0ddc0c4d6cce198e1f76127eadae27c",
+  "startupAbortReviewedCollectorSha256s": [
+    "d03059ee816ef6c7e9dc47fae0379360b0ddc0c4d6cce198e1f76127eadae27c",
+    "dad70407fe5c257454d8d06d3a81f429b5e3c9111ae88dcf0a09f3f9637df626"
+  ],
+  "hlsZeroWarningConnectionCount": 714,
+  "hlsBlockingEventCount": 0,
+  "appSha256": "a01c31e5971d8319698a02d6025ab393358ab8e5ba36458cc1a9ad80c6cd1408",
+  "selectedCatalogSha256": "725b29ad94bdb863ffd0f96577780c5e72e52d795863d7c08e72f8e7730a59f3",
+  "currentAppSha256": "a01c31e5971d8319698a02d6025ab393358ab8e5ba36458cc1a9ad80c6cd1408",
+  "observedAppCameraCounts": {
+    "83cd8e07cbe84f30b28ba4e9f94cdd4e1e365e62532f3d73bcba24b1fc3ec31f": 116,
+    "a01c31e5971d8319698a02d6025ab393358ab8e5ba36458cc1a9ad80c6cd1408": 166,
+    "unmeasured_full_app_hash_separate_handler_equivalence": 1,
+    "0928a0202b98bb350099683ca7bb491c0b697d6ed1857709b57fee316f8abf25": 117
+  },
+  "baselineObservationAppSha256": "83cd8e07cbe84f30b28ba4e9f94cdd4e1e365e62532f3d73bcba24b1fc3ec31f",
+  "playerEquivalenceFile": "qa/400/player-equivalence.json",
+  "playerEquivalenceSha256": "9f3e24e7323aaa2c72d605602c321079f21c2b94c9c58e6c60beadef256127aa",
+  "playerEquivalenceIsNewPlaybackEvidence": false,
+  "playingFrameClockPolicy": "initial_paused_prefill_exclusion_v1_proposal",
+  "playingFrameClockPolicySha256": "1924bd44073cc335b4498dc31ae6e37b2608296bfba67d6a922f42a1cb6496f0",
+  "playingFrameClockCollectorSha256": "dad70407fe5c257454d8d06d3a81f429b5e3c9111ae88dcf0a09f3f9637df626",
+  "frameSilencePolicyConnectionCounts": {
+    "initial_paused_prefill_exclusion_v1_proposal": 332,
+    "legacy_observed_callback_age": 404
+  },
+  "scoped0928ObservationCameraCount": 117,
+  "scoped0928ObservationConnectionCount": 234,
+  "selectedEvidenceSha256": "ce0be09b39300b575af0e638929ca05d9a5d7b845cfbf6773bd50f891de518b3",
+  "evidenceAuditSha256": "27f8359532152f932f154de8097562d3955a1eb1b4f6c347eba606a834bacdfd",
+  "distinctnessAuditSha256": "a05b6a04cde451cfc6b7f401073c9b126cfb9712762d0d3db008bb8559ccdaa4",
+  "externalReliabilityHolds": {
+    "heldCameraIds": [
+      "gits-158"
+    ],
+    "sourceFiles": {
+      "qa/400/research/north-gits-v13-a-health-exclusions.json": "2f7b7be4ee5261e6fdef59a1d6e486fd75a987a82d00d2c0ee92f04f15acaec2"
+    },
+    "rule": "Same-player negative diagnostic evidence can exclude a source; positive diagnostic evidence never substitutes for two formal observations."
+  },
+  "heldSelectedCameraCount": 0,
+  "publicationStatus": "Report only; product/catalog deployment and package gate require separate verification.",
+  "scope": "Two independent bounded production connections per selected video, including explicitly identified unchanged baseline observations. No timestamp rewriting, no 800-new-connections claim, and no 24-hour availability claim."
+}

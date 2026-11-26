@@ -1,0 +1,23 @@
+{
+  "package": "protomaps-leaflet",
+  "version": "5.1.0",
+  "license": "BSD-3-Clause",
+  "fetchedAt": "2026-11-26",
+  "source": "https://registry.npmjs.org/protomaps-leaflet/5.1.0",
+  "tarball": "https://registry.npmjs.org/protomaps-leaflet/-/protomaps-leaflet-5.1.0.tgz",
+  "integrity": "sha512-N0YY1Gbw5nZ9n8VUOvwHKm/w3zhTTuaZEeMZl8doHemeM4ujGPp2otI6t4Sgqrz8iM4svx2rpG1Q17rHkOWSaA==",
+  "files": [
+    {
+      "path": "web/vendor/protomaps-leaflet.js",
+      "bytes": 128171,
+      "sha256": "26af014f7b1af308ec120b791cff76657bb9c3383633b52033e6edf9e5e4cdb5"
+    },
+    {
+      "path": "web/vendor/protomaps-leaflet-LICENSE.txt",
+      "bytes": 1462,
+      "sha256": "a2ada548aa25012e833b71364a402d6924f2afcf5f8f146e2989a377290ab3ad"
+    }
+  ],
+  "purpose": "Canvas2D detailed basemap fallback for devices without WebGL; custom OpenMapTiles-schema rules required.",
+  "maintenanceStatus": "Officially in maintenance mode; recommended for existing Leaflet systems."
+}

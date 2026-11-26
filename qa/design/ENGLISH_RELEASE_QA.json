@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "release": "English Halo-inspired redesign",
+  "reviewDate": "2026-11-26",
+  "timezone": "Asia/Seoul",
+  "automated": {
+    "build": "pass",
+    "assetCount": 42,
+    "testCount": 95,
+    "passed": 95,
+    "failed": 0,
+    "gitDiffCheck": "pass",
+    "transitionReport": "english-transition-report.json"
+  },
+  "browser": {
+    "environment": "Cloud Chrome; managed local preview. Responsive widths simulated by a same-origin iframe fixture, not physical mobile devices.",
+    "viewportsCssPx": [
+      {
+        "width": 1363,
+        "contentWidth": 1348
+      },
+      {
+        "width": 390,
+        "contentWidth": 375,
+        "height": 844
+      },
+      {
+        "width": 320,
+        "contentWidth": 305,
+        "height": 844
+      },
+      {
+        "width": 760,
+        "contentWidth": 745,
+        "height": 820
+      }
+    ],
+    "horizontalDocumentOverflow": false,
+    "checks": [
+      "English home hero, navigation, 400-place list, categories and 17-region selector rendered.",
+      "Jeju region returned 6 cameras. Marado and original Korean search alias each returned Marado Island.",
+      "Saved Marado Island, filtered Saved to 1, removed it, confirmed Saved 0. Test favorite cleaned up.",
+      "Self-hosted four-country SVG map rendered at full Leaflet dimensions; dense cluster labels remain available on hover or keyboard focus.",
+      "Geomsan Junction HLS decoded at 320x240, readyState 4, currentTime advanced from 1.7011 to 8.8696. Mobile screenshot also showed actual road footage.",
+      "Namsan Transmission Tower official KBS iframe rendered actual city footage. Provider-owned Korean labels remain inside its cross-origin player.",
+      "West Wonju connection reached the normal English session-end state; not counted as a new full playback certification.",
+      "Mobile viewer became role=dialog, aria-modal=true; 18 background sections inert and body scroll locked.",
+      "At 320px, Shift+Tab from Close wrapped to Share view; Tab from Share wrapped to Close. Escape closed, removed inert, and restored the exact camera button.",
+      "How it works opened the English About dialog at 320px. Hero CTAs fit on one line after spacing refinement.",
+      "Reloaded #cam=kbs-109242 deep link opened Namsan viewer and scrolled to explorer (scrollY 671).",
+      "FAQ second disclosure opened while first remained open, matching intended independent disclosure behavior.",
+      "English verification page rendered all 400 static rows; Marado search returned the correct single historical record.",
+      "Verification page at 390px had no horizontal document overflow and matched the main dotted headline and concentric-circle brand.",
+      "Recent browser error log contained no first-party site errors; browser-extension metadata errors were excluded."
+    ],
+    "fixesFromReview": [
+      "Scoped generic icon SVG sizing away from Leaflet map SVG.",
+      "Hid dense inactive cluster labels until hover or keyboard focus.",
+      "Aligned Continue watching messages with the visible button.",
+      "Made missing geography show the map fallback notice.",
+      "Kept 320px hero actions on one line.",
+      "Matched verification heading dot contrast and brand mark."
+    ]
+  },
+  "preservation": {
+    "selectedCameras": 400,
+    "historicalActualPlaybackObservations": 800,
+    "historicalFilesByteIdentical": 3091,
+    "criticalPlaybackFunctionsEquivalent": 11,
+    "hlsLifecycleComparisonsPassed": 736,
+    "newFullCatalogPlaybackObservations": 0,
+    "sourceUrlsAndCoordinatesUnchanged": true
+  },
+  "scope": {
+    "referenceDesktopInspected": true,
+    "referenceMobileVisuallyInspected": false,
+    "thirdPartyPlayerLabelsTranslated": false,
+    "originalEvidenceDataTranslated": false,
+    "historicDiagnosticToolsPreserved": true,
+    "productionVerification": "Performed after deployment and reported separately; this pre-publication record makes no production claim."
+  },
+  "sourceSha256": {
+    "web/index.html": "c87b553b745e50c6bc4dad819ac8c75ee691174e4a63e4c745296a1a5fce173c",
+    "web/styles.css": "a0ddb566097eb3c09a9b0565c10ec271d6a2595d6abe8436061e88b1f3b19fb8",
+    "web/app.js": "83e50485f04264f3a05c99209b49fa432125891b557b88a497e9467a94339996",
+    "web/catalog-en.js": "3f910269830884cf6bd74b4cd9767797c8394f212b5088e865e3a233b258a433",
+    "web/experience.js": "abd737ac78ea236e4ea0a22ae3bd2d5aed019bcc4da245ebcab7e90a7b021fa0",
+    "web/map-geography.js": "aed5bd86f576202a32446bcbaa269fef0eeb16de0b677ea6ed3bddcfc4002290",
+    "web/verification.html": "d92bf6755257629ab4de7224ce8559eeb3f31b33bca6ce84dad51ab3b9f6ec11",
+    "web/verification.css": "554d8732be54b721723c73a28611ace07cb267760e5f55392731f770333d5d17"
+  }
+}

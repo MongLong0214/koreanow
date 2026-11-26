@@ -1,0 +1,4805 @@
+{
+  "schemaVersion": 1,
+  "pass": true,
+  "verification": "preserved_v25_evidence_and_English_presentation_transition",
+  "baselineCommit": "55fee021d0b9ebbd8991adc7b5ced0ef492337b2",
+  "baselineAppSha256": "a01c31e5971d8319698a02d6025ab393358ab8e5ba36458cc1a9ad80c6cd1408",
+  "currentAppSha256": "83e50485f04264f3a05c99209b49fa432125891b557b88a497e9467a94339996",
+  "englishCatalogSha256": "3f910269830884cf6bd74b4cd9767797c8394f212b5088e865e3a233b258a433",
+  "selectedCatalogSha256": "725b29ad94bdb863ffd0f96577780c5e72e52d795863d7c08e72f8e7730a59f3",
+  "selectedEvidenceSha256": "ce0be09b39300b575af0e638929ca05d9a5d7b845cfbf6773bd50f891de518b3",
+  "historicalFiles": {
+    "baselineCommit": "55fee021d0b9ebbd8991adc7b5ced0ef492337b2",
+    "comparedFileCount": 3091,
+    "allGitBlobsIdentical": true,
+    "manifestSha256": "f58a86b4210f106db9644045e31902299db783b720ffbbbc618fa82c3d110481",
+    "excludedStatusDocument": "qa/400/STATUS.md",
+    "exclusionReason": "This progress document was updated after v25 deployment; raw evidence, source certificates, metrics, screenshots, catalog and public original data are included."
+  },
+  "cameraCount": 400,
+  "regionCount": 17,
+  "originalCatalogUnmodified": true,
+  "allTechnicalCameraFieldsUnchanged": true,
+  "englishDisplayCoverage": 400,
+  "originalKoreanSearchAliasesPreserved": true,
+  "playerAst": {
+    "comparedFunctions": [
+      {
+        "name": "setPlayback",
+        "executableAstEquivalent": true,
+        "baselineSourceSha256": "884be850347744091d79757cb299fdf2253836887ab8206a172c399c3e7dea5c",
+        "currentSourceSha256": "884be850347744091d79757cb299fdf2253836887ab8206a172c399c3e7dea5c"
+      },
+      {
+        "name": "clearPlaybackTimer",
+        "executableAstEquivalent": true,
+        "baselineSourceSha256": "c6f72e8749baec03b9f9fc0248127e720daa45ee3854769c725a8a871821c7b2",
+        "currentSourceSha256": "c6f72e8749baec03b9f9fc0248127e720daa45ee3854769c725a8a871821c7b2"
+      },
+      {
+        "name": "watchPlayback",
+        "executableAstEquivalent": true,
+        "baselineSourceSha256": "b548048ade02d615f7e725929f00fe83443c7f38e04ed5929b55049ba34a2914",
+        "currentSourceSha256": "b548048ade02d615f7e725929f00fe83443c7f38e04ed5929b55049ba34a2914"
+      },
+      {
+        "name": "stopPlayer",
+        "executableAstEquivalent": true,
+        "baselineSourceSha256": "df84afe12e5808febf748d5c602337e929b4ef7c594b20d773c07ae746003255",
+        "currentSourceSha256": "df84afe12e5808febf748d5c602337e929b4ef7c594b20d773c07ae746003255"
+      },
+      {
+        "name": "closeViewer",
+        "executableAstEquivalent": true,
+        "baselineSourceSha256": "9f4d9fa45eec13801e611f247f9b06e26efb59adb960364a247940a16988f417",
+        "currentSourceSha256": "9f4d9fa45eec13801e611f247f9b06e26efb59adb960364a247940a16988f417"
+      },
+      {
+        "name": "select",
+        "executableAstEquivalent": true,
+        "baselineSourceSha256": "afc8ea891956636ea231f44475b5f99613be70ced55242eb0186d6ea3592c5c5",
+        "currentSourceSha256": "f53ed96ef35c45749b1dea8338b67c2bd204fbfdce79a3d9c9e9413299b38b02"
+      },
+      {
+        "name": "loadYouTubeApi",
+        "executableAstEquivalent": true,
+        "baselineSourceSha256": "625bac88e4ef83e28c0f6d4fa74a1bf85604038494292a802c1961a79e0a5ffa",
+        "currentSourceSha256": "625bac88e4ef83e28c0f6d4fa74a1bf85604038494292a802c1961a79e0a5ffa"
+      },
+      {
+        "name": "showVideoError",
+        "executableAstEquivalent": true,
+        "baselineSourceSha256": "7e798708c93e7c3827aca1f0d86f491fb9eebf1862951bb9d607408e9584d73c",
+        "currentSourceSha256": "d3edab9e63891e7927e4e43001fa11797f13197e814509bc8c9d9487421ec339"
+      },
+      {
+        "name": "openOfficialFrame",
+        "executableAstEquivalent": true,
+        "baselineSourceSha256": "de7f7c7918c709c23ac8f6f4b7acd7911e04de43e7507aebfa578882654a3491",
+        "currentSourceSha256": "d93314ad85f8d6d1efabdb3176cac50c9660fe06d4d59928ac7a9783e61e134b"
+      },
+      {
+        "name": "openHlsVideo",
+        "executableAstEquivalent": true,
+        "baselineSourceSha256": "66a63e5aef4caaea2b9258498f291b07905df34b2e4d0756cb203d972c6a568f",
+        "currentSourceSha256": "a08a4decbe88da581b9c599b9def38c83c38b1b83f2c81000abe4985e89a7d0c"
+      },
+      {
+        "name": "startVideo",
+        "executableAstEquivalent": true,
+        "baselineSourceSha256": "0bdc7de00f2c0b95fd60f88ae960bfc749cbc08d6e9ade7dde99aed67ba57afa",
+        "currentSourceSha256": "bb288c342f7b9df7a7ed44df900e5547c5b8b10c6ef84675db170fc6a7232915"
+      }
+    ],
+    "translations": [
+      {
+        "location": "select.body.body[13].expression.right.consequent",
+        "before": "공식 CCTV 열기",
+        "after": "Open broadcast"
+      },
+      {
+        "location": "select.body.body[13].expression.right.alternate.consequent",
+        "before": "현장 영상 열기",
+        "after": "Play live camera"
+      },
+      {
+        "location": "select.body.body[13].expression.right.alternate.alternate",
+        "before": "YouTube 영상 열기",
+        "after": "Play YouTube video"
+      },
+      {
+        "location": "select.body.body[14].expression.right.consequent",
+        "before": "YouTube 원본 보기",
+        "after": "Watch on YouTube"
+      },
+      {
+        "location": "select.body.body[14].expression.right.alternate",
+        "before": "공식 원본 보기",
+        "after": "Original source"
+      },
+      {
+        "location": "select.body.body[15].expression.right.left.left.left.right",
+        "before": "공개 채널",
+        "after": "Public camera"
+      },
+      {
+        "location": "select.body.body[15].expression.right.right.consequent",
+        "before": " · 제공자의 계속보기 안내 유지",
+        "after": " · Provider playback controls"
+      },
+      {
+        "location": "select.body.body[15].expression.right.right.alternate.consequent",
+        "before": " · 최근 촬영된 관측영상",
+        "after": " · Recently recorded footage"
+      },
+      {
+        "location": "select.body.body[15].expression.right.right.alternate.alternate.consequent.right",
+        "before": "초 후 계속보기",
+        "after": "-second viewing sessions"
+      },
+      {
+        "location": "select.body.body[20].expression.arguments[0]",
+        "before": "재생 버튼을 눌러 채널을 확인하세요",
+        "after": "Press play to open this camera"
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[0].value.elements[0]",
+        "before": "이 영상은 현재 제공되지 않아요",
+        "after": "Camera unavailable"
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[0].value.elements[1]",
+        "before": "방송이 종료되었거나 영상 주소가 변경되었을 수 있어요.",
+        "after": "The broadcast may have ended or its address may have changed."
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[1].value.elements[0]",
+        "before": "외부 사이트 재생이 제한된 영상이에요",
+        "after": "Watch this video on YouTube"
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[1].value.elements[1]",
+        "before": "YouTube 원본 페이지에서 시청해 주세요.",
+        "after": "This video does not allow playback on other websites."
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[2].value.elements[0]",
+        "before": "외부 사이트 재생이 제한된 영상이에요",
+        "after": "Watch this video on YouTube"
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[2].value.elements[1]",
+        "before": "YouTube 원본 페이지에서 시청해 주세요.",
+        "after": "This video does not allow playback on other websites."
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[3].value.elements[0]",
+        "before": "이 환경에서 영상 연결이 제한돼요",
+        "after": "Connection restricted"
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[3].value.elements[1]",
+        "before": "브라우저의 출처 확인 문제입니다. 원본 페이지에서도 확인해 주세요.",
+        "after": "This browser could not verify the video source. Try the original page."
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[4].value.elements[0]",
+        "before": "이 브라우저에서 영상을 재생하지 못했어요",
+        "after": "Video could not play"
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[4].value.elements[1]",
+        "before": "브라우저를 바꾸거나 원본 페이지에서 시청해 주세요.",
+        "after": "Try a different browser or open the original source."
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[5].value.elements[0]",
+        "before": "영상 플레이어를 불러오지 못했어요",
+        "after": "Player could not load"
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[5].value.elements[1]",
+        "before": "네트워크나 콘텐츠 차단 설정을 확인하거나 원본 페이지를 열어 주세요.",
+        "after": "Check your connection or content blocker, then try again."
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[6].value.elements[0]",
+        "before": "영상 연결이 오래 걸리고 있어요",
+        "after": "Taking longer than expected"
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[6].value.elements[1]",
+        "before": "잠시 후 다시 시도하거나 원본에서 직접 재생해 보세요.",
+        "after": "Try again in a moment, or open the original source."
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[7].value.elements[0]",
+        "before": "영상 데이터를 재생하지 못했어요",
+        "after": "Video could not load"
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[7].value.elements[1]",
+        "before": "원본의 영상 연결 상태를 확인하거나 다시 시도해 주세요.",
+        "after": "Try again or check the original stream."
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[8].value.elements[0]",
+        "before": "이 브라우저에서 지원하지 않는 영상이에요",
+        "after": "Unsupported video format"
+      },
+      {
+        "location": "showVideoError.body.body[2].declarations[0].init.properties[8].value.elements[1]",
+        "before": "다른 브라우저나 원본 페이지에서 확인해 주세요.",
+        "after": "Try another browser or open the original source."
+      },
+      {
+        "location": "showVideoError.body.body[3].declarations[0].init.right.elements[0]",
+        "before": "영상을 연결하지 못했어요",
+        "after": "Unable to connect"
+      },
+      {
+        "location": "showVideoError.body.body[3].declarations[0].init.right.elements[1]",
+        "before": "잠시 후 다시 시도하거나 원본 채널에서 방송 상태를 확인해 주세요.",
+        "after": "Please try again in a moment or check the original source."
+      },
+      {
+        "location": "showVideoError.body.body[9].expression.arguments[0]",
+        "before": "재생 연결 확인이 필요해요",
+        "after": "Unable to connect"
+      },
+      {
+        "location": "openOfficialFrame.body.body[1].expression.right.right",
+        "before": " 공식 CCTV 플레이어",
+        "after": " official broadcast player"
+      },
+      {
+        "location": "openOfficialFrame.body.body[5].expression.right.body.body[2].expression.arguments[0]",
+        "before": "공식 CCTV 화면 · 재생 버튼과 계속보기 안내를 확인하세요",
+        "after": "Official player · Use its Play and Continue controls"
+      },
+      {
+        "location": "openOfficialFrame.body.body[11].expression.arguments[0]",
+        "before": "공식 CCTV 화면을 여는 중…",
+        "after": "Opening the official player…"
+      },
+      {
+        "location": "openHlsVideo.body.body[8].expression.arguments[1].right",
+        "before": " 동영상",
+        "after": " video"
+      },
+      {
+        "location": "openHlsVideo.body.body[12].declarations[0].init.body.body[2].expression.right.arguments[0].body.body[8].expression.arguments[0]",
+        "before": "시청 구간 종료 · 계속보기로 다시 연결할 수 있어요",
+        "after": "Session ended · Continue watching to reconnect"
+      },
+      {
+        "location": "openHlsVideo.body.body[13].declarations[0].init.body.body[3].expression.expression.arguments[0].body.body[1].consequent.body[1].expression.arguments[0]",
+        "before": "영상의 재생 버튼을 눌러 주세요",
+        "after": "Press play on the video to begin"
+      },
+      {
+        "location": "openHlsVideo.body.body[17].expression.arguments[1].body.body[4].expression.arguments[0].consequent",
+        "before": "최근 관측영상 재생 중",
+        "after": "Recent recording playing"
+      },
+      {
+        "location": "openHlsVideo.body.body[17].expression.arguments[1].body.body[4].expression.arguments[0].alternate",
+        "before": "현장 영상 재생 중",
+        "after": "Live camera playing"
+      },
+      {
+        "location": "openHlsVideo.body.body[18].body.expression.arguments[1].body.body[2].expression.arguments[0]",
+        "before": "영상 데이터를 불러오는 중…",
+        "after": "Buffering…"
+      },
+      {
+        "location": "openHlsVideo.body.body[19].expression.arguments[1].body.body[2].expression.arguments[0]",
+        "before": "일시정지",
+        "after": "Paused"
+      },
+      {
+        "location": "openHlsVideo.body.body[20].expression.arguments[1].body.body[2].expression.arguments[0]",
+        "before": "관측영상이 끝났어요 · 다시 재생할 수 있어요",
+        "after": "Recording ended · Play again to replay"
+      },
+      {
+        "location": "openHlsVideo.body.body[27].block.body[0].consequent.body[3].expression.arguments[1].body.body[1].alternate.consequent.body[1].expression.arguments[0]",
+        "before": "영상 데이터를 불러오는 중…",
+        "after": "Buffering…"
+      },
+      {
+        "location": "startVideo.body.body[7].expression.arguments[0]",
+        "before": "영상 플레이어 연결 중…",
+        "after": "Connecting to the camera…"
+      },
+      {
+        "location": "startVideo.body.body[10].block.body[8].expression.right.arguments[1].properties[4].value.properties[0].value.body.body[2].expression.arguments[1].right",
+        "before": " YouTube 영상",
+        "after": " YouTube video"
+      },
+      {
+        "location": "startVideo.body.body[10].block.body[8].expression.right.arguments[1].properties[4].value.properties[0].value.body.body[5].expression.arguments[0]",
+        "before": "플레이어 준비 완료 · 음소거로 시작합니다",
+        "after": "Ready · Starting with sound off"
+      },
+      {
+        "location": "startVideo.body.body[10].block.body[8].expression.right.arguments[1].properties[4].value.properties[1].value.body.body[2].declarations[0].init.properties[0].value.elements[0]",
+        "before": "영상을 연결하는 중…",
+        "after": "Connecting…"
+      },
+      {
+        "location": "startVideo.body.body[10].block.body[8].expression.right.arguments[1].properties[4].value.properties[1].value.body.body[2].declarations[0].init.properties[1].value.elements[0]",
+        "before": "방송 또는 영상이 끝났어요",
+        "after": "Broadcast or recording ended"
+      },
+      {
+        "location": "startVideo.body.body[10].block.body[8].expression.right.arguments[1].properties[4].value.properties[1].value.body.body[2].declarations[0].init.properties[2].value.elements[0]",
+        "before": "재생 중 · 생방송 여부는 원본 플레이어에서 확인",
+        "after": "Playing · Check the original player for live status"
+      },
+      {
+        "location": "startVideo.body.body[10].block.body[8].expression.right.arguments[1].properties[4].value.properties[1].value.body.body[2].declarations[0].init.properties[3].value.elements[0]",
+        "before": "일시정지",
+        "after": "Paused"
+      },
+      {
+        "location": "startVideo.body.body[10].block.body[8].expression.right.arguments[1].properties[4].value.properties[1].value.body.body[2].declarations[0].init.properties[4].value.elements[0]",
+        "before": "영상을 불러오는 중…",
+        "after": "Loading video…"
+      },
+      {
+        "location": "startVideo.body.body[10].block.body[8].expression.right.arguments[1].properties[4].value.properties[1].value.body.body[2].declarations[0].init.properties[5].value.elements[0]",
+        "before": "재생 준비 완료",
+        "after": "Ready to play"
+      },
+      {
+        "location": "startVideo.body.body[10].block.body[8].expression.right.arguments[1].properties[4].value.properties[3].value.body.body[0].consequent.body[1].expression.arguments[0]",
+        "before": "플레이어의 재생 버튼을 눌러 주세요",
+        "after": "Press play in the player to begin"
+      }
+    ],
+    "pureTextSessionMessageLocations": [
+      "openHlsVideo.body.body[12].declarations[0].init.body.body[2].expression.right.arguments[0].body.body[7].expression"
+    ],
+    "rule": "Only originally Korean string literals may change in the compared functions. The single session-limit sentence may reorder pure string concatenation with exactly the same camera inputs and identical branch condition. All other AST nodes, identifiers, calls, event names, state strings, numbers and operators must match."
+  },
+  "lifecycle": {
+    "hlsCameraCount": 368,
+    "pathsCompared": 736,
+    "comparisons": [
+      {
+        "id": "yeongsan-110014",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f8a920d4f5190e63734fd989e57ca24917187f3b99937e86bef606e3584020a8"
+      },
+      {
+        "id": "yeongsan-110014",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ce889db47efe9b1886e27f6fcaf4b960f78626d44a3d71abc982bb1eeaf98947"
+      },
+      {
+        "id": "sejong-cc1407003",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f5fb8506da2b1f8d72edafad14a8daa7259616c021d151f19d0a335db0c98133"
+      },
+      {
+        "id": "sejong-cc1407003",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "85cb9968f206ce42b1f1d46f3f00f78ce52d55fb31bff3ab283aecbb725d076e"
+      },
+      {
+        "id": "daegu-04-101",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4368257a8e7126134a9820363c21bd121dcb6fd1d7ea09b126ded1ec51f4f5fb"
+      },
+      {
+        "id": "daegu-04-101",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "2619f435d3ee1f22fa6eba2359dd1aeb619867ee544ca0979318355185797887"
+      },
+      {
+        "id": "gimpo-cctv106",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "246d38a91960ef32951ab883abe7ed4f713969211f65f3e9501d9300f9ffd6a4"
+      },
+      {
+        "id": "gimpo-cctv106",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "477e9330747349fe310ca9e5de43d25eaa834360a155ae1cd955071bc7662ad1"
+      },
+      {
+        "id": "yeongsan-110016",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6d838c51bbc8ec4cdf91541c41d7d85c133e0dd1fab58156a19da1c56c1df1ed"
+      },
+      {
+        "id": "yeongsan-110016",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "896ef1936680c6c43c722d43cf0d064c526e9ed24a55b5ccec78fa1e70b0018b"
+      },
+      {
+        "id": "sejong-cc1415003",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7b2a7fbaac3f1ce387d494fefb499406b3298ac2bf65fa6b8b7fc9a799c21a77"
+      },
+      {
+        "id": "sejong-cc1415003",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ed1161b0c2aa88dc47273ced51e7008e7a50e9ad757f4156577bf6107f417c98"
+      },
+      {
+        "id": "chungju-1",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "5471f20e53415a25c053cc10cfea6f25d08f6687a9398f7d6b168bbc9e42bbc1"
+      },
+      {
+        "id": "chungju-1",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ed43bf9eab1fa24c8c9f43b9f2b3fcd703bb5ca9d4b382a9fdb49521260d9154"
+      },
+      {
+        "id": "gumi-11",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "8895a01fb8758242c34162633f1c66558fd8022338bb027110270c44d5a33c83"
+      },
+      {
+        "id": "gumi-11",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "3be72dc6b884aa7518a036f48a6a8524167838535337295f94c72ff4693e8928"
+      },
+      {
+        "id": "changwon-10",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "42cab942a444b486fdb6243193fe5f8492fefd598d00735ea66207b1b4894f8d"
+      },
+      {
+        "id": "changwon-10",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "57ba49c51b48345e2870f8fd5cfc47da9a8e3683267541e26ad0554689ef6ebd"
+      },
+      {
+        "id": "busan-ctv0000040",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "614013fa3c4d077109ca7b397f399a76413813fc6ea34de8e244322542fbd67a"
+      },
+      {
+        "id": "busan-ctv0000040",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "07600379194a47215a06325b9290bf51d4331f37e57c5bfd678ba90c8a232e91"
+      },
+      {
+        "id": "daegu-04-107",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "9a925c99ae06f5c2afe82c8763d9f5c8cb970fccd6e35640de1b3cd295b59732"
+      },
+      {
+        "id": "daegu-04-107",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "396795ad93a7fb962ffff3ecba92d54fc1e88fc124d5002ef29b249787ae02d5"
+      },
+      {
+        "id": "yeongsan-110022",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "54fdb4776931724fcd0820c8679680da0575a288ee4f7718aae6272e7852fb17"
+      },
+      {
+        "id": "yeongsan-110022",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "bb85af7c955311e7b0ec36848836ff1ae610c3deab162b294031d8d0dcfacbac"
+      },
+      {
+        "id": "sejong-cc1424001",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6e02d93434592404fa4c859a1b7feca043f494ca9bbccb5a5fe47b92281b4680"
+      },
+      {
+        "id": "sejong-cc1424001",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "3b16821c844a5987fbf00ccd550d99c1f0d58d0e2150fb96188cd037b4f496aa"
+      },
+      {
+        "id": "gimpo-cctv001",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3f73c72ef4ed125edfd9363b553ee7dc90b3887bd5e83db61c16eebaa60b671f"
+      },
+      {
+        "id": "gimpo-cctv001",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "cb37065911e12e8bf57a332bf9173946b532608e6be676bc3e14efa80389e9df"
+      },
+      {
+        "id": "yongpyong-08",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "30033f90c457b277574f8939ecf1821e144fb240cbe6f732d2fda734c8bd91f0"
+      },
+      {
+        "id": "yongpyong-08",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b80752253243594ba47eaf52c53c930816c36763ae93f31987ec241c14df4ddc"
+      },
+      {
+        "id": "chungju-12",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "155364e3fdd7864c08e61649811fcd616e686b50c25fe72c1d25a66e6a07f5eb"
+      },
+      {
+        "id": "chungju-12",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "6fc4d77dd3e1b3f6fc0e159efd47855193b92cf2d1207c2110532936bdf5cdd1"
+      },
+      {
+        "id": "cheonan-6",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "5e2e16f1d4146102ce02f103010772d2dbe60a30a87bf066062d70c5cf0fe05a"
+      },
+      {
+        "id": "cheonan-6",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "cb1cd57b80eb01c5c9e2d2a3a85d4398c0afbd88f6d5bbc2f7c5f444ec20c214"
+      },
+      {
+        "id": "gumi-12",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "bf046acb685e599f6d5079a3ec80b00f522b0fd013dccac9feebad20cbd442de"
+      },
+      {
+        "id": "gumi-12",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "1d89fd9858ced2ed92cd477348f7ea92815f659704c078ef7369d2bea8f0aeda"
+      },
+      {
+        "id": "changwon-103",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6137fe1278170ae4f22b74b195d5aaaec900ab871e4f7403787d91e16838e209"
+      },
+      {
+        "id": "changwon-103",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "6d0ef769f6b0517b64ac7880d33d55a65f613478a762a314cc4c2e3f7812083b"
+      },
+      {
+        "id": "yeongsan-13042",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "fcda3b722c9c0b5ad57ceaff97f15efb33767520cb0b953c6dba7a64c8b4b6fa"
+      },
+      {
+        "id": "yeongsan-13042",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ba03c5fd1678019bee8dac89c8249fc8d822aa259c9eea639df532e64d3c58c5"
+      },
+      {
+        "id": "busan-ctv0000053",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "d83efdc2ed036d44c0895c4e4ffa529b497a4b8c061cae1f906b60307eea3f6f"
+      },
+      {
+        "id": "busan-ctv0000053",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "f19798c5414e1e19e3e2860b41ad86f63a1569a9a125e621f1484331627d7afe"
+      },
+      {
+        "id": "daegu-04-109",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e9ddfd70a2cef71d1997c5e9a04a4c1770341a5df84d6ed56a112b12298d6c3f"
+      },
+      {
+        "id": "daegu-04-109",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "cc9a5ff6afc3115b4c462170e36b1b9838dbf8ad29eb4cd3b0d2bae7d4d08529"
+      },
+      {
+        "id": "yeongsan-13003",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b7fc0d1490e0d6a9cef277a2f769a069106b7d16f07bf0de971d6836998a1ea5"
+      },
+      {
+        "id": "yeongsan-13003",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "907e1243d5b588df0b9bd5acf6eb37b205f5f53eb242ef6188b12f7977b92d1b"
+      },
+      {
+        "id": "sejong-cc1424002",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "31d91f83f2e5307be8388f7244439e5ff7f4442204cb3d81a21af2fe59f5cc6c"
+      },
+      {
+        "id": "sejong-cc1424002",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "8e9c945da8a602f7b988fe05c842aa49997dfcbd714a469e832e26b387250dab"
+      },
+      {
+        "id": "gimpo-cctv002",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "84c5aecbad63df641965e119939b8f866e88898a24db9e12d59ca8d0bccf41e5"
+      },
+      {
+        "id": "gimpo-cctv002",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "d80a5a64bd39f77cebfd9293bc94cb2421b1506ff77ef25d6c0cc0e804665692"
+      },
+      {
+        "id": "yongpyong-10",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "fe7ed9174613f7484b1b6c7fe7522231b9581011b5a46dfe1c6eb0b4d6d83d0d"
+      },
+      {
+        "id": "yongpyong-10",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c1aa2064206caf43878b156842d6ff7bd6b9f166fa6d24cf6be20dce26b171b2"
+      },
+      {
+        "id": "chungju-13",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "8f38f49f7717c5ee3045b13d03eee42c8baa40dd9a2e9a0e09516f4f33863072"
+      },
+      {
+        "id": "chungju-13",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c7af56e907281ed205a2531542dae17f06b324a2bd80f27630bd628fbb9aa010"
+      },
+      {
+        "id": "dangjin-6",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b7816fb74def97dc7336bb8f19d79fd9fab77ce28f23d1dda69b6b6c965d269b"
+      },
+      {
+        "id": "dangjin-6",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "56601646693d908694c5821139f4ec7f792bbeb35c49bcaede7645389428f639"
+      },
+      {
+        "id": "yeongsan-110000",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4a8e7cf0fc2f0ea036a3006b1263866ec1571f1cd10cf91a5f912bb6a534a19f"
+      },
+      {
+        "id": "yeongsan-110000",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "f8600f312ba75eca1966d7a6a5b5127736e030890aa83e2bcf3a44a0d9347af3"
+      },
+      {
+        "id": "gumi-15",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "01f555b860cbfd6b9383a8eda60fc3bfe96543c933874fc15cf1e4e4b23f0079"
+      },
+      {
+        "id": "gumi-15",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "529736cbc6fc47fca6db428af5ab035b212b97622ed40d4b71b9dac54a879182"
+      },
+      {
+        "id": "changwon-106",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "afabeeb75cc9428b0d4f22213e5395f70d7170b7d80e3e16a824e95580c1223e"
+      },
+      {
+        "id": "changwon-106",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "1e540b832722f020e38969e3ce7a3285722efc6b83351d999d0cabcbe5107b85"
+      },
+      {
+        "id": "yeongsan-13044",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "c658567657a68ac83fea9d4c75c84d7e7fd15a8211a70036eaafff3e0b6f353c"
+      },
+      {
+        "id": "yeongsan-13044",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "6cf4c0ac2324f27b84899c5f546e23c8db3c91f46b8d3602ed32ae389c9c0083"
+      },
+      {
+        "id": "busan-ctv0000054",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "5814334cd285be2a3a16a354ea8d8e6eff58bc2df380e3abe1ea08de733e4e8f"
+      },
+      {
+        "id": "busan-ctv0000054",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "7ad5bbffe5cbe1139eb4155cf9397e0b112b8884c0499b65989691624cd090b8"
+      },
+      {
+        "id": "daegu-04-112",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f5e37c7d54cba63e1a15184a1cfe29b83774ae08fec47ccc7f54857f2b4e48f9"
+      },
+      {
+        "id": "daegu-04-112",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c90c32ee96bffc074cc1b1a6827ba27dd77eb14aa59265df88d5f270955ab4bd"
+      },
+      {
+        "id": "yeongsan-13004",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "a4b0dba5a4a5e53b67880eaddeed842379b563d1da2c5deea9f2be4551d9331b"
+      },
+      {
+        "id": "yeongsan-13004",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "bb672e85b9a59c3656b59d734d4fbdf96e74d25f48de7e93019bd249279289c8"
+      },
+      {
+        "id": "sejong-cc1603001",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "2a840c805d01a609ca4ba068d19b3b23cb7b0ae06a7ef2f6b98fa42d3fbadfb5"
+      },
+      {
+        "id": "sejong-cc1603001",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ba343775f5b834dbce40b205b1e0852a728c0d1fea87fee538e6e8fe53c87c87"
+      },
+      {
+        "id": "gimpo-cctv003",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6c8601d2b3b5d6eb554aee335ea647e593d5584e9568749b06031bfcedca0c65"
+      },
+      {
+        "id": "gimpo-cctv003",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a38b3e23d8b4ff13c99811c2db884bce32e7292d492339e5dad9666c809b610b"
+      },
+      {
+        "id": "yongpyong-11",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "2f8cfe240f0463d078c7259ab904c0563fd92c3a6db30841d9caf001e8264089"
+      },
+      {
+        "id": "yongpyong-11",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "623747fe1c1ecfc45e2909395f6ee96039021e416f39817859c0c09096c740dc"
+      },
+      {
+        "id": "chungju-14",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "2a72ed68e17e32f87412c29644b6ea9df16b5786a0fc177d35757290118c276b"
+      },
+      {
+        "id": "chungju-14",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "973ebab7dbe840fb575071cd2a7df77aa2e9a73656c1e611cdde06d11264df6f"
+      },
+      {
+        "id": "dangjin-1",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "dc87131b80b0a35551572914200a93febb1329d5293afcf6ccd20b6fd15533c2"
+      },
+      {
+        "id": "dangjin-1",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b216ff91d511b1ced63d71a7df5b430584f6d82f1d6f05ce2c498b83e63325e5"
+      },
+      {
+        "id": "yeongsan-110002",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "8d0542e181d48a49b2212bec3fadcd56cddff3d72a89a6ade4d8977fa09bbdc9"
+      },
+      {
+        "id": "yeongsan-110002",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "80af2d0834fe9a9d2d87c491a101d54ef62bf723e929082f16134aaf2a843e2b"
+      },
+      {
+        "id": "gumi-18",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f36df7621b3cbfba017cfe7c9649e7732a7551317d94c819a8fd643a01dde76d"
+      },
+      {
+        "id": "gumi-18",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "86f40376d7c4d6925ea13f3e8f591dc4ea4f6b5d4f548f99b481c9c2ee2c3fba"
+      },
+      {
+        "id": "changwon-108",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "2c9659b87801db94062026f32dcdc98b960ca1f18c52a75f8bde716caac1dabb"
+      },
+      {
+        "id": "changwon-108",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a8575896a0d0d65318bd5fd7e7e4791a1ab0cd0575fc90c64c07a0e82e2a0c59"
+      },
+      {
+        "id": "yeongsan-13046",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "91248bd63e5616301b5f83679036264fa5f5ff1e8f9e9193e7acae2e21ee8248"
+      },
+      {
+        "id": "yeongsan-13046",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b91fa0344b71c36128de93e7b45c86c987bc9cbeb5dc65c42d6526a61375da25"
+      },
+      {
+        "id": "busan-ctv0000070",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "db587453e2ed155e7824b6426c746084309c7112cf424fb3007ff5a387c80262"
+      },
+      {
+        "id": "busan-ctv0000070",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "0da02fe30017faf2d02bfeb70c0461df17a1e9db97ba3e94c97be53cef6d2b5a"
+      },
+      {
+        "id": "daegu-04-133",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "0172bf62278e4a7d839adbb8ac60ab012a6d2127eddc9989e2eddc21e525021e"
+      },
+      {
+        "id": "daegu-04-133",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "3d99ec61969b1f6fed9116dbf402d5281004647ff785df089f9388d713d1c938"
+      },
+      {
+        "id": "yeongsan-13050",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "eede0d0a9378862cbbf7db5774b2423541a8dda8d003fcbee23ee061a687c64d"
+      },
+      {
+        "id": "yeongsan-13050",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "421691b986978c6d9e256e29b5eb97b9a5116092312522c9a5213d2ea536ccdc"
+      },
+      {
+        "id": "sejong-cc1603002",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6ceda87804cdf8bbcd7df2b740572e1e4cbbe934588de3cf2802e99646690e03"
+      },
+      {
+        "id": "sejong-cc1603002",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e0121f79bc0f059171299a2a055b2851ee744be48cf514a1a5ef4d3a2e20dba6"
+      },
+      {
+        "id": "gimpo-cctv005",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4f18d03d07a59e1891bae37c7c2febdd0be0bff8368375c6fcb0e3ccceb89815"
+      },
+      {
+        "id": "gimpo-cctv005",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c5cecd74dad0e0a7478c5d6e3495e7f4fe2dfd8f92d2d04b8bea762433cb29ab"
+      },
+      {
+        "id": "yongpyong-04",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "769c03af795b2e5e9b8e0b05e2e0365c1ba273e6b55ef802bd2ee744e8726033"
+      },
+      {
+        "id": "yongpyong-04",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "23b153e0bebec4ba2a4e19374a42aa75fa5e83390a3c1ab5cc0cf33cf5c3c03b"
+      },
+      {
+        "id": "chungju-16",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "47d528c957e0336d9c0fae612df176556684c1e055a39ea629f691d9437f2fec"
+      },
+      {
+        "id": "chungju-16",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ce7c55d8ef07022796ee416a284bab1c38240091f7d79654be29db4d16755a3f"
+      },
+      {
+        "id": "dangjin-3",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e83d10271e4ee0f6f25605273509e56fb556d1ae8acbe8187575e15b02dda2e5"
+      },
+      {
+        "id": "dangjin-3",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "7dfb35ba9d6478ccf975744558c3620c536b4aaf37c0be15c59ddb1f11c16e29"
+      },
+      {
+        "id": "yeongsan-110004",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "cec2b10ebc99417a5c7d1d0c972d8709a094147626f7502ff9ac9eff0777fe22"
+      },
+      {
+        "id": "yeongsan-110004",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e624f0f6565929d3e779861df1aff53a3bdfc13e40e3f60df133d777cb8c1195"
+      },
+      {
+        "id": "yeongsan-110018",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "a5c295c29192d488c9096d46b32eda3dfb5da207e37822b6ad59ea0f912c7256"
+      },
+      {
+        "id": "yeongsan-110018",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "3c8d43f55879e815241284740d822f5f530490cb20c06e6f9248255c1555d41d"
+      },
+      {
+        "id": "gumi-24",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6c8c75d2defc55568f8d0dd1cb970d669d77ec736dfa716fc85608a7f8d44940"
+      },
+      {
+        "id": "gumi-24",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c65554330ae29c07c1c32d019d81f0c4b63821aafbbc6b1be99260f2421f4730"
+      },
+      {
+        "id": "changwon-109",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ed249df73e65ebc339b806345ed283194c79c651cd35c495ea5c269cdd38f60e"
+      },
+      {
+        "id": "changwon-109",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "d5126b25165060e84f1f69757924841beb964022e501fdc850b933d9fec5442c"
+      },
+      {
+        "id": "yeongsan-13048",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6be52c37af07a8c08a328ccb70ef7253667ad06b9063499fff15af3bb0545090"
+      },
+      {
+        "id": "yeongsan-13048",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b717a8d4768f54410322ea2dcabe76458afd4042608320c2ab506e7573d9b544"
+      },
+      {
+        "id": "busan-ctv0000085",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "2567990ef3deb41b3f394075ea38845649aad08f884de30a56ff1bd6a2a25bf8"
+      },
+      {
+        "id": "busan-ctv0000085",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "9f1561e0ac8e07a569be47bb100ce9f49b45e111c43b9c09e1742bfa4fe35c95"
+      },
+      {
+        "id": "daegu-04-135",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ca983ca7385da0b749d5eb84122fd25a55b52b7777ecbd3676b5e8c733bfcdde"
+      },
+      {
+        "id": "daegu-04-135",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "803996eb4bdb2378c15b2dc2b87c861d8224059a2e5c553bce44de9d505ca600"
+      },
+      {
+        "id": "yeongsan-13074",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "54e1893be622684996c773966987d1400a9eaacea35e6226d6b3e894365be876"
+      },
+      {
+        "id": "yeongsan-13074",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "506fcb34b15a1400af9fb7932fa04195963439aae56bb427d07e9f93c0ba7a0c"
+      },
+      {
+        "id": "sejong-cc1603003",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "8552a752cbfecbf6841ed9d2c672bb7a36be0a7836c15b4fcc7d55cc60713fd5"
+      },
+      {
+        "id": "sejong-cc1603003",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ab0668ccd1d8ffbb529906572994b03d719fe2f9d1b4293f311527ef45afcd28"
+      },
+      {
+        "id": "gimpo-cctv006",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b656265584ee860a78b262f95f0ee57940414f34d5b5a2f3af54019bf371b905"
+      },
+      {
+        "id": "gimpo-cctv006",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "2445ce71f4e3cac045f9dbb827bf3e1727db9dd317013893912923e1f584ce2b"
+      },
+      {
+        "id": "yongpyong-01",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "da30484ef3998ed4106a0adaa5ad9557a28d6857a97f0ce4ec026fda3fcb6128"
+      },
+      {
+        "id": "yongpyong-01",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "2002cf5e2265dfcfe12665b3564c2798bb1d1fec29e10450fc660c2258c1a8bc"
+      },
+      {
+        "id": "chungju-19",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b47be032f87643d12a4fb8531c1c32fb52cb91341d0bb20730a086d6b4058607"
+      },
+      {
+        "id": "chungju-19",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "897d61a25ab7af99c9041afc18269ecadc3978f0ced51759e3cab43dd7486c5b"
+      },
+      {
+        "id": "yeongsan-110006",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6ccfdf6e92ebc0c7a780dffb8966c10b9f388316e2f1ad614970e50f05a9f71e"
+      },
+      {
+        "id": "yeongsan-110006",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "631234ef34de8427bc90b830178f993a27e3345978899d6191b7b4685a8c7b8b"
+      },
+      {
+        "id": "yeongsan-110026",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "222c5f5da218ccd32743df2f552778ad40d975d1c7be668f20ffed3440d60b1f"
+      },
+      {
+        "id": "yeongsan-110026",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "0ffb3f15c0438f3c556edef53ce700ad8abf23d846f2f0fa3debd9715f8c3467"
+      },
+      {
+        "id": "gumi-25",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "8b70cb8075b7a5e1e92552b4dd75ef63b86af530dbb10a3f64f185f2a6faa1de"
+      },
+      {
+        "id": "gumi-25",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "561a52bf76a1d78cf51afce7b762b28cbedd70eacc8c672cf3bc8ac47e6721c0"
+      },
+      {
+        "id": "changwon-11",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ac130a5fbfc78f5f9de8aa68e474f13dc45da07c965796a4c46319e7f3345e70"
+      },
+      {
+        "id": "changwon-11",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "4fa67d8d2091f5e9e0413f7c8fc86584d71d60cf37c04e00777a8e791da00b97"
+      },
+      {
+        "id": "gits-939",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3cd944d9cc91d323e449edca29841a0f8d028a5516ad6062a62a03f444a9248a"
+      },
+      {
+        "id": "gits-939",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "9d2ae3e49c32bd9179d2b3c38062baeced7bb52e52204a190b14fcc0317ffa43"
+      },
+      {
+        "id": "busan-ctv0000087",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1820d1a7326fcb74016e83a17247aac723f83d048362a1218f35a8a1456b7f4b"
+      },
+      {
+        "id": "busan-ctv0000087",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "3c2d98ab0f1507522d2b298e93ba54241be4fa8d6875884e48d00161e80861f8"
+      },
+      {
+        "id": "daegu-04-143",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4d8098f28f6328f13104b705e9628cfaf1c06d1aa360e9c9af889c5a08c09c3d"
+      },
+      {
+        "id": "daegu-04-143",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b9bdb9c0fed92a2480f754ad04b8a8c2500e10919fa65c4f93435e81b57b0297"
+      },
+      {
+        "id": "sejong-cc1608002",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "93b8769f92a55254d5c9e4623a4d016866a5ef4eb10dc3f7b1670816b0b6c706"
+      },
+      {
+        "id": "sejong-cc1608002",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e17eecce798b9a2b1811e5b491de1e0a1cd80f51a5bd7ebb9902b686d6311c57"
+      },
+      {
+        "id": "gimpo-cctv008",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "df6ac4dc365487519866624aec82016434dd74f8be9e8fac02ff185c77877706"
+      },
+      {
+        "id": "gimpo-cctv008",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b4a4f879d9c7aa164d06ab59aaa26d8a1b2352f0f2d262c526750e577d01ba14"
+      },
+      {
+        "id": "yongpyong-02",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "31093429da8db074416e69ef96c81e331172ea92df8b80b2eb445e0a7e51994b"
+      },
+      {
+        "id": "yongpyong-02",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a785ab2514db24b2d3eb064a9fd385a90b34517b9efb5f7bc43fbc409c66a515"
+      },
+      {
+        "id": "chungju-2",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "c6b20b986a27a8095888d907e70bab560d44eb343c141be4c5f873252fe61107"
+      },
+      {
+        "id": "chungju-2",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "161e58a3fb55660b6758db314b02138d4bf24419cce6bc5587266938beb9bd16"
+      },
+      {
+        "id": "yeongsan-110008",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "a26423a8b028426a89cc7fbbd1674e46b16f0575bc3f239702a348ff5847c9af"
+      },
+      {
+        "id": "yeongsan-110008",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "1933e4d31390981a9377bb3640c708ba2de2af4842460f4b457e6143a95a99f8"
+      },
+      {
+        "id": "yeongsan-110028",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b097af4d288d7e7424024cefca37d4c66af7e90e771d2027cb8351c552b6c0ff"
+      },
+      {
+        "id": "yeongsan-110028",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "51537c518dfe2d8f9539f0a493d2c1232f6d915250d85ef2d9894be10c99f115"
+      },
+      {
+        "id": "gumi-26",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "fa80fe76b5484b8603cbd6b51a78bfcea166987ef4391166cbd7d3a255aa6406"
+      },
+      {
+        "id": "gumi-26",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "1595826c4c1a3cd26a2d83c36eccde14baeabe3185cd20749f97fb3c08381ff9"
+      },
+      {
+        "id": "changwon-110",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "badf5d1c3653e7db9e53ea212f13a7dde2b7a01c54d97b0b497345c00ba84807"
+      },
+      {
+        "id": "changwon-110",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "909334311ccf0a80e5bea12a781e0f9bc63cf4d0367ef7f959213b923f0a514a"
+      },
+      {
+        "id": "busan-ctv0000098",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f520a20b36619ca40b9ac8443de4a34aefa0fb6937ccc5e6d21717d594dc824a"
+      },
+      {
+        "id": "busan-ctv0000098",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "addef62bdd0887cc44c4bfd7bbe3cd87dfed10d95d9cb351dedf3bfc5ba29372"
+      },
+      {
+        "id": "daegu-04-144",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "a2f0e64249da3b14ffc520001be93c80ae525fdb6103ad2f24fedc483295a59e"
+      },
+      {
+        "id": "daegu-04-144",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "9568a7774a516d357682a786564a3b4e8c355d84709532e9ddcd10425b22ad60"
+      },
+      {
+        "id": "sejong-cc1609001",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "0494b408f94502016c8867ea76acbe93d328017411cf721099d80b008ab9a5ba"
+      },
+      {
+        "id": "sejong-cc1609001",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a31ff5f01e763310d91704219dd5f1c559f88d0d1fe3fa5031d141a50c631cc0"
+      },
+      {
+        "id": "gimpo-cctv011",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "97fb482c1133f2b901a06da2de84e9486a616ac299b3635d1cfe7001615f1892"
+      },
+      {
+        "id": "gimpo-cctv011",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "9f6539ab3a1cee0ca4bc9511a5d8009e7ac9ff24baad36f546ff7f5ed986bffa"
+      },
+      {
+        "id": "yongpyong-05",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3b90baacbc5e6dd93039b32e139d68c68c21e4ab96c7a8a2e0316ba87f5a75e7"
+      },
+      {
+        "id": "yongpyong-05",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "6123dfa39b1cb48b93fda93fd4aa15d02d0b5646ccf4e0f7fe0a14d2c6b28e88"
+      },
+      {
+        "id": "chungju-20",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f3a233e2d0e3990e716df6cfcac69eff1d9b5b292087e294df9b7f96599eb4fe"
+      },
+      {
+        "id": "chungju-20",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "06548b03ae5864ff39932abdf4ac1104a0bb9cdaef70ada782fd334318f2a28d"
+      },
+      {
+        "id": "yeongsan-110010",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4392f2c1d501ba8c24cad70c87b3292318b3f4ca4b36f1ab00c1cace44df77cd"
+      },
+      {
+        "id": "yeongsan-110010",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a393aaf70a8542a0bdc16db9d07e49b4b332859cb08db102f0d3c5ec6c716d67"
+      },
+      {
+        "id": "yeongsan-110030",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b23cfc176c18249902395147bf4167e4c36790f19ff1e9951e51c46cd83e6540"
+      },
+      {
+        "id": "yeongsan-110030",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c76bc03fec6fb649e8e327c9ea04462696523819134d90bd6f879cd11feb9c83"
+      },
+      {
+        "id": "gumi-27",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e7ac730c29779846a43a12d0cb26403d7079d82c8b08042fea3e508222bec71c"
+      },
+      {
+        "id": "gumi-27",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "633419ee560ed46c9877179c1687d932b3a790a9cc61c3313ceea9d518a472d7"
+      },
+      {
+        "id": "changwon-114",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "0f7537d75b091419134711b3e4c51118b1a53ec4b20a4da5ced4080d4c288188"
+      },
+      {
+        "id": "changwon-114",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "d3806d2d0b343dba649b272da1bb130b469bf0ad505ebf3bdba506ef8e509f03"
+      },
+      {
+        "id": "busan-ctv0000102",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "93c5a16e5dc0432ddf0a16d80172f1c248fc1431a334c9d46725c228a89cbf3d"
+      },
+      {
+        "id": "busan-ctv0000102",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "bfe9ffbe97dfea970d075ce56dbaddf97b803460a0ec97d7ccac5d0fdbe64cc0"
+      },
+      {
+        "id": "daegu-04-16",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "681d8d67562f30a0e92b1912d843700302b8a7ba49441caee2616e48eb531a39"
+      },
+      {
+        "id": "daegu-04-16",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ef33de0129908d3e871cc4aee94b4834ed00c05ddabcad648d196659c87bdf4a"
+      },
+      {
+        "id": "sejong-cc1609002",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7e58db250124717b4fce06a8c69ac4969280ec83b69ccd5cf4e83b13d1be2657"
+      },
+      {
+        "id": "sejong-cc1609002",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "4f40a6b974c1a6e58f48a4f051f53955db9817d912b36512773f3fbd1c9c802f"
+      },
+      {
+        "id": "gimpo-cctv013",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6c818b349a2fdb15a628d071e59bd091ea994b256d9ed539b7213835c124ee45"
+      },
+      {
+        "id": "gimpo-cctv013",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "d01f61b4f5ff765e49391db8bc0563976cdc2034805e452df05df0bf3f4d9d0f"
+      },
+      {
+        "id": "wellihilli-04",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b03b1939a52ee8a77418db6a8ac8cb310d1d6e6d6827045cb867f9bd2fb227d6"
+      },
+      {
+        "id": "wellihilli-04",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "49bce501e9d8575a37fe395eb379f352a2c215fe69166ccfaf3af09af1268e55"
+      },
+      {
+        "id": "chungju-21",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "fd519c6af077a913b02aa69e6f36b01a78e5b172b73d48898e7dcf37fbcaef1d"
+      },
+      {
+        "id": "chungju-21",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "2e49c604679cb66f57c551018239dd2f23cb0c8100f841e81760d3862d9fc861"
+      },
+      {
+        "id": "yeongsan-110034",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "162910763a76fbfc1ebd00cc41f4ed73c031272c4dc17b024fcd7b9e406661eb"
+      },
+      {
+        "id": "yeongsan-110034",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "70d53c41236f9c6d5637d12b90f669ac2aa851a91a76e51f1a15d9a7014c145e"
+      },
+      {
+        "id": "yeongsan-110032",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ca44032b6883d8a17ef8e3fac780763c424d52e0c23fe84347ce6c7e85808320"
+      },
+      {
+        "id": "yeongsan-110032",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "8135d6eebc2b0d541397e4713d2ea48e6d0013140f536d1ab2c866977723ec6c"
+      },
+      {
+        "id": "gumi-3",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3da18f9aad9b828ed3d44eefc8671422d5d094b080ef253b8582729c14476243"
+      },
+      {
+        "id": "gumi-3",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "12555e99bc77e99a9cf9c8d4c31c41eb563f16f52dc2304bd942fe5a26bf658e"
+      },
+      {
+        "id": "changwon-115",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "8246790cabf735ba8136e362f184a621b9d982342e0f4d8d524e89591a8f1e66"
+      },
+      {
+        "id": "changwon-115",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "882f3064778c4fbb39df1f51e790b49930ce998099a5bc2f73d127dcd6460b45"
+      },
+      {
+        "id": "busan-ctv0000105",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "43f5150c263dbf12567c31e4f8b91f063ede3affa564db2a27781a64735a25e3"
+      },
+      {
+        "id": "busan-ctv0000105",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "dd4007f456212b3b06a3a2ce699008eecdca9125c1afa7704270815b99ec5ccc"
+      },
+      {
+        "id": "daegu-04-177",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ee07f6a817357af17670d7847fc2458ab415fb70c7560fc681bd677cb9373451"
+      },
+      {
+        "id": "daegu-04-177",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "765317489e003ae5f77bfb278b4de168a3e3efb2b6fd008ddd2175bca2ba3bc4"
+      },
+      {
+        "id": "sejong-cc1614003",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "8b61fdc9d7710003eb4b71343c8764f53dcca9c5a592dda2c6966a80b6e6ba14"
+      },
+      {
+        "id": "sejong-cc1614003",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "abfbd2c4a557cff26e5cde423d390e85858f1890e75e6baf28f7dfca7b8f858b"
+      },
+      {
+        "id": "gimpo-cctv014",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "2c9c7253de995346462732d4cbc19a715f0d1f4b0383ec657645d1cd2d6ecdcf"
+      },
+      {
+        "id": "gimpo-cctv014",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e67b0a53452faabf4aebbee01782fee76d7a32e5236f0b4e5a83dd38968eb80a"
+      },
+      {
+        "id": "wellihilli-07",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "30982894b227f357e82ab68d7eadf4b4e76eb7c8bdd6fb5c428af5cf3fb17d47"
+      },
+      {
+        "id": "wellihilli-07",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "02ff30ced4342c97354b580614df8605090a09a36db65c28cc1521b51d991880"
+      },
+      {
+        "id": "chungju-22",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "c22c4631e73f725b7cd3fd214bc9bc7537f3b5cec8f51b0cf95e6931ce2ae073"
+      },
+      {
+        "id": "chungju-22",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "6e15de7ae4a88b122fe84106528ca0d3b7e9ce237a2ef7000e1e8949ed4abed8"
+      },
+      {
+        "id": "yeongsan-110036",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "42b0f31b9e8d35b8066ea31212bb555dd33bdd1af1a626e2533274df91ce7c6b"
+      },
+      {
+        "id": "yeongsan-110036",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "333b6b41b49d80abd817b749c4b9a3fcc9efb044e65b657677acc68c87235f5d"
+      },
+      {
+        "id": "yeongsan-110038",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "467949d78ddc1145cdc52c8acb12d2941d8e142e1b25631633e9a84f909a4ee8"
+      },
+      {
+        "id": "yeongsan-110038",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b18970ce2c9d9409f01dc03135525087a5935767969a928712335a5c10ec2f8e"
+      },
+      {
+        "id": "gumi-31",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6a19cf7343465a9f4ede3e8e80e1a627ad117981f2c21f27de5c79cafe76a282"
+      },
+      {
+        "id": "gumi-31",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a38b588209687e40226cd244742a3176d1d8f52955648d9cdd20e99e6e3a63ff"
+      },
+      {
+        "id": "changwon-116",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "d7e410d43c5d802aacd9d7e6d5c1bfc33cdb62803028dc8f25be30a8c4fd3245"
+      },
+      {
+        "id": "changwon-116",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "261b259321def124b820698808f239fbdd262736b003b981f2bb6a4527f1c51c"
+      },
+      {
+        "id": "busan-ctv0000117",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "69c4ba47160997c2265423ff16d1d43aac483106f0e66afd757e532662dcfe69"
+      },
+      {
+        "id": "busan-ctv0000117",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "426572e96f0c0ab1ceb07161174011908285adc0aedb851680573d9c803cfa26"
+      },
+      {
+        "id": "daegu-04-28",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "919a41897939cc02fc4547e1329b24990eb1819a6f93339cb4c6366b8079f0f2"
+      },
+      {
+        "id": "daegu-04-28",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "97dfb0f3eaddcbbfc3e240decf941d7c131d834234f8607f3073b7e1d69183eb"
+      },
+      {
+        "id": "sejong-cc1901005",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7934b3bcffd8f6c9ccc4722e2febc7f477b7a68d6729b873032eb0a32d753315"
+      },
+      {
+        "id": "sejong-cc1901005",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "8289f3fc98caedfbf8a56e0734f8dfb6f5b5882c5012c1aead4e249264d81cf1"
+      },
+      {
+        "id": "gimpo-cctv015",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "88fc449a39badbcbfe2cfa0e096ea0896a3e182a4cddea82569fbaaf779514cc"
+      },
+      {
+        "id": "gimpo-cctv015",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "dfee88631bf90466c29eb9f7175ba2dc1c575631811642fef2e2f25dcf19711c"
+      },
+      {
+        "id": "gits-5253",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3ffa56f4c25d0af5bc0715c8b8ca08d8943e8a7704c47925d47111081b06922d"
+      },
+      {
+        "id": "gits-5253",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "5e7dd3a11a936c6501da4915094cf6d916f28f53add8884f3e056e1b2c9e9762"
+      },
+      {
+        "id": "chungju-23",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e251aebadd919e5345ace220d77d214f7d3fdb1a7dec63f3201939a0969c0b79"
+      },
+      {
+        "id": "chungju-23",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "5a3c27eb837bbd862af97691ac635a0397352879c8ce64ccafde99680baa14f6"
+      },
+      {
+        "id": "yeongsan-110048",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "637644cf5079c4cfff017af8e65ce90473721263fc03627b2eab1bdf1ecff9f4"
+      },
+      {
+        "id": "yeongsan-110048",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b3b8d9bcbf4d9582fa2c8f6b0c62cf263e26a1e462f479ac09d27b87a71b19fa"
+      },
+      {
+        "id": "yeongsan-110040",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6c6bf1734d15acc417ab3f0090d230a6fa78d6861beac3790450f836ee5248c7"
+      },
+      {
+        "id": "yeongsan-110040",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "5e43ccff6cd3fd257e795c13be364c0fea40e63167da8384a81892e76ddabc61"
+      },
+      {
+        "id": "gumi-32",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "a53b266647fdc92659b53c8c9d316b03ab0841f9f3d3e2cd2f6d9c43c204e8ee"
+      },
+      {
+        "id": "gumi-32",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "998a462ab19ef4be9b72d36b7be4479f031e16d3d3f6d0d78e428f4c4c95f68e"
+      },
+      {
+        "id": "changwon-119",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "de093c501685a42b69ef4f13339ccd81451436e2fd1aaff493dcb6c777e210b1"
+      },
+      {
+        "id": "changwon-119",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "4989674767dab5ce19eb1e15785bbb11b83981b179d1930407baa5037d0dd08f"
+      },
+      {
+        "id": "busan-ctv0000125",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "5b0221a9325fbbaee5879f2641afa3f4cf840ac6f85c15b223e1b05abdfb3694"
+      },
+      {
+        "id": "busan-ctv0000125",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "bb60ef0807c153001bfad6302074f1b677f38912e0affb6b4fe2291203007a3d"
+      },
+      {
+        "id": "daegu-04-98",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b563488698ecd8fc18869db196cc6f108758db9662b55364a4d1e69c72692dcd"
+      },
+      {
+        "id": "daegu-04-98",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "70db1d11d5a7ef6c3b32672a0c9db2041c1a6fca091b7063a6a29b75537e0944"
+      },
+      {
+        "id": "gimpo-cctv016",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "01e22ee8a6e913cfe709ced565562df7c1115333712eae79022964fcd46cc710"
+      },
+      {
+        "id": "gimpo-cctv016",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "7b265aacafadcd8fccfe3c1e8c4cd4bd91a769d017ff3e5dc3091d90d75beb3a"
+      },
+      {
+        "id": "chungju-24",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "95e8c80cbf508ae1a807f2b5873469108ef69b19c3d25957c9dfb0b0bfdffb4c"
+      },
+      {
+        "id": "chungju-24",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "42c2561ebb685e8170ea5277ea7322bb5cb8737c8dbea8bb037d1e10704670cf"
+      },
+      {
+        "id": "yeongsan-110050",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f0b33785ca5de6cbdc2d44ea7aeddf90e2ddd69e996816fa056debc1e0c02cd2"
+      },
+      {
+        "id": "yeongsan-110050",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "491a66c40b1034359805dd0c20238b0b58a75d337978c3c5e4079638132e0dc2"
+      },
+      {
+        "id": "yeongsan-110044",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "41dc72062f56b52988fa84e5ce15d75e9cb2f028b56ffe560a555bc8d47c5c40"
+      },
+      {
+        "id": "yeongsan-110044",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "6c008ac8b0a7df587b03ba472eee7ca10e299d2b5db8ac9aa8b2ba61e396fa45"
+      },
+      {
+        "id": "gumi-36",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "42c40fdebdb941c4db250860a6d159b25ca75471474e0bc2f9c5055a09cfa03d"
+      },
+      {
+        "id": "gumi-36",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a0924e716d53860febfec9d95abe47a1f43763fbcaa4cfea6fef879e1a74b323"
+      },
+      {
+        "id": "changwon-140",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3a64b5c07886817978a3ed3ceafe50fd91c25231763b59c49928b02c56c69ff8"
+      },
+      {
+        "id": "changwon-140",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "bdfcc5e1a86cf9824e12b6a7aae5202c4618e385ff1d4d40391c1a919b9add2c"
+      },
+      {
+        "id": "busan-ctv0000132",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "d119d0859ba751c74e09ac07f0226313c7272a2087506c274284eca93ef1833e"
+      },
+      {
+        "id": "busan-ctv0000132",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "6a05bcc1b3a24de2caeb7647fc338a12a529a709646e7825d06bbb1a75c2a83d"
+      },
+      {
+        "id": "daegu-05-1",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "8eedb55bb8a3202b7096dd6196b11e351b38db6c15ee657e59fecbb8a237ba20"
+      },
+      {
+        "id": "daegu-05-1",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "3bb2d13c1b08d1ff18a5b945386f674fad58ad2ab1527423f2b86c8ad2c14abf"
+      },
+      {
+        "id": "gimpo-cctv017",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f1e486068427fc3a54a3d7e2d9f4a05bd1fa02c1b114612e4617ced96b58289a"
+      },
+      {
+        "id": "gimpo-cctv017",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "277c908972a6839a5bf163bb8ffad107c344d9ea25955d1dab84e9c3c16f6e80"
+      },
+      {
+        "id": "chungju-25",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e16d11efeb477602b1a7e980927c3f401f818b3b381322b1fc8dd7691cc3a4c8"
+      },
+      {
+        "id": "chungju-25",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "1a5a62049378f3609165f536b3d1221d706e93df6410fbd353f3576bba8b3dd8"
+      },
+      {
+        "id": "yeongsan-110067",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "feb971f9faffdeed40e45df7c636301106babbdef1e795a8ba761f82a47e2621"
+      },
+      {
+        "id": "yeongsan-110067",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e2ab1e327b29cfa8d4b76d806f9441d06c17a58c61d0f33055275d9fe69860b5"
+      },
+      {
+        "id": "yeongsan-110046",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "fedf299d205642aeb39ebb24608af402bb813545dd465d9cac9ad9b1f174d613"
+      },
+      {
+        "id": "yeongsan-110046",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "694b5614a01ecae3e43b55f2a79107b3a9691747da2cb62638d1c44ec357d544"
+      },
+      {
+        "id": "gumi-39",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "be7359493b26bba4ecd3d4e8d4bbdce461e1e2a9bc281a2226519bf543e08dd4"
+      },
+      {
+        "id": "gumi-39",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "5d3336a6f2fb464b05cdcc2874244e15a6e99e8e58f49b03867166e0c7064f35"
+      },
+      {
+        "id": "changwon-142",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1ce4bcac6c889bebd51c70bb5c51de9df8a111f6d43a5db7d98b39e42f13b579"
+      },
+      {
+        "id": "changwon-142",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "97b92a0c019dcebecd0bb3bc8d06df4417ba04f2627f8e9c8eb171c997d8818d"
+      },
+      {
+        "id": "busan-ctv0000135",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1264a5e69dab30530187fd171c89d3ac2c9ad82bb62f8efbe8b735f3b2028cbc"
+      },
+      {
+        "id": "busan-ctv0000135",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b308c1fc4b6ca9c9ecf35bd2c9f5883e7b9ccd30fc007a7ee8f7f306ecd9fbb1"
+      },
+      {
+        "id": "daegu-05-6",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "0dfdc757814afb5e3bb83c0aa5754d0aa3e3a8e8894fb848db148936cd805ce3"
+      },
+      {
+        "id": "daegu-05-6",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "884208637ff64606dc338d6de635e6d96fc590c11aa10ec7b3934b1e876cf5a3"
+      },
+      {
+        "id": "gimpo-cctv018",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1bdc32af8668d54981de5795d3f9958d903ca38b04396de0152ae799158fc007"
+      },
+      {
+        "id": "gimpo-cctv018",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "40ebf00a3ed295fdaec8e6693161c4f3ace4fa19de479d0b2d9bb7cb7be41c95"
+      },
+      {
+        "id": "chungju-28",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "a700740f545ecddb63884eb71b221817191023f8b29dc6c7058433f06dda8a4d"
+      },
+      {
+        "id": "chungju-28",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a0f985210fe0d399c7cc8d0b305c250674406292dec321bcf416097ca0b5f32a"
+      },
+      {
+        "id": "yeongsan-110069",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b4e23df549f355603d197b5cae60417ae74b01e42d45d70d5471872f501ab4d5"
+      },
+      {
+        "id": "yeongsan-110069",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "bb653965b7e569a45371bd3dcfdfaabf6756ff17d02e7532b72830f513a21e8f"
+      },
+      {
+        "id": "yeongsan-110054",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "97e71ddfcd2dc7132c48500020c4e45e540d81e7bc3752fa5940be55b862902a"
+      },
+      {
+        "id": "yeongsan-110054",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c5396c9066f5d4607ab5679f4df61e1f83c325848268a834646d96fc15e5587d"
+      },
+      {
+        "id": "gumi-4",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "40a4ebea0ddc8bf10bdbd4ed73c36121776b10239c03b92e9f87a914bef0186a"
+      },
+      {
+        "id": "gumi-4",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "35024f92fa9b4b7632b2c179e78633dcb69375eadd195aa9f7ada240437025d1"
+      },
+      {
+        "id": "changwon-155",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "aee3cf2519c5ef7151164ecc3e5f842a3b8e1d188c25e0b073e6b2a1881d561d"
+      },
+      {
+        "id": "changwon-155",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "1d09f43dcce9a9df3b2900ca7911ec24c5501343323d4f446be6487d9d51c726"
+      },
+      {
+        "id": "busan-ctv0000137",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "8a1af36fa3de7de6d9b52f328ce6c8b0ea4d1faf0d5e10b22fe4265b32d2de89"
+      },
+      {
+        "id": "busan-ctv0000137",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "016483d8a1dd607a97416f3428d4a275b6bf0a030b3fefd7f0bdde4e957b70c9"
+      },
+      {
+        "id": "daegu-05-8",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "c41ac8071ebf580db52f156f688229c36aa437c1ad3bb40b43f027f227cd0cb8"
+      },
+      {
+        "id": "daegu-05-8",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e0c639ec0fa4a8854e18becf4797bc46f0ec689f83fcbc356162a36ed8dc38a6"
+      },
+      {
+        "id": "gimpo-cctv093",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "fbfac2edd4dea63707d28be334ae70a72b8a417bea01e0a2f39a1ed7951cdf4e"
+      },
+      {
+        "id": "gimpo-cctv093",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "9ab52809ed37fdbb56bcb0dcdc304243b19aabea4e81fee3d7ff4b4f89fd9012"
+      },
+      {
+        "id": "chungju-29",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "46b2785e3405fe919c595ac7769baa3465837fd62523090ee315b027a9701a7c"
+      },
+      {
+        "id": "chungju-29",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b93fdf7186a559709b1ec1fe73144dfd7b7276b7f7d0bc14fe07e723b33a26a3"
+      },
+      {
+        "id": "yeongsan-110071",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "aaf2c691a06e155078338f63fd7d347076aa321c48a494c44194c2f01a6babe4"
+      },
+      {
+        "id": "yeongsan-110071",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "4548e4231bc559e01a67f5a937186ffeb8de8eb73c4d40f3503094c7387630d2"
+      },
+      {
+        "id": "yeongsan-110056",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "49c82a7e7d32f6da2836a69579c3614928fad526e47f8f39b6850a50d45b728f"
+      },
+      {
+        "id": "yeongsan-110056",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "560e075ca242d2cc5d7b1534febb081b12047f5fcf714f6d523cb158aa5f0b91"
+      },
+      {
+        "id": "gumi-40",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "a46e3832c7a608bcc2eefbb0ce96e305a9ea31c0157199da908611ee3e07d309"
+      },
+      {
+        "id": "gumi-40",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "7d3e4a5cb8566b193bb48f113be4032b510b551c6814e36878474a1d35c25d5b"
+      },
+      {
+        "id": "changwon-20",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3923201fa2af8962779c3b44032c9d65e14b9acb225c1de8906802fffaa6ec59"
+      },
+      {
+        "id": "changwon-20",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "518f0ebfe61389ffec26c47ce16039fb7add1bddbfa142c2883d25b0179f2e94"
+      },
+      {
+        "id": "busan-ctv0000140",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "cc489a252cbea30cbc6ed8bf8d2574fdf155f783bf14417c96b86bae9ea88c9c"
+      },
+      {
+        "id": "busan-ctv0000140",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b0772e98d5a7278b0ef2581ef516100e178ac21c962dc109693693b30c308261"
+      },
+      {
+        "id": "gimpo-cctv094",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4214d4893cc05d81176f63df3ea05f9f5d64c16311688dcc5f1c8f1f0680fef6"
+      },
+      {
+        "id": "gimpo-cctv094",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "02ba0c51b89656cd3d2adf160b0694b77c68e8df50bd1f93a1326a081d1439b6"
+      },
+      {
+        "id": "chungju-30",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "2bbf5d868a97134c21aabfd7cfb1910dd59a49a383b45b052745e1838da438e9"
+      },
+      {
+        "id": "chungju-30",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "03d024bb436f019e00fb151e351a0adc51e080d1a3ec3e01b210a3aafab52906"
+      },
+      {
+        "id": "yeongsan-110075",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6092689657e01e879beddfc880856f84762f026786bd75cc6349bee071738515"
+      },
+      {
+        "id": "yeongsan-110075",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "94ecf3f7fcd0378dd4d7797f220bf53f94ef83342f35b7d505b8eb5b58e97f27"
+      },
+      {
+        "id": "yeongsan-110058",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "c2d7cd946de89d27020d794632003b808507ba8e6802f025efd4b8e3f53186cc"
+      },
+      {
+        "id": "yeongsan-110058",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "be34fb1785b85b521c70a3eb564c21accaa53a9c3d7ad6443f6e7a25d676e292"
+      },
+      {
+        "id": "gumi-42",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1ead0856448e5edacfdc0e134ed7ac8401d21137152b76c9ab76eece46ac66e6"
+      },
+      {
+        "id": "gumi-42",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "0fa28374c79b9d4938b881d4a309d3da053e8f96215a2d825557c9468a7a6e13"
+      },
+      {
+        "id": "changwon-24",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "59532eaa84f815a0f36ba959752f1bcbd8e5f10f66b25f56b4e647b907de63c5"
+      },
+      {
+        "id": "changwon-24",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "4e8d8ad08a4cb99da6d644bc35f75a04c092f655b76b274b2e3762c767556c0b"
+      },
+      {
+        "id": "busan-ctv0000141",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7c092b6ae589600fa3efc595187211d73bb4fb5bc887debf46492c16ab4b1b44"
+      },
+      {
+        "id": "busan-ctv0000141",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c31f8fdf4132530a2caa92901c7e013358308b0f1ea8dacd17bbe49d8530df29"
+      },
+      {
+        "id": "gimpo-cctv095",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "88bc90828720606ee34e309d70981ccd1ed2bb0df8dd6ae3d371bad1cdfe9c5c"
+      },
+      {
+        "id": "gimpo-cctv095",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "199f7ec8a3cfe172cf1276600a1678eb99971ca683d1a6cd71171b7644c3ffaf"
+      },
+      {
+        "id": "chungju-31",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f12ef5cfc3c17e9775e4b67ede9453db404a94c4422851a3346fa2b2ce353b8c"
+      },
+      {
+        "id": "chungju-31",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "5663f95cedd302fa0d3aa7663806f431dd45e7bcd0da44cb592977a2043bb583"
+      },
+      {
+        "id": "yeongsan-110083",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "830743493b111324c392327e5001925e1274c7965e7ed47c56d0f53cabc57f5d"
+      },
+      {
+        "id": "yeongsan-110083",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "51c3fafed4f0124a7e6e56953eec863412ed7a20dfffaee4fa453b9aa403cd35"
+      },
+      {
+        "id": "yeongsan-110060",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4d693067e11e10c1e77e523fb373610843e9a7aa2d7e1aee86a8237394787449"
+      },
+      {
+        "id": "yeongsan-110060",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ebb91201e3c6eb6ddc3fdea6f6fc6ae5672d2cbb38bf5bf272c77ead0255db7f"
+      },
+      {
+        "id": "gumi-43",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "90bf11d2445936fc56c611aa276fa7e3cc6b7d1f385ed277565f6a2da6c2c073"
+      },
+      {
+        "id": "gumi-43",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "03adae62ca9ea4f2d3b418d50705e15f67884c1e41923c4d35e2a8a1517132d1"
+      },
+      {
+        "id": "changwon-29",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "40a1db743d8aa9eae4e732806dda67c42267ee3748f1d310fb5a326ca5f55695"
+      },
+      {
+        "id": "changwon-29",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "949dcadf51e6abd2a251765d3de1149e842cdf969a6e9ade423023db662ce3dd"
+      },
+      {
+        "id": "busan-ctv0000162",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7be13a6531822c80f3df51cc6102b44c2c6391dfbcb390c0e081e0c96db7832a"
+      },
+      {
+        "id": "busan-ctv0000162",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "4b82977035c3815dec2397d6ee9d6cbdcf179a78bb05ec73690c78ba0dd7218a"
+      },
+      {
+        "id": "gimpo-cctv097",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "82c1573cac73d0092e9648ff5dde6056e69946b07c6e9890a646f7579f9bcd63"
+      },
+      {
+        "id": "gimpo-cctv097",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c719abadac9b733cf82a8eb5f69c1045048bba18553c00bc7ce31a498aeb1118"
+      },
+      {
+        "id": "chungju-33",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b5c664b638eb24955861a8200d50e71de9b644a2bb8fb491132b61215c23f248"
+      },
+      {
+        "id": "chungju-33",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "22bce4a5ac4a1b29f4a506dffd14072c4e2c5151c5344f893d55826bda7d8dbe"
+      },
+      {
+        "id": "yeongsan-13006",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b561b0e1f861f8b91b9b64a91ffd949845fce7e1d53b7cacf894c9975dc68e55"
+      },
+      {
+        "id": "yeongsan-13006",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "873d308bdb02037dc8abb3e81e40270ba3c9a050d80b4bab421ed4fb72f936e8"
+      },
+      {
+        "id": "yeongsan-110063",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "848de6b63bce61c35b4d8705cc1da58982f9c5a443921e137b2b004c753d0328"
+      },
+      {
+        "id": "yeongsan-110063",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "695a2c3b89c27c7db70efa7edcf7c36e4cbd83c43a06b2481fb27695a9e9e1ee"
+      },
+      {
+        "id": "gumi-44",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "23ef334189d0b44695b1d8b87c4dad3668f483d838be92b058af34acb0553db0"
+      },
+      {
+        "id": "gumi-44",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "9dd80dd33bd59d5bc151dffb137b1c2311adcba2e12e4e06f30f708174685445"
+      },
+      {
+        "id": "changwon-3",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "a0cbd39da8d596e9f69cfc5f3770aab1a86a2ee9953f07b2ea01e7f06f0658f7"
+      },
+      {
+        "id": "changwon-3",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "9a528724112da512e7715a9e44149163870b252573778339d86d72bc1f03e38d"
+      },
+      {
+        "id": "busan-ctv0000163",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "64618d61b5dd872e5b910e2114566db32aee1ca74b09f687af3181f39e8a0910"
+      },
+      {
+        "id": "busan-ctv0000163",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "4d6827c3e90193deb920668a24eddf2618a0d5f4ae49321ef3842ab5c493f139"
+      },
+      {
+        "id": "gimpo-cctv100",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "dd20ac723faeb5d0977bd112d790e6bd1d59fe538b715260dc3fe652a3020a38"
+      },
+      {
+        "id": "gimpo-cctv100",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b627dc39d92a03a2746199400fd74fd0dd2532d8a947c420fe8615e4143c59e8"
+      },
+      {
+        "id": "chungju-34",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "705d1d10bd721dd51ebdde3844bd667f9b1241e5317224c85d65cd42dccb914f"
+      },
+      {
+        "id": "chungju-34",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "9ba1e976ad3d3e3fc80915c5b81406e8e29d8848a5f54ba255964b9eda5e33fb"
+      },
+      {
+        "id": "yeongsan-13007",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "cae66c986ab47281b083faf3960fe60a154cfa5f3bc2d51cfa091427c336f9f5"
+      },
+      {
+        "id": "yeongsan-13007",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c9c6e60c8619fc2ce49d139ed81e71082d759f8886350384e759fd86e2640325"
+      },
+      {
+        "id": "yeongsan-110073",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3d89901ca86a7ab5bc1e64998b91f4d22452d91315958d389af166d3baed48fc"
+      },
+      {
+        "id": "yeongsan-110073",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e5f19801c8b78ccaea2380f42fa6b74c18f27b89b66cea9c8c08c261237e48a5"
+      },
+      {
+        "id": "gumi-46",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "2653c18c3f02a10f76d90ee2f35a82cfce3e6345c68c5e3afeac98a28f1c2f38"
+      },
+      {
+        "id": "gumi-46",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "f6806d86b41d3346d4873204c74bc43ae42f716e52cd5194f3f46f0ab7517d8b"
+      },
+      {
+        "id": "changwon-5",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f48e9e7618580c6006324e0c94dfa75b520872ea2794b9f8baa297c6dfa93877"
+      },
+      {
+        "id": "changwon-5",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "47aab1c30f3bc3a576423ced4167559f2d6920851ddf1a6a774932a4c7458d50"
+      },
+      {
+        "id": "busan-ctv0000164",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "46741be630cdc6b49bee50e4dd1f4f9684e6300673838cd32b1a945d0636bdd7"
+      },
+      {
+        "id": "busan-ctv0000164",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "6283df712d87920bdf9b1defd891278a22e0799179bc22199fac3f49319530ac"
+      },
+      {
+        "id": "gimpo-cctv101",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f8b9323c417204b57732aa368d9208a9443a43657a8db9b03bdb6f8f6479acb1"
+      },
+      {
+        "id": "gimpo-cctv101",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "f27f617cb162e431fa02536ba75b158788e660a3009a65caa79928573692a787"
+      },
+      {
+        "id": "chungju-36",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "abe079b9a7d42af0b5aff7ca6fc5ab66d3da94466059de1dee53d3a3e3e74fa1"
+      },
+      {
+        "id": "chungju-36",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "8082994ee826bd122cb5bb9660cbc2aca8107488fd249b9a2289d05519a3f32a"
+      },
+      {
+        "id": "yeongsan-13012",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "fa9fb1ea184309f14c27e94a6d48dc224a870241f8634288df4a67cdd56bc869"
+      },
+      {
+        "id": "yeongsan-13012",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "023351203fba7790ea51f1de8ac41a534025232478c07d1ff7e27b1a8dc3c842"
+      },
+      {
+        "id": "yeongsan-110079",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "5b0cd46e3156369d52418be8990495b82f2d1046ef9ddde34d98bcd370c0b25d"
+      },
+      {
+        "id": "yeongsan-110079",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "86d758b578115bf98ec510b9dcec25caec4ccfee086391aab0b91a3dff90c88a"
+      },
+      {
+        "id": "gumi-47",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e04df19e134a41cc7745dd3e6a53c4f1439fea4b274f095d91e7aed975fe48ce"
+      },
+      {
+        "id": "gumi-47",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "6f587021b381774bc709795d61330fb9ad440c3b3faef951eb748a41e6e8f04e"
+      },
+      {
+        "id": "changwon-51",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "08440d9ddbabcc8e68603551c5bebce194f760d9c109a0b9d00721154cfc9caf"
+      },
+      {
+        "id": "changwon-51",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "4c5659b4f780518a2e46b312a9f2f90db91e08fd4b59d4c56d840f04c5d7e2b8"
+      },
+      {
+        "id": "busan-ctv0000168",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "9a1f8162094ddad7e90d4617941ae0c19588b1b4afcfdb39674d5c0a9ee62546"
+      },
+      {
+        "id": "busan-ctv0000168",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a191dba0b3faa7a4887e466960e2c5314b2cf83cdf190429ffb062cc62a8eb0c"
+      },
+      {
+        "id": "gimpo-cctv102",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "5f5bb4e681d2c6dc8d78a1cfeab6bc1bc4dfa46f202047b63b3011369b50cf46"
+      },
+      {
+        "id": "gimpo-cctv102",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "99198c0f4c629c45da2ef066f33198eb375406b6dec2dac6e5c10d6aa0550118"
+      },
+      {
+        "id": "chungju-38",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "51fcca113d2c97ff741e2761293254e113d65527bf88b462296c089fc920ee06"
+      },
+      {
+        "id": "chungju-38",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "536f4fcf48d202c9d868e5241ed86b28e0f2b25c11574a5e4a38a66c3556a347"
+      },
+      {
+        "id": "yeongsan-13017",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3cf1717468645a2c20edff47b132505f43164488a117d9359254292fba61d4b4"
+      },
+      {
+        "id": "yeongsan-13017",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "924f6b8d301aa943b304f5ba9bf1ad13552ee3c53b902945683e2c8983db9ce7"
+      },
+      {
+        "id": "yeongsan-110081",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "bb4a2dc158d67bf045611d49cbf3075378c66413ca3d45d832e7d8a622f3f66e"
+      },
+      {
+        "id": "yeongsan-110081",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "31a03b3a48faac1904661ae0a5fceb1d032b3f99a7b99a1e154a652e50ca45e1"
+      },
+      {
+        "id": "gumi-48",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "48989db1e08b668cdb7bb956fdf8b0bd5570d1538da19f511875ebddaeb89bf8"
+      },
+      {
+        "id": "gumi-48",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ee23b272362fa6afd1ad52fccf29a95b1a599d83cd0412033fa23bbd1f55a5c5"
+      },
+      {
+        "id": "changwon-53",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "9d498ca6b7759bbaf594f3709db08b970c5add6f078ed36da8ab9cc73e20e741"
+      },
+      {
+        "id": "changwon-53",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "73247d2cb3b4075897ce8b5f111e40c4040af3c4b13944ec85250ba0724b50a1"
+      },
+      {
+        "id": "busan-ctv0000169",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "a23f1169faa21759b7f1d7a5d95a5cd6eacd0d2566d61cb564c5819ed59341ad"
+      },
+      {
+        "id": "busan-ctv0000169",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "7dae8ed0754a65ccb2844377801ca980a9a28731b02ab393c5e969b0d4a85e37"
+      },
+      {
+        "id": "gimpo-cctv103",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "d96f4cb566b5a6b45433334dbcf111067a94ffacec39d52291ac97f26f8dbb81"
+      },
+      {
+        "id": "gimpo-cctv103",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "8f610d5c358880b4546ad63c60363d4a71857bf7e9515edd9e2c57ab42220340"
+      },
+      {
+        "id": "chungju-39",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "83fcd1bfddcc0bb28471472d4d997615ca5263656fe3e15649e673ea68275228"
+      },
+      {
+        "id": "chungju-39",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "d96b1ce1d9df8c80047eafa9675c3dc6c8df451c1b6df62b675da81342b177c3"
+      },
+      {
+        "id": "yeongsan-13032",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6503bb3a6f03f6d009b9c22cf1a6a42ec8850f38f010e1d951c7ff7ce4ab1ee7"
+      },
+      {
+        "id": "yeongsan-13032",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "345b28766f38f3a8a4b3afda80834efa86abdbedfb59a4041eb62434cfd77e7e"
+      },
+      {
+        "id": "yeongsan-13001",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "8375a4d7aca20efb325f0d08d9c930c05ac9c5da0f1282b8d3ced8af95a1e147"
+      },
+      {
+        "id": "yeongsan-13001",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "fade47921e0d01e1ca4259375b81063290138bc62a30887539c06276a320bfe3"
+      },
+      {
+        "id": "gumi-49",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7b83d6e73612a24efa08ec675550930724063b91be55f33fec03f48fbc19ae62"
+      },
+      {
+        "id": "gumi-49",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "97c84f1428ba7a99b749510bb9807261ce94fb1807bd1146b1b93b7ac33b643c"
+      },
+      {
+        "id": "changwon-55",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "976f883763c496733f81aba93da96685c0d29eda0d760b6cf1cfdf5a76d0c4c0"
+      },
+      {
+        "id": "changwon-55",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a2f5c9ec56519614bf343661e6f89eb79486ca91d414a99ac0d2df2079204685"
+      },
+      {
+        "id": "busan-ctv0000170",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "99268a22641a13123c397d007049b7ed2c5f647095415cc908198e4f146e20a9"
+      },
+      {
+        "id": "busan-ctv0000170",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "4d11c5f1a2181a0c730d6ad52d4de853082090172f958f5c7326916ef8b02447"
+      },
+      {
+        "id": "gimpo-cctv104",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "df832f2dc83768d782cef673cf2c10527a83d0fd039622c89fde379e758fc9c6"
+      },
+      {
+        "id": "gimpo-cctv104",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "bf0e493cbffc025e61e38e9b43411d31b8095ea65dbde61204d7ac8ae85d493f"
+      },
+      {
+        "id": "chungju-44",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "9a4f948966932f61fd1e1d81386b40a2b149f8e8088d9886ef978d3971e94490"
+      },
+      {
+        "id": "chungju-44",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "fe05faa7a6cf0dd2c06ea43ec8001ea3ff7d48dfd08e27211358fb8f86ba1d7a"
+      },
+      {
+        "id": "yeongsan-13034",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "51deb0e2005299a59812d73c6fd2ba696c70a2c5373ad4fcfea7fbb5fefd79c5"
+      },
+      {
+        "id": "yeongsan-13034",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "09ec9d7b728a4373bbb915fbdbffadc870af9e79f89e415c7efb2267906f6c46"
+      },
+      {
+        "id": "yeongsan-13008",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7370d69ce55af645d0e867b49791f3c8ede523a68b37d33db80cc36864e7356c"
+      },
+      {
+        "id": "yeongsan-13008",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "469e45234c91ce881e829d5c43a751e3b1fe6b16dc0d189bd64ad13b94dfd82f"
+      },
+      {
+        "id": "gumi-51",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "df960f50f9afd1802fecb5e3c964c59f4cc60f14b58bfa0fd468ebe4d81b848d"
+      },
+      {
+        "id": "gumi-51",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b5c01d97c817b6dc24c3cd54d457e468b305b70af9042dc1397cd8ae2c54c5f8"
+      },
+      {
+        "id": "changwon-56",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e111018b1c7c825b0e1b0d573feb25b418b5ee6a065ee25d220f6bd7388bba36"
+      },
+      {
+        "id": "changwon-56",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b6b48af0f82b8339559dfce94e483059b800420643be5311c5fac7e3a79a084f"
+      },
+      {
+        "id": "busan-ctv0000180",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "20a21cea4db898cd1b1cf0005b4b1812df3c40fcadae8931958e1b641b611ca8"
+      },
+      {
+        "id": "busan-ctv0000180",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "be0863b67b33d92877239f2c51c9b6a7cdd004ba1d6e5e1f7e6b7eafd3a0927b"
+      },
+      {
+        "id": "gimpo-cctv105",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7d66ebdfc47ebda75026db7c31096e5a6f82d9f1b5c19b0f6a5a06b173110cf9"
+      },
+      {
+        "id": "gimpo-cctv105",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "f3da671e3bccf6b034964da645b6ccf10d2e7c9c98fedf4cc47b95316e1d27c9"
+      },
+      {
+        "id": "chungju-45",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "9f4d4baab08f4acba3cd0e003881a018a64634b2f26fa72b1b7025ba101c798c"
+      },
+      {
+        "id": "chungju-45",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "90466578caeb4ef9b08cb206079e688aa8c9507865e81a2824feed22953e73da"
+      },
+      {
+        "id": "yeongsan-13036",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "cd287e9f1613a967a9787487c75f605839a358bdea1cb9a0a86864ff47f8aeea"
+      },
+      {
+        "id": "yeongsan-13036",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b90318f8426043274ffacab144163c05c3294d848790be0eb1fe65f04cfce928"
+      },
+      {
+        "id": "yeongsan-13010",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e978958d9a20fc8e559ab8c5d5275cc0eeaf5033598800ee50c835c01591883a"
+      },
+      {
+        "id": "yeongsan-13010",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "5541862afc348019f86e4a25d8e86d8f7e168c3dcafe48715f6684db7ff90d61"
+      },
+      {
+        "id": "gumi-52",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4017614760f609a889ca9aab85f56b3cb16141f7a12b265f890a5ae0c244f215"
+      },
+      {
+        "id": "gumi-52",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "66eb9f651dc26ed437983f8cf802830b755097cf15e3b01be87adba277cc4a6e"
+      },
+      {
+        "id": "changwon-57",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "13262453ea791917275f9eb56ba9a439c6a00c2deeaa3b10f7a1a63fad5ff079"
+      },
+      {
+        "id": "changwon-57",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "42af1edfdd4080c8742242a1b0e94648feee5434c0f812fb3961bfc5d4e73bde"
+      },
+      {
+        "id": "busan-ctv0000207",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f5da2966255eddba7ef71de16658ecb03a60df7ed592576e9a31a161486c7439"
+      },
+      {
+        "id": "busan-ctv0000207",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c90bae9cb37c1204b879d3a5e8f830cb76faee60d0c6246f22ecabb14ff2056b"
+      },
+      {
+        "id": "gimpo-cctv107",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "fe68c9cef497f1468c317aa23843b763ce81885f0fccaa9673110428aa67e24b"
+      },
+      {
+        "id": "gimpo-cctv107",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "9afcf7ac0cbee15451ce813ccd400254b941ebddda6a8bc378e5eec0ed2c4e4d"
+      },
+      {
+        "id": "chungju-46",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "0833f4f6c865c411ce1108659305436b54f60e07078718586547c46efde2d888"
+      },
+      {
+        "id": "chungju-46",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "7d7a4bc5db9f2401a3f9f3a04c71983635451089301033f65c5badd7d7337f11"
+      },
+      {
+        "id": "yeongsan-13038",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "596f5c666a96e51f74a1437d74634b95ba4ed838d1763283c0d443cf93293a83"
+      },
+      {
+        "id": "yeongsan-13038",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "26cd27701eabfc7a6194a3b2e5dffaff4308d424a5a3e21f8867aa8ff169347c"
+      },
+      {
+        "id": "yeongsan-13014",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "bf94862267daac80cdd35ff77e6e867fc4b3efedfb14d94a8877a2154149d26e"
+      },
+      {
+        "id": "yeongsan-13014",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "7a542f559902eca5912595617c3f02d252452c4c9f507fce82d5abbfbe7735d3"
+      },
+      {
+        "id": "gumi-54",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "71f19274fcda3a7ef4c3b0ee54de9d66199d38d62b1cfcf8611e407dfe79adb7"
+      },
+      {
+        "id": "gumi-54",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c9235d7a98a9970544227d8f0b9088ced0bc8e8abed29aa667e2d50f406d3fef"
+      },
+      {
+        "id": "changwon-61",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "9253abedec3a2b5e63f8c9dc11fca33799b341a712c0477b7b81c369556cd89f"
+      },
+      {
+        "id": "changwon-61",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e3ad2af79ca1915dff8291438cc6fd7b997ab01b964e0eccaf66c2756ad4569f"
+      },
+      {
+        "id": "busan-ctv0000212",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f4d283dbfdb46a8ec87be3a6a99f5e0e206d4f3785feec46d26980a2bda35ffc"
+      },
+      {
+        "id": "busan-ctv0000212",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "6f768c42a12b90e365af16904abd927c4bb4aba4dece3f2569ea851eb9f801a3"
+      },
+      {
+        "id": "gits-1256",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "dfd5436964e9d69be0c723186478d07cb4dece789b39edadfd5e5423fd5577b6"
+      },
+      {
+        "id": "gits-1256",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "92d7bd3c22a33c15ec7df3bc23f966234e9ed7f19fe94c0534ca9be38cc4e460"
+      },
+      {
+        "id": "chungju-47",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e97dc6c40071377246262682b5b191016cdede59faf85e1c45d8bfefe7912e99"
+      },
+      {
+        "id": "chungju-47",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ddb80eccfdac137e287a4d211b3a32ee65a7fae86d6bf520b845c550cf7fe6c4"
+      },
+      {
+        "id": "yeongsan-13040",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "2cd1552d3ec03e4c0b2675ea88f7e2dc95beab8cefefaa84de26c428b7c41a1a"
+      },
+      {
+        "id": "yeongsan-13040",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "8c52d13228b3f4d9d7cae0e9c417683dcf7a1ddcfc42e69fe2c99c4592f73d81"
+      },
+      {
+        "id": "yeongsan-13027",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7e69ffc7eee70ee83ac9797f4f123ce0ecc201793d69532728d1be13cf4ffa17"
+      },
+      {
+        "id": "yeongsan-13027",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "32303114cccebcf19fdcec490a23a598dc67a3846de06762d5489327562c9684"
+      },
+      {
+        "id": "gumi-55",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ffb8b3a91a7e09042bf7bd17a33afb674b7860251e26a5f2921542f86aac86c5"
+      },
+      {
+        "id": "gumi-55",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "db8c557612e359a2286dbefcdf4aceae8892ffcd03575435fccde6254145c65a"
+      },
+      {
+        "id": "changwon-62",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ea57836a6cd3c4eeaab6121e9c40daaefc223a0ed62a103562da537c0bb00a0e"
+      },
+      {
+        "id": "changwon-62",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a94cf56fd0c095d419ceccce1f4d8405f0f51f59f3f055ef6ad35a2a441dffda"
+      },
+      {
+        "id": "busan-ctv0000233",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "5836664b35d53ede986f9cd6a74924041852c3f1cc36521889565d90e988158e"
+      },
+      {
+        "id": "busan-ctv0000233",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "7e18abb44deceaf29636c576feb6bf8ea04f2abe5413e8511bf78f94bb174ff1"
+      },
+      {
+        "id": "gits-1675",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "bfc1e206b0c8b0632d4dffa62c0313a1c5d6a2deb9539e4d34305f4321c33681"
+      },
+      {
+        "id": "gits-1675",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "81358e26d67c597b6f4f0226d653f74e3fd010c18288081bfd8e8ddcd255cccc"
+      },
+      {
+        "id": "chungju-48",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f8f39a6020b7aa65cf889d4ae84af4762788c0364621fd14c46fce90a359434a"
+      },
+      {
+        "id": "chungju-48",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e81f4bc99944bd526dccda42708e3574dde0411134224b4ff2ba64f71468b23f"
+      },
+      {
+        "id": "yeongsan-13060",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "aba5a5b598a3df0e2cdf7ee61a5eb025e738c50ef9f28ebef75e27e63687d2b0"
+      },
+      {
+        "id": "yeongsan-13060",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b63e29dc4c81301c25788dffa65ed3e88240be5f7d084acb036d0f51f61917e7"
+      },
+      {
+        "id": "yeongsan-13054",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ecfe0da4d6716b3142c08f4621b7b9e49e983612fca166461c6d5321375e35c6"
+      },
+      {
+        "id": "yeongsan-13054",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "7f784d00ee28d54d0b37f5fa43e3a0c08dd90f063f6d5b428ffa8923d638f1e9"
+      },
+      {
+        "id": "gumi-59",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "188e7e5d8cd8567a832c38b52d379276626e8220423bc0ee43dd303b304d8c59"
+      },
+      {
+        "id": "gumi-59",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "d724c98c23a9e872486e9c09a51791ba478423a4fd25a6c8e8a599cab6108b75"
+      },
+      {
+        "id": "changwon-7",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "502521ea54a8855d3351a3dd2e43a35db6e976959cc52816b922d9d8340964e0"
+      },
+      {
+        "id": "changwon-7",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "2dfcb055b80503b21eb300b4756dc363597d1353057240b5cfb6137ad8ee0c25"
+      },
+      {
+        "id": "busan-ctv0000257",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7d576624b9029396ef8c5003c1e71ee052ebe93c8372c2202a5eb9f3af17793f"
+      },
+      {
+        "id": "busan-ctv0000257",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a07f97543818269f07a50c89d240685c153a5872432f3b04f4236eaabb8af014"
+      },
+      {
+        "id": "gits-186",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "0180ccd2c22363d8339a0e6284598ee31afe3ca01a3445e86f869810bee099ee"
+      },
+      {
+        "id": "gits-186",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "df80e7bb50e81a1499c57bb0f80dfcaf28c96fad5c989e1019aa5bc25e254966"
+      },
+      {
+        "id": "chungju-52",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "5248958fb9f0ed24973cba409508b9a50421bece6146cf192e02f766da10473d"
+      },
+      {
+        "id": "chungju-52",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "3d523b351ad8f1531499f1b6a9bf0adc3ceac5a48958755b1cd800dfc4ff7686"
+      },
+      {
+        "id": "yeongsan-13070",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "452333cee6fb3a2bed771206c8ffe1b59ef3648d14ec04f0c0c71047dd1fcecc"
+      },
+      {
+        "id": "yeongsan-13070",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "0c9116a9fe48d05f519e9a08132cabe497504b328c563774448829376c1f8b41"
+      },
+      {
+        "id": "yeongsan-13056",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "0431665ebec2a255b51e5e639918e453ae4a93066886d994ac95794ace796ee0"
+      },
+      {
+        "id": "yeongsan-13056",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "1eab39c9e222cf285f2d1a174288963bdf7c27cb68091f8c9c0028dfc14cff39"
+      },
+      {
+        "id": "gumi-6",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "0e7372216bcd85d6fbe8ebc6b8d0a108775b064aafa101cce36244c8f6f4c0ab"
+      },
+      {
+        "id": "gumi-6",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "d26ca891721714cd1f6d72e5c179d949acea3b3ce293e3f25e6f13088fb90e23"
+      },
+      {
+        "id": "changwon-72",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "561a68021237aab72c4bbdc184bfc5d7fba642ba92a2c79443dceccf080dcf2d"
+      },
+      {
+        "id": "changwon-72",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "28f7a20cb43bc84a0a7ef2b8a22b11665a7e9953edc5db50dcfe750ea0603128"
+      },
+      {
+        "id": "busan-ctv0000258",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "64a4ba5947a05ce0807929be52aa9692c9c711aa0f054cecbc823183ff7d8ee6"
+      },
+      {
+        "id": "busan-ctv0000258",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c6e66b35ba4a72df35be8721e0190a7af8912de973764d18afcec3c0ec1ba2b6"
+      },
+      {
+        "id": "gits-5239",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e4c04edc0378072dfeb15515d835899517a3df18835449847abae5207a874a97"
+      },
+      {
+        "id": "gits-5239",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "5893df54cff8b5322bf66f7c3a4008e618ea7f4e0418adcbcd73b53366338059"
+      },
+      {
+        "id": "chungju-53",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "600775009ce54695c809975183ab192c06d8aa6a40f89b04cd6cb8104a0954a4"
+      },
+      {
+        "id": "chungju-53",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "775e1f2c1d2f09355a736d51c9d68f70b923c8332662019da8557de112699002"
+      },
+      {
+        "id": "yeongsan-13062",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4f0898c61e80249763625647d18deb6b2e9f42cf4fc0aa96a8b8502a50d85bf8"
+      },
+      {
+        "id": "yeongsan-13062",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "24dc82d61a1c15ca47d7a3761b0e0e52150aeb1227d21929210b200e4c7ebcd3"
+      },
+      {
+        "id": "gumi-60",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "8082d25f2d9a87b5c8be7fcaaf9b4df7ee69258c1d09b3e85894caeeace460fa"
+      },
+      {
+        "id": "gumi-60",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "14eecce4ed102cceba4ec208822dd9679afca5e831e75dfeae7c5504c202a960"
+      },
+      {
+        "id": "changwon-78",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1894c776546df6df2137fcfc9c141841f473af971582ef63a9b1bcb4c2b37488"
+      },
+      {
+        "id": "changwon-78",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "86c58b3df32a31076901771caf07b27a60d17d8adb84b60567b72aad9a65b9cb"
+      },
+      {
+        "id": "busan-ctv0000300",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "a30058e35281cce25b3beb63cdaed58cd438fc56ed86b30a7fc191d79c3fa8ee"
+      },
+      {
+        "id": "busan-ctv0000300",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "99219bb163d5a54e673916a6eca3af842d72300c1446a93c8bc5433125c5be1d"
+      },
+      {
+        "id": "gits-547",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "9f99d1d5688394da13b4630accad50c15410355257410e1574f21869e61caeb9"
+      },
+      {
+        "id": "gits-547",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b8cd95b7f27fe6ace27a833169d6a21713752692e932619cd12d2bd00470543a"
+      },
+      {
+        "id": "chungju-54",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3d0c1988dbff83b7d415547483f4dd2560b48b2d7a2d0a93c19579744df654a9"
+      },
+      {
+        "id": "chungju-54",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "2711028e0a5093bf6df9777ba8d825fe99f6543aa50803403dadc350869549be"
+      },
+      {
+        "id": "yeongsan-13064",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b7488ef915ad45c6899720966facaddd5b84151b8222bc613ada97ae7542491c"
+      },
+      {
+        "id": "yeongsan-13064",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "cd8ca5b42697125872107d57f1d1124acb5ee7661c17ad58fa209457601296de"
+      },
+      {
+        "id": "gumi-61",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "26deb34dd0187780861d1369a62a7ede504200bce888403262549a978999cf9b"
+      },
+      {
+        "id": "gumi-61",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "aa437c4a02386bbc6afafabc901b2b228f338221555d949615980bc546e2299a"
+      },
+      {
+        "id": "changwon-87",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "cb53a8e06b291c7302d0125dcd0d2d60765d7f7243d85d306c7cc7b65b96d609"
+      },
+      {
+        "id": "changwon-87",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "01ad14d74d3c335e041b9eac7e709923cd93a2cf96e143dc6bb8e68e0a387185"
+      },
+      {
+        "id": "busan-ctv0000302",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "0483fb6f316a592bd3b3f8979e65cdb080f3761ac02d06f15a7461265cfc64f6"
+      },
+      {
+        "id": "busan-ctv0000302",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "924879fe9ac72515c9a3ced14ba469cf40b12d6c5092d7957dbe9e7fcd601fcc"
+      },
+      {
+        "id": "gits-6958",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "028b6de429048b262c1768351ace9e4b0d7987cb4779f3f7cf20d27a112613fe"
+      },
+      {
+        "id": "gits-6958",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "23848d565ac247e8c455fc0729587628440626351863399660ec33e59e5689fe"
+      },
+      {
+        "id": "chungju-56",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e21b21a079db2819f8608d3fb473e0eeb52fda268f29fd7e71ca2032bcadded8"
+      },
+      {
+        "id": "chungju-56",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "abf065902713f7e61e05ef06a389f32c84a0f657d82af0a86de4557da0e040a3"
+      },
+      {
+        "id": "yeongsan-13068",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f20677f8ff86724c4991fdaa606368c44fa87d1a06957ede664b855bf07cfa78"
+      },
+      {
+        "id": "yeongsan-13068",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "1d92e37e3a3a6fd375fb0219a933c8b4874dde251bb5248cc4f94599fe308e5e"
+      },
+      {
+        "id": "gumi-62",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "218e68bccc89c973a576d54b654518d89e29f23747d6f9694f59a5830b011d2a"
+      },
+      {
+        "id": "gumi-62",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "acf7f44ab46ea0893e8a1a7ab0f8060c9c3d02d770760bab5b5f954b0e3c32d0"
+      },
+      {
+        "id": "changwon-9",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6d30f42576ee195cc0239d3914792b4c65f6a7455d86aefd869a74d77a607025"
+      },
+      {
+        "id": "changwon-9",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "2e1882c31b47224883f4368374adaaeb7f26a65af35a15a11dc5ad01f763ac8a"
+      },
+      {
+        "id": "busan-ctv0000403",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "bb9206fcecc247d7462b990287b92a1643fa384844b3933be753b9d69afa9f8f"
+      },
+      {
+        "id": "busan-ctv0000403",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b2aac3bae4c472cef45cf97f946ad58fc66b8a52c1b367c36026e5a174346464"
+      },
+      {
+        "id": "paju-35",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "fa11f35aeb6a582f987707fac6848c6c77bf67cc52379ed2811a606b180b7495"
+      },
+      {
+        "id": "paju-35",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "f69b54b0f4a37255a60274ac60dfd78f654625ce0a18ff01c7fc7e9cdc51afe4"
+      },
+      {
+        "id": "chungju-57",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "409d1ffd65bca144efed5bbfa1a526952431da10909e96c310e45eada34c35ae"
+      },
+      {
+        "id": "chungju-57",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "8bda22db37340fb7f19d3e4b5ebed9f914658a351bb14778b704905fe05cd05a"
+      },
+      {
+        "id": "yeosu-4",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "5ec481cb52b989bc92334567ffc3d26ccac36a1ba506f236f1267c889148404b"
+      },
+      {
+        "id": "yeosu-4",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "fc5660e88b938fad27987b2ad3327f5aa6dcf991aaf10e7c63814a58aa2f76dd"
+      },
+      {
+        "id": "gumi-64",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "740a62d319be454bb61ad55399018455368dd82ffd38a412e769fb26f896eec7"
+      },
+      {
+        "id": "gumi-64",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "d50609a615e775cdbee1e36d0185b2b660ecb97794fd43ac006f08378c81a369"
+      },
+      {
+        "id": "jinju-1000001200",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e8a171a5d19671f1c2dc7e4cf60063a57ed2099797212432ee19cd10e4ea57a0"
+      },
+      {
+        "id": "jinju-1000001200",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ac3bbb62548e959198a74032b1278582517b116aeb58ddf75be9bef37465cb48"
+      },
+      {
+        "id": "busan-ctv0000406",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e4b790c44a2b58b10d4b36bc12fcd4cb8e2645f9c2ebfd30772d1e06c5a1aca4"
+      },
+      {
+        "id": "busan-ctv0000406",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b6737ad4540be4cb89f3e68a1ab2f26a73033effea3819343fbe798e26924654"
+      },
+      {
+        "id": "paju-81",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ed7abf2059e8bf2e45f8456bef4bf5cae001a1ffa3b5801e91638455cd28389f"
+      },
+      {
+        "id": "paju-81",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "2337ad98f51a3bf503f8ab247c9b53a5431cc64e173f2be220dc16196f0fe769"
+      },
+      {
+        "id": "chungju-58",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "d6026eeac1ce8550c781a4f1d15929742db628cf68ee03034565497351df7cf3"
+      },
+      {
+        "id": "chungju-58",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "272e5f0562206085adf78308f02dd16bb31b92c446f3bf093e9e6e2df6404c43"
+      },
+      {
+        "id": "yeosu-56",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "2f52413272696deeb2bed9b19f2520df4f5179534fa037338ca8aa486487d54a"
+      },
+      {
+        "id": "yeosu-56",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "3d113373b50a7b705fde5329669c648488e413443be070bf42523eb490e50f4d"
+      },
+      {
+        "id": "gumi-65",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ab71038a6d70d9f73efeca6b1d426f30efdfb649fc60a89858150559d0eb9a9b"
+      },
+      {
+        "id": "gumi-65",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "d59d13a1d54044136c23198947e699e4537c2fe55de6129ba5af939e4a2dd925"
+      },
+      {
+        "id": "jinju-1000001202",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4f420b64c650f33a468678c66186cfa84920e39111ee027b1beed4869cadef77"
+      },
+      {
+        "id": "jinju-1000001202",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "1316f26a8e89aacfd8f95b283c6e28487b76ee79004b08ec03aa9b3b6ea0c614"
+      },
+      {
+        "id": "busan-ctv0000495",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e93fadb73a7948b695c5dd4ae3f24406bb3efd74988bc787056da376df0cf29f"
+      },
+      {
+        "id": "busan-ctv0000495",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "33c65f03d5e2a7fe32a8f1865f5e3a8df04d0d22e8d7c63b53e2e5ca40d365fd"
+      },
+      {
+        "id": "paju-7",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3834c5bb6b77a3924b4a3773b3649cb21a564f7466c0d150ca8107152b683b51"
+      },
+      {
+        "id": "paju-7",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "575a824f873a9721f6343e2657ad2944e720019c634e5d0102e515087a9ca98d"
+      },
+      {
+        "id": "chungju-7",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1ba6e22713ba9fdd2ea90ec11587a46a2706cebd9d0d0b921e16c1e834043039"
+      },
+      {
+        "id": "chungju-7",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "8e22dc617cc9d19c8f7e89e27249a502d0efedeaad4e93c272285468dbff137a"
+      },
+      {
+        "id": "gumi-71",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "8c94933109e29952f3e5ea3ae5c4d9e9eb914aeffc961e8be9d99189b8b2d61f"
+      },
+      {
+        "id": "gumi-71",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "88f8b287e5fc46ac6258c9b81627ff76f2903b4d76f458641d5c0d375f1bc40b"
+      },
+      {
+        "id": "jinju-1000001203",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7903029a0692f6f326c1c0d16034916db81d206bf4a26cc09c6ea5800a0f99ea"
+      },
+      {
+        "id": "jinju-1000001203",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "837e8b3cea2ed0cabe748abdc9075017784a557585cd27e55d8537d3a9f69cb0"
+      },
+      {
+        "id": "busan-ctv0000003",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "c9f7d8459dd2feae6c7edab0e3e02bbed29a4e04c0b6491cd27e9a506c3bd94d"
+      },
+      {
+        "id": "busan-ctv0000003",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "60fc975bb1b0dc89162256bdbcad13e0f10e2dd32f9016a416b9400d9208b070"
+      },
+      {
+        "id": "paju-80",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ff4f850a8c05da521b699d0b0b4336b1688a1ba66a1c9560ac53d4a7aba9b6f0"
+      },
+      {
+        "id": "paju-80",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a0a9bd9438355c095e8e656526da5a57cf3cc8290de61d11c7d14dfc2647767e"
+      },
+      {
+        "id": "chungju-9",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ca88fc8d8922baae5441c440605b8a0cf901f47eea3ff1055009f2f12d3199a2"
+      },
+      {
+        "id": "chungju-9",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "fc31ceea3bef5ad3c1b4d630f3af99d73c3dc3f745216bf3bf16929b74b734e6"
+      },
+      {
+        "id": "gumi-74",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "48a5cbf529f6e1c8ea3372bf7f7290e9a28453424744c53bd57971c398dc05aa"
+      },
+      {
+        "id": "gumi-74",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "3147de6d012b2f116be5d416164a0a585baa5ef7f167e249c36f37391e364f67"
+      },
+      {
+        "id": "jinju-1000001204",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "fa9f7eb46c7b0bd16810e221022de25d9e4171ff3cdb4ba6cde96efd6fed3c19"
+      },
+      {
+        "id": "jinju-1000001204",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "cdcb690798504183332b8be1c2be3fe2e2446ddf05d3013c188b644108d0204c"
+      },
+      {
+        "id": "busan-ctv0000006",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "913dd55557bbd8cce84bd50d4d7569901f80b8a77f727f4d5803a3b6ee763c48"
+      },
+      {
+        "id": "busan-ctv0000006",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "526e771208a78242467c9d65122060bca9e5239ac5a85984cfddd5d4cd7b01c0"
+      },
+      {
+        "id": "paju-31",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6d8b94d9c28bf6c37a2878569b7cb8235df71854fb15974e999edf381a8f2dc3"
+      },
+      {
+        "id": "paju-31",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "61194eac4fef015e4486f5016f497318baa973f49870d2ab3adb55458632faef"
+      },
+      {
+        "id": "cheongju-11",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ac394bd4e1f9ae4453a1b5d2e9b93620cd2ecaf0f3682f6f82b7a55436d3ef6e"
+      },
+      {
+        "id": "cheongju-11",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "f550e4d0a43618faa1dbb97676b462b1dab2c516c34a96408314ad7435be4cb3"
+      },
+      {
+        "id": "gumi-75",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "2d3dedc26ca40564cc2ba27cc252ba111a14642b57a0fe6ea347d1e3aaade86c"
+      },
+      {
+        "id": "gumi-75",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "661678376892e58e4fd78d3ec2bc99d2923897ca5da82c84107b30c637dde930"
+      },
+      {
+        "id": "jinju-1000001588",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "a8a03b92777f25871745c8e4198579acca649c33bca164549ec401dfcbeda63b"
+      },
+      {
+        "id": "jinju-1000001588",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c974bc701ae6c93460cec68ea4d006757a8d8ffc4e25b245c846a462beaeb4c9"
+      },
+      {
+        "id": "busan-ctv0000009",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7d877970275b2352447d72172718642ce4e3ed2908f6e05c76fc9a5f2f919c60"
+      },
+      {
+        "id": "busan-ctv0000009",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "5fb7277b2fc8ec9e18977006a467cce577de8c9979b0e5e10727d44ad8f40708"
+      },
+      {
+        "id": "paju-18",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "a94a25dca989895529830efe8fa49dadc7774a5f23551b30453ad6752e995942"
+      },
+      {
+        "id": "paju-18",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "1b59e1211e51236412224c630044dd218f9a8640cce91dbbc7d10bb50a0d50f0"
+      },
+      {
+        "id": "cheongju-39",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4dd07c8a595fc8ba818888771a5bca39d423532eaeacf9ed16835add14c36e89"
+      },
+      {
+        "id": "cheongju-39",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "3507169236c36e7a669eae4f9ca26973ca03fc8912891ca72886890a9aea5f0c"
+      },
+      {
+        "id": "gumi-76",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "08e09792d44c9a5cf38fdf73abce24d634b920b3113455400d5981427cffeb4a"
+      },
+      {
+        "id": "gumi-76",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "5777f483a633a08c0f999925202c1e4e7a75cf7577089ecfb3d3915c433b914d"
+      },
+      {
+        "id": "jinju-1000002172",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "82798f1dd9a3cd12857ed03166a2841e35393e0768a40d2e0eeefdb153e0ee17"
+      },
+      {
+        "id": "jinju-1000002172",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "68bdf015c2515e2a542f126e6e515712bd2601e5aa88736dc15c16c76c9f8425"
+      },
+      {
+        "id": "busan-ctv0000010",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1d739797b297a1b160bc5fa4440638d3a27d8de252d6a880b4886fdfaa67126f"
+      },
+      {
+        "id": "busan-ctv0000010",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "895e529d99c61dfe154578133c40880415e7f08324b22fa6cef53373c302e623"
+      },
+      {
+        "id": "paju-6",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "159b93ff0a4dc3e99d6628916ff98a4fc4b8491c576f2cb6c3cfdeda7ac9379e"
+      },
+      {
+        "id": "paju-6",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "296f760aa07e3e852953c74dc9632e7c5cd8c9999cc634332a1a523cd6afd6fc"
+      },
+      {
+        "id": "cheongju-46",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "c92812126da6dea13ac29d2e80cd0e0d09964dc563da1e380bdfca2b016ae3c3"
+      },
+      {
+        "id": "cheongju-46",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "2abd8266cb62cdfa78ae2e2189f9c1abaf8d5ce0db97fc84c817a7aeb3411543"
+      },
+      {
+        "id": "gumi-77",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1b6fcf7c2cc11e20537ce29479db98c13a9cc994a89d1081a09f98436497ceb0"
+      },
+      {
+        "id": "gumi-77",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "8391163cad4234161e74eb54797ddc1a23a429613439bc053c00046b9623e9d5"
+      },
+      {
+        "id": "jinju-1000002175",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "0bca4244ff925dc9c2c420b73dd32a1f0db672f9c80b0919caffb011ac6e301f"
+      },
+      {
+        "id": "jinju-1000002175",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a0311235c30a3b2170e3b0caf892b50c9963ea85906f3446410f067e41942fa5"
+      },
+      {
+        "id": "busan-ctv0000011",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "76a2d37eee6e41efe96f94a2a8852a1a2a9a3c4eb80ec83df6b4233b662b60cb"
+      },
+      {
+        "id": "busan-ctv0000011",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a8e47fca4ce43a7cd36a7921b84647fa1e6d1360796b6dd330b0e986535ca3f0"
+      },
+      {
+        "id": "paju-26",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "0075293b3efbdab524eec24908b753b3ffaaaf91b53c7ecf2a21b1d336a5f348"
+      },
+      {
+        "id": "paju-26",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "486d29e1e6a0ae7c700354a1ce4af8073c11495c53bd1886a384403695fc8a92"
+      },
+      {
+        "id": "cheongju-48",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "c01c928c3f67d4f0766d448132fd573b44c34ea4c32a7fe1e2be80449dbf6e24"
+      },
+      {
+        "id": "cheongju-48",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "84b8fdf7452735d4ac87c52fce7a6ff415853f7be6302e01d4bef30cd3de817d"
+      },
+      {
+        "id": "gumi-78",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "80dfafd3450af0ee61de40ed55403e766cf0422ae58f008dffa871b7f99a4b6e"
+      },
+      {
+        "id": "gumi-78",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e6a67678d09d3e7183c152c7a9a8dec3fe580df63cd4913c25eef40c3d9713c1"
+      },
+      {
+        "id": "jinju-1000002180",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6589ab3171ac4ec1791b9066d907caa37c1b1ebcc33da221755689316fd00789"
+      },
+      {
+        "id": "jinju-1000002180",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ad896476117b020d1e00b13369e0980f486c939871ad7e46135616e069684a78"
+      },
+      {
+        "id": "busan-ctv0000012",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "d7b79a0790ed81a5f3f2f6c411de3d63663aa2c95475b78a702bfac0a8ee342f"
+      },
+      {
+        "id": "busan-ctv0000012",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "f7f59235e2617a0060979b685b5681894663807f5722dbf24be42b7e7f568865"
+      },
+      {
+        "id": "paju-78",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "28f7c6175fede1c8e39b0df8018dcaff8f60d23e42d67ba5d8af6d710ae526eb"
+      },
+      {
+        "id": "paju-78",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "5f2d46b39029831c8a239d64eaaeb7ad55b8fe761a947fffd2bdc43319dec838"
+      },
+      {
+        "id": "cheongju-58",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b48d8c593140afc7b13b07f05be2791108add92607db6c019e854062cc811cca"
+      },
+      {
+        "id": "cheongju-58",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "bfc009262abe30bbde3e8ed9cee9dc014f07313199af23c2239e51cba5bf226d"
+      },
+      {
+        "id": "gumi-79",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "fe7b90a4490e41f963fe1e02e9fa8e3ee0606f4fc5441f5419141ef1dd38db56"
+      },
+      {
+        "id": "gumi-79",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e00a12ef3757d487c286a8868997ac80a6225bdc1031a0267c2b60135e7da7ea"
+      },
+      {
+        "id": "jinju-1000003070",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "d78866cb7408043f322f979ce4b2e2799a4878ccc9157a62c541a1cb73cb94c7"
+      },
+      {
+        "id": "jinju-1000003070",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "64e528576723bd7469ca420db5055cf17cb640949ac8b1cc9fe349dfdda45b9b"
+      },
+      {
+        "id": "busan-ctv0000013",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "01a9cc080e5ff9c4364c932d938fa23ff65f869b173597e63651c14fa884b05e"
+      },
+      {
+        "id": "busan-ctv0000013",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "48fba3db5d7b9f35c6d80c6044029577b79d87a27f6fbb26e4c54dfdfde9efa3"
+      },
+      {
+        "id": "paju-11",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "2d82608a38f00523fbef12c6e84f859d03a8e78276cf96304e65755ab40b329f"
+      },
+      {
+        "id": "paju-11",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "358a92e1b6ab5c1cc9e244c38b7c9f82fde6145f3c7fc2bc67c5e3e373157f71"
+      },
+      {
+        "id": "gumi-8",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "030ba9b0fe5795e96c389377fdfef573457c1ae9c5af6661c095321c9578d39a"
+      },
+      {
+        "id": "gumi-8",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "bcb0c1c040a4db1e237ddff2c0cc5e14315f288f30f2b8f133ba501a82f1e45e"
+      },
+      {
+        "id": "jinju-1000003074",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4ba56a00155adf53dc2795fee7f0e91dea1beb9edd7c0047ceb1fa54508ac5f6"
+      },
+      {
+        "id": "jinju-1000003074",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "7851fa4d7292a08890d29a26f85775a1a90cda51b29f15090916c1f07b41aaa4"
+      },
+      {
+        "id": "busan-ctv0000015",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b128badcd1cba1337d0647a92d336391eef182972693209bfdb468be33bdfbc0"
+      },
+      {
+        "id": "busan-ctv0000015",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "335215dbc08818eda4f2f35e3981db88d18ae0b664813f5b0ea143772816f6e4"
+      },
+      {
+        "id": "paju-96",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "dfa40e9a30851721579d4ab3e5b3be80aae6b7131e2915a156fee365e41e3b82"
+      },
+      {
+        "id": "paju-96",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "2975f290ef4a5c8e5710db090ef281e5376695a529f3d31f86486c6df13de029"
+      },
+      {
+        "id": "gumi-80",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "fac8403f5d668f86f01bb171c9294a16ac689d9cac5babe63cc94c2e8d5fd11e"
+      },
+      {
+        "id": "gumi-80",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "5f79f7032943bf0feff4ca7441526e640b1b0d54ad0121cb0e79197a7acd6bff"
+      },
+      {
+        "id": "jinju-1000003674",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "863c408000cfe59c06e382d9b60c27b9ee7039801915fccb53d77d84a4e10fd1"
+      },
+      {
+        "id": "jinju-1000003674",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "0ee773e06a0f38e3b85d421a17097afbd794e4197f67fe0ab8e605af41ad5313"
+      },
+      {
+        "id": "busan-ctv0000016",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "33ce56eecff792529e4c09be67bf3b63c64a7bece0106b64d9a4aa2ffe4a2a0e"
+      },
+      {
+        "id": "busan-ctv0000016",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "03fe2055b51b5123b20fd2da36b53dfd41004bf8158887e66f7cbcd752435440"
+      },
+      {
+        "id": "paju-25",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f0f859193fe550326ee327112608db3e4e03c16b48413f506c162ee4f08960b4"
+      },
+      {
+        "id": "paju-25",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a8c7352e1c2a2455f602956f2e8c8c33e65cfef000a84d552b8ad79842401f64"
+      },
+      {
+        "id": "gumi-85",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1526c3551c6dab0f394d9e820a55e0554768234c58d276918f602ff3d73ad639"
+      },
+      {
+        "id": "gumi-85",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "5fd623a049c4e84e3e1e0c72fdd97dce82a3995dbc2057180e63537468110885"
+      },
+      {
+        "id": "jinju-1000003676",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "270a299802d5e2c5dab2515d7569688c913a56baa2ca361ec9bf79befc419f68"
+      },
+      {
+        "id": "jinju-1000003676",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "baf88acf93f09c81b1c74c032a10fd1282313bdac37d17ec547f399310628fa8"
+      },
+      {
+        "id": "busan-ctv0000017",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "c015bc132125d94d994bc8492b0f13f6b53b518bc447047ed5b6669506e18e9f"
+      },
+      {
+        "id": "busan-ctv0000017",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "c567666036666c1e144c029685b0c81e2417889cf807089cbe89de1cf4bf08e4"
+      },
+      {
+        "id": "paju-43",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "e285445f0001c3844bdfd57088ff44ae7149dc46e41d58a74b49f43aea0c384d"
+      },
+      {
+        "id": "paju-43",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "192bb259d9550e734d7b637a508cd3cbee6e9216f467ca9aecffc736aed3b8e9"
+      },
+      {
+        "id": "gumi-86",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "057495869e3c4cb028c712fb3b525632e7409bdf70fd5b45d9bec18afe5b6a59"
+      },
+      {
+        "id": "gumi-86",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ead2ccd91628d91ac4debd6634ceb584f0fad2e2eded2372c64c1fc722d7abcf"
+      },
+      {
+        "id": "jinju-1000004319",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3631567a6eba45bdd3fd2611e0bb62676c7fa146013880c195bb0bfc123038ef"
+      },
+      {
+        "id": "jinju-1000004319",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "6e119a4a9581c8fcdfb8343cd242cd686e8d48bcc174410bf2017983e8ab4c3d"
+      },
+      {
+        "id": "busan-ctv0000020",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "66a9512fd7138ddeb76f314e912cab8db476a42d88d4701013f82a49a1177280"
+      },
+      {
+        "id": "busan-ctv0000020",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b27f0b4a14187a152381742a3f96a0e20de41ed08abe8e7f5d9f54a42f1eaeb6"
+      },
+      {
+        "id": "gumi-87",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "9823dc391e661dc3dc4f66a48b655e0c02b355acdedbab0fa91f9e9de178fabb"
+      },
+      {
+        "id": "gumi-87",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e3cf858654c1b51e4c1e7a096012418292cdb408c73bf55d1c30e11e1825900d"
+      },
+      {
+        "id": "jinju-1000004815",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "95f0ec5f0a81b23cfd0d98391016c8ef0dee4e2aeeca03a883d8544e2cfd5728"
+      },
+      {
+        "id": "jinju-1000004815",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "9df9b38f3cbaebcc67601130efca0ce63bac707ad22c929c6ba75c9bddc2b7b6"
+      },
+      {
+        "id": "busan-ctv0000021",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "59d064f00ca7c2f8ac7a4d9cdd9ad3ad0f5498e210556819a25ddaaa62116c56"
+      },
+      {
+        "id": "busan-ctv0000021",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "cd164292c35d881457541a51a62929a3351f112828ae7f5c1b89f3ea66d1f04b"
+      },
+      {
+        "id": "gumi-88",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "01d04b66ca4085d999ac092120eea58cb662c1869e845313b0b1e45c661bc252"
+      },
+      {
+        "id": "gumi-88",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "d941fd86841a4934472a1ae4f61a05fd6c94b5f2a62fa814361a31ee40787ee3"
+      },
+      {
+        "id": "jinju-1000004820",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1bcf40b408b9625f211b7035acf6e26a3a4d99e40776370cfe82888cf64fe246"
+      },
+      {
+        "id": "jinju-1000004820",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "214d1bcb12f8f4c3d4e14d47807a70132d5be00bb1966b511e8e7d48bd667464"
+      },
+      {
+        "id": "busan-ctv0000023",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1bd4b21f2a3b241d4265c738b0329fa7a5aa23391e12b62b4937917c9f3e9761"
+      },
+      {
+        "id": "busan-ctv0000023",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "2bb3f2dc5417171a68e39a81f338f278240785f731b200bedd8df903d6de3675"
+      },
+      {
+        "id": "jinju-1000004823",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "59e4ec1c2395753966d39ee7d245215b3f431c00414daf56bd92cce0db1b2729"
+      },
+      {
+        "id": "jinju-1000004823",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "bdec9b66881444960ad1565cabd69695cfa17eef919f6dab7dc6e033b41aa82e"
+      },
+      {
+        "id": "busan-ctv0000026",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "c99da0e27f5576ce2d3c4d89d5c4787f8f2fba84df106e1b7e5238d63d35df84"
+      },
+      {
+        "id": "busan-ctv0000026",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "bbbf1282262221f7583e6b51ab45214f1078f6ca7f5eb7b5324c058e61ed3bf5"
+      },
+      {
+        "id": "jinju-1000004825",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "934837e10efecc0794059e635e3fb11b1c1b6cfbd7f327c772941bd2e30530fe"
+      },
+      {
+        "id": "jinju-1000004825",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "3167d06c6d43cf1c64e587bb100dbfc38dc85967fece2407313738319c34f1fe"
+      },
+      {
+        "id": "busan-ctv0000042",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3d2a66e2abad13e6dad743f0b4754f4d7ff065413739f0419006e37ef5eb519c"
+      },
+      {
+        "id": "busan-ctv0000042",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "b74ba9ab9902620653899a51b21371f414aad4e9638d1cc75701ed2daf3144fd"
+      },
+      {
+        "id": "jinju-1000005303",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7cec1bba52c47e595b8b411c4a59297fadf202dd2cbfac30cb953b91206e01c2"
+      },
+      {
+        "id": "jinju-1000005303",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "720e1950f78897ba6e88596e0f4eb7d788f57794f804a0fcece580c9715619c5"
+      },
+      {
+        "id": "busan-ctv0000043",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4ab3b340b6a3c2291535b68388c97fa868d3e877bd943b2c75047c5fccf0fef6"
+      },
+      {
+        "id": "busan-ctv0000043",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "37f9ef5af4fdf7537840007f95d223858ce3de020c329c2aef60dfab1995f744"
+      },
+      {
+        "id": "jinju-1000005305",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1fbe2e80d1cd109d0331bff779cb409933c30463341b060cd68be9f3f0344909"
+      },
+      {
+        "id": "jinju-1000005305",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "4d66babbfae50e0db487f6310cb2c98d96d61e5b140042c45e75c4aeeb75238e"
+      },
+      {
+        "id": "busan-ctv0000044",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "29a9d6b9bc6598c9b16d7f643c8fd93500215176c70d5154c842ac211285bb94"
+      },
+      {
+        "id": "busan-ctv0000044",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ff44476963cb1cb0b998566dda5534c8ebf8e6246bfa38f5abc30fe8e94d3a4c"
+      },
+      {
+        "id": "jinju-1000005307",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "220bf44acdc557dcdd0de9c0e33af59b0cd1827b559390c614176081917d38ab"
+      },
+      {
+        "id": "jinju-1000005307",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "9624434a8f7d04adb3ead265677a523787a33e25aee90abb1297dd1be5bfe4f4"
+      },
+      {
+        "id": "busan-ctv0000045",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "b0d17fe89b07f2cf9c948694ed7c46c3d9a0d959c263e8efe6a89b2d10525e30"
+      },
+      {
+        "id": "busan-ctv0000045",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "36bde9b8be3ad2bb52f4418cb0f52eecb2fb983e7923b22b00e05cc5199c063f"
+      },
+      {
+        "id": "yeongsan-110024",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "05fd110c59ca1973f2150ff0ccb5eff326a24b728dc453c8993e6a9a3542d2e9"
+      },
+      {
+        "id": "yeongsan-110024",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "4c88ff1eac1d0188d04cbcead6846737014d721c51a96f2e3b49d5deaec9a03d"
+      },
+      {
+        "id": "busan-ctv0000046",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "3ca007237fe683f8d49dae39da7abb2daac4b08cc67a5c2d225f260199486e19"
+      },
+      {
+        "id": "busan-ctv0000046",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "2f9fdff4f832b4d91b7341abe97b9ae3c5905aa39c1ec44440607ef324175055"
+      },
+      {
+        "id": "yeongsan-110052",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4cbf569e2ca861c48f9e896ac8e9ebe684e987b3fc233fcef51cd2fb677fd303"
+      },
+      {
+        "id": "yeongsan-110052",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "469db2dc2b3a4be90663f2f7624b264bcfb87330157a7d6ba9b6f43f00cde9a5"
+      },
+      {
+        "id": "busan-ctv0000047",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "7451d4f930cb03d0e59df4c7e19ae3ad19d90d6ccab38dd4d9b80e6891bef18f"
+      },
+      {
+        "id": "busan-ctv0000047",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "9e07c34116ca7932d960eb11253565311f1968b206f1511ed648aa007add8e31"
+      },
+      {
+        "id": "yeongsan-13019",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "08b31b689f65ef195e291a8a487683bd39441e606310acb1008953101b753d2e"
+      },
+      {
+        "id": "yeongsan-13019",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "44c28ec2edb7d9fa579c66f0841c46c8e15e30416287dc7574f47c67f888bf05"
+      },
+      {
+        "id": "busan-ctv0000048",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "0c9337258d70fc895ddfc56da7470cf7e7a49fca63dda300123b5aadd108fd14"
+      },
+      {
+        "id": "busan-ctv0000048",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "4e27e84afce6f08d8e3d77613801f645cd07acc1d1fc1b64032dd4c0c6a996a2"
+      },
+      {
+        "id": "busan-ctv0000050",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "ad59da04bc958cd420601997d400549c80afb2140bea3632672af2e8997ffbda"
+      },
+      {
+        "id": "busan-ctv0000050",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "01fd5da5e6afc736629e5491c779093ee19084848a1241edc04860cee975a5a4"
+      },
+      {
+        "id": "busan-ctv0000057",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "8559e2cc724565acccd583bf442bc845587871157ba8ef971f2fd2fec5e49e24"
+      },
+      {
+        "id": "busan-ctv0000057",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "03652af1cf7d2f01796316382667184f53efcb6fd7af4f1751d4df265db1de5e"
+      },
+      {
+        "id": "busan-ctv0000059",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f6bc985e5dc3ce09c61f6b04b2692cf7c55d0076903ed32924bde7f44136d482"
+      },
+      {
+        "id": "busan-ctv0000059",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "9d0ee251d5f31286c306a9fcfd20d7b9263403052ecab11c39277fca7f5419b2"
+      },
+      {
+        "id": "busan-ctv0000060",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "82d2c12f57398455fc78f752e0244791adf66ef8a0db63f87c6524e992b9d93f"
+      },
+      {
+        "id": "busan-ctv0000060",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "77285222f33d88bd49c03ab6cb58196b92b442c592ce245e4b65fa7a20ca4789"
+      },
+      {
+        "id": "busan-ctv0000062",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "5e4a88fd548fd10ed9a1c3ee0090a2cea1f1365dc788593f649760b2b3bbc3c6"
+      },
+      {
+        "id": "busan-ctv0000062",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "a055dd1ebb2659bdf832b983124eb2519177da930066d3a859791c93a4a6db21"
+      },
+      {
+        "id": "busan-ctv0000063",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "31e8a3b2896a3f83817f40fb2df93fc96c7ff3e2536c4d0cb5333c4b14b3bc11"
+      },
+      {
+        "id": "busan-ctv0000063",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "8d6c8d5ccf9accd87b5c05ba0d083d501ca76df7f8fccf348bbe1430dffa55dc"
+      },
+      {
+        "id": "busan-ctv0000065",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "60ccee6245a9be29cc6e76da225c72eef1c242966eea5b2b2d64228d8b80f854"
+      },
+      {
+        "id": "busan-ctv0000065",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ec11adfce9e721d99320265db1ae40438f3bca533fc3ffebc72e94c4c1b1b872"
+      },
+      {
+        "id": "busan-ctv0000066",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "d986f6c60a44f0d7385c28e82747d0e3fd15516e255b1654042fd4d47f8943a6"
+      },
+      {
+        "id": "busan-ctv0000066",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "31679bc9d0013b9b043e6bcd59a72f4a1db6ca7bec5426cd59571f9a12552984"
+      },
+      {
+        "id": "busan-ctv0000067",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "6b8d313966d686976a9f82d99fec49873e81630d09aa99c2caa56e975f2fda5c"
+      },
+      {
+        "id": "busan-ctv0000067",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "be91a6f680daec8084b4c0aeee24f9299a07cf598a77ab1bf75fc28117d86fd1"
+      },
+      {
+        "id": "busan-ctv0000071",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f296fa329b7d2ec6de7e72e6c9213c6d26a6f36e7de0dd40be5ce47e8e55e3f9"
+      },
+      {
+        "id": "busan-ctv0000071",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "71c69bb72de8173e445b83d04d7a3711d72c4f4cac1e7fa7daf3cd2e723b88b6"
+      },
+      {
+        "id": "busan-ctv0000072",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "5f5b3632207dbf335e55c059d0063113a1147ad85d5016f20cecdd3e784d283b"
+      },
+      {
+        "id": "busan-ctv0000072",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "bd1a57dc7a63c8a6166364661a93ab5a590e62dbbda8d30170219aa6ad25a2f2"
+      },
+      {
+        "id": "busan-ctv0000073",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "95b97f0d00aac97d454994ef58ce9e867e41d723db1080e6017eaebe8c3517c3"
+      },
+      {
+        "id": "busan-ctv0000073",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "4bbeeaeb50931701471abf153d6d15c27bccf378970e20255b48314106c45b26"
+      },
+      {
+        "id": "busan-ctv0000074",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "d45e167d67e81e424b2d85faded6ed71fb594d7393172fe95ba2c7a51e6c495d"
+      },
+      {
+        "id": "busan-ctv0000074",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "64b8faf64c0c674660a5e4bdd1e0485022f9c89ef62b1250c676dd57c2a31cf5"
+      },
+      {
+        "id": "busan-ctv0000075",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "4e9ef15d25db8fee39c171639f13d6076ac868570897b21070a0d1308c155078"
+      },
+      {
+        "id": "busan-ctv0000075",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "d2cc29763e961a88f646ba437ce981e3b4b37ec359aead7d7eb1d290d70e37b1"
+      },
+      {
+        "id": "busan-ctv0000076",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "406b74f2add89da138aa06d2fd186c18e74452cfe8ffb30cbe7398321ec3126e"
+      },
+      {
+        "id": "busan-ctv0000076",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "658f668a58aa73ae4231d4e26b459b07a292d4b9d10e0238115ccac910e3d917"
+      },
+      {
+        "id": "busan-ctv0000078",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "16fd0f75e14c44863fb1ec53720c15a21121c3620bf53d1146d9d3b1efe221bd"
+      },
+      {
+        "id": "busan-ctv0000078",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "d92955e1ef4575c48383fb2de45581811139f246b902e9fc2720405bd94e3840"
+      },
+      {
+        "id": "busan-ctv0000079",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "0432705e4e77d633b4d7cc9cfa69e959ba8825574a2b3674652a903ae1a65557"
+      },
+      {
+        "id": "busan-ctv0000079",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "02cdcf1882053d6c9f9a113a2241b80a5ba0622700470b86a113b800ca28f803"
+      },
+      {
+        "id": "busan-ctv0000080",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "1ddb172aa1b7eb03b8fc9a2e121e7b950a271e558de477235c3286b39ce632a9"
+      },
+      {
+        "id": "busan-ctv0000080",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "ce51f44fabc7efd1f493f5e63ef620f46d8511d9896d32823d3ca37228990c8f"
+      },
+      {
+        "id": "busan-ctv0000082",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "f22fc1d7d73b65e331a795ca455c0b9fb75517b249db43e70eac7fe6badf9b20"
+      },
+      {
+        "id": "busan-ctv0000082",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "081d52fba21103baee05c2836a4da0034674cd8a59587d4326d23ef01f5224ce"
+      },
+      {
+        "id": "busan-ctv0000088",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "62bcb71cf4c1557e47cb0840afb6a668816ab2fbddceb8d6c500b4950c58b421"
+      },
+      {
+        "id": "busan-ctv0000088",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e8c698cc25af2be4e20726975ec9ad47edbe0b7cf5dfacdad4915610e9d09500"
+      },
+      {
+        "id": "busan-ctv0000090",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "2602840f3e7d109df5a771396af33ea95458dd29556c6b136137d73e26d0706c"
+      },
+      {
+        "id": "busan-ctv0000090",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "8a765e2523665fb2119f549e32fbec255139fdffa77223b443ee16553ac48c5a"
+      },
+      {
+        "id": "busan-ctv0000091",
+        "mode": "hls_js",
+        "equivalent": true,
+        "normalizedTraceSha256": "02a0750b3c9c7b2bce2276dcc2315febe6a1c8e9761d8d149477f71e253b1ff0"
+      },
+      {
+        "id": "busan-ctv0000091",
+        "mode": "native_hls",
+        "equivalent": true,
+        "normalizedTraceSha256": "e0c42ee18386e4568029f5c48294a5cdad50a7c289a4b274320a988f2801413b"
+      }
+    ],
+    "normalization": "Only localized accessible video-name values and four UI textContent fields are excluded; timers, Hls settings, source URLs, events, state, cleanup, media attributes and UI visibility remain exact."
+  },
+  "changedFunctionNames": [
+    "filtered",
+    "updateSaveControls",
+    "save",
+    "render",
+    "renderMarkers",
+    "initMap",
+    "select",
+    "showVideoError",
+    "openOfficialFrame",
+    "openHlsVideo",
+    "startVideo"
+  ],
+  "scope": "Static transition validation only. Historical800observations keep their original hashes, acquisition times, outcomes and measured versions. This report is not a new playback observation, a fresh400camera live audit, or an uptime guarantee. Layout, map presentation, UI event interaction and production playback smoke checks require separate validation.",
+  "newPlaybackObservationCount": 0,
+  "historicalBoundedObservationCount": 800
+}

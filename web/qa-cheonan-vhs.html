@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hls.js · VHS 교차 진단</title>
+  <link rel="stylesheet" href="/vendor/qa-videojs-8.24.2/video-js.min.css">
+  <style>
+    :root{color-scheme:dark}body{margin:20px;background:#090909;color:#ededee;font:15px system-ui,sans-serif}h1{font-size:21px;margin:0 0 12px}p{max-width:1000px;line-height:1.5}header{display:flex;gap:8px;flex-wrap:wrap;align-items:center}button,select{font:inherit;min-height:44px;padding:8px 12px}#mount{width:min(100%,1100px);height:400px;background:#000;margin:16px 0;position:relative}#mount>video,#mount>.video-js{width:100%;height:100%;margin:0}#mount video{object-fit:contain}#status{font-variant-numeric:tabular-nums;display:block;min-height:24px}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{padding:8px;border-bottom:1px solid #303035;text-align:left}pre{max-height:300px;overflow:auto;white-space:pre-wrap;background:#151515;padding:12px;font-size:12px}small{color:#a9aab1}a{color:#d2d8ff}@media(max-width:640px){body{margin:12px}#mount{height:300px}table{font-size:12px}th,td{padding:5px}}
+  </style>
+</head>
+<body>
+  <h1>Hls.js · Video.js/VHS 교차 진단</h1>
+  <p>출시 합격 검사와 별개인 재생 엔진 실험입니다. 공식 페이지의 정확한 Video.js 버전은 미확인입니다. 여기서는 Hls.js 1.7.4와 정식 npm Video.js 8.24.2 / VHS 3.17.5를 비교합니다.</p>
+  <header>
+    <select id="source" aria-label="카메라"></select>
+    <select id="engine" aria-label="재생 엔진"><option value="hls">현재 앱 Hls.js 설정</option><option value="vhs">Video.js / VHS 기본 설정</option></select>
+    <button id="single" disabled>한 연결 측정</button>
+    <button id="cheonan-batch" disabled>천안 6회 교차</button>
+    <button id="gits-batch" disabled>GITS 6회 교차</button>
+    <button id="gumi-batch" disabled>구미 6회 교차</button>
+    <button id="stop" disabled>중지</button>
+    <button id="download" disabled>JSON 다운로드</button>
+  </header>
+  <p><small>동시 영상 1개. 카탈로그의 접속 제한(천안·구미 30초 / GITS 40초)을 연결 시작부터 적용합니다. 진단 코드가 seek·재시도·오류 복구를 추가하지 않습니다. 엔진 자체의 seek/재시도/경고는 숨기지 않고 기록합니다. GITS는 현재 앱과 같은 공개 relay 경로를 사용합니다. 구미 45·22·1을 두 엔진에서 각각 한 번 측정하며, Hls.js는 구미에 progressive 옵션을 추가하지 않은 현재 앱 설정입니다.</small></p>
+  <strong id="status" role="status">준비 중</strong>
+  <div id="mount" aria-label="실제 영상"></div>
+  <table><thead><tr><th>카메라 · 엔진</th><th>첫 프레임</th><th>자연 진행</th><th>드롭</th><th>오류 · 종료</th></tr></thead><tbody id="rows"></tbody></table>
+  <pre id="details"></pre>
+  <p><a href="/vendor/qa-videojs-8.24.2/provenance.json">배포 출처·자산 해시</a> · <a href="/vendor/qa-videojs-8.24.2/LICENSE.txt">Video.js 라이선스</a></p>
+  <script src="/vendor/hls.min.js"></script>
+  <script src="/vendor/qa-videojs-8.24.2/video.min.js"></script>
+  <script src="/cameras.js"></script>
+  <script src="/qa-cheonan-vhs.js"></script>
+</body>
+</html>

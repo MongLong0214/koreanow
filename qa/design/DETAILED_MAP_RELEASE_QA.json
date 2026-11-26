@@ -1,0 +1,48 @@
+{
+  "checkedAt": "2026-11-26T16:03:10.531509+09:00",
+  "scope": "Visible total count, detailed basemap, and compact interface refinement",
+  "automated": {
+    "testsPassed": 96,
+    "testsFailed": 0,
+    "compactTransition": "pass",
+    "cameraCount": 400,
+    "preservedPlaybackFunctions": 11,
+    "comparedHlsLifecyclePaths": 736
+  },
+  "browser": {
+    "rendererObserved": "Canvas2D compatibility renderer",
+    "normalOpenFreeMapRequestsSucceeded": true,
+    "decodedMapFeaturesObserved": true,
+    "noticeHiddenOnSuccess": true,
+    "views": [
+      "South Korea roads and English city names",
+      "Seoul street names, waterways, parks, railway and building footprints"
+    ],
+    "viewports": [
+      {
+        "width": 1363,
+        "height": 936
+      },
+      {
+        "width": 320,
+        "height": 844
+      },
+      {
+        "width": 760,
+        "height": 320
+      }
+    ],
+    "noHorizontalDocumentOverflow": true,
+    "mobileLandscapeToolbarClearsHeader": true,
+    "totalCount": "400 videos",
+    "filteredExample": "8 / 400 videos",
+    "nativeWebGLVisualVerification": false,
+    "nativeWebGLLimit": "The QA browser disables GPU/WebGL contexts; the actual Canvas compatibility path was visually verified."
+  },
+  "playback": {
+    "historicalObservationCount": 800,
+    "newCollectionAuditObservations": 0,
+    "sourceDataAndLifecyclePreserved": true,
+    "localSmokeNote": "West Wonju Interchange timed out in local preview; one retry showed no decoded frame during observation. This attempt is not counted as successful playback or added to the historical evidence."
+  }
+}

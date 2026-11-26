@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="orbit-title orbit-description">
+  <title id="orbit-title">Korea, now.</title>
+  <desc id="orbit-description">Two open circular orbits around a single observation point.</desc>
+  <!-- Original, editable geometry. The northeast openings connect the two rings. -->
+  <g id="signal" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round">
+    <circle id="outer-orbit" cx="12" cy="12" r="9" stroke-dasharray="43.9823 12.5664" transform="rotate(-5 12 12)"/>
+    <circle id="inner-orbit" cx="12" cy="12" r="5" stroke-dasharray="26.1799 5.2360" transform="rotate(-15 12 12)"/>
+    <circle id="observation-point" cx="12" cy="12" r="1.7" fill="#fff" stroke="none"/>
+  </g>
+</svg>

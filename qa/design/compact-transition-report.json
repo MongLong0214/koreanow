@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "pass": true,
+  "verification": "compact_map_presentation_transition",
+  "baselineCommit": "417c8ec8b842e6235b4f28241652690954eb239d",
+  "baselineAppSha256": "83e50485f04264f3a05c99209b49fa432125891b557b88a497e9467a94339996",
+  "currentAppSha256": "95e893d6308af451632e9b633b5bdfc892dffacea748478a4f76a132a223ac08",
+  "historicalFiles": {
+    "baselineCommit": "55fee021d0b9ebbd8991adc7b5ced0ef492337b2",
+    "comparedFileCount": 3091,
+    "allGitBlobsIdentical": true,
+    "manifestSha256": "f58a86b4210f106db9644045e31902299db783b720ffbbbc618fa82c3d110481",
+    "excludedPaths": [
+      "qa/400/STATUS.md"
+    ]
+  },
+  "previousReleaseFiles": {
+    "baselineCommit": "417c8ec8b842e6235b4f28241652690954eb239d",
+    "comparedFileCount": 8,
+    "allGitBlobsIdentical": true,
+    "manifestSha256": "139c7686ab9c338862a91bab118cb9e001ba38c770a88ed89fb8f4c442b82caf",
+    "excludedPaths": []
+  },
+  "cameraCount": 400,
+  "regionCount": 17,
+  "allTechnicalCameraFieldsUnchanged": true,
+  "englishCatalogByteIdenticalToV26": true,
+  "playerAst": {
+    "comparedFunctions": [
+      {
+        "name": "setPlayback",
+        "equivalent": true,
+        "comparison": "Exact AST",
+        "baselineSourceSha256": "884be850347744091d79757cb299fdf2253836887ab8206a172c399c3e7dea5c",
+        "currentSourceSha256": "884be850347744091d79757cb299fdf2253836887ab8206a172c399c3e7dea5c"
+      },
+      {
+        "name": "clearPlaybackTimer",
+        "equivalent": true,
+        "comparison": "Exact AST",
+        "baselineSourceSha256": "c6f72e8749baec03b9f9fc0248127e720daa45ee3854769c725a8a871821c7b2",
+        "currentSourceSha256": "c6f72e8749baec03b9f9fc0248127e720daa45ee3854769c725a8a871821c7b2"
+      },
+      {
+        "name": "watchPlayback",
+        "equivalent": true,
+        "comparison": "Exact AST",
+        "baselineSourceSha256": "b548048ade02d615f7e725929f00fe83443c7f38e04ed5929b55049ba34a2914",
+        "currentSourceSha256": "b548048ade02d615f7e725929f00fe83443c7f38e04ed5929b55049ba34a2914"
+      },
+      {
+        "name": "stopPlayer",
+        "equivalent": true,
+        "comparison": "Exact AST",
+        "baselineSourceSha256": "df84afe12e5808febf748d5c602337e929b4ef7c594b20d773c07ae746003255",
+        "currentSourceSha256": "df84afe12e5808febf748d5c602337e929b4ef7c594b20d773c07ae746003255"
+      },
+      {
+        "name": "closeViewer",
+        "equivalent": true,
+        "comparison": "Exact AST",
+        "baselineSourceSha256": "9f4d9fa45eec13801e611f247f9b06e26efb59adb960364a247940a16988f417",
+        "currentSourceSha256": "9f4d9fa45eec13801e611f247f9b06e26efb59adb960364a247940a16988f417"
+      },
+      {
+        "name": "select",
+        "equivalent": true,
+        "comparison": "Exact AST after removing five declared metadata text assignments from baseline",
+        "baselineSourceSha256": "f53ed96ef35c45749b1dea8338b67c2bd204fbfdce79a3d9c9e9413299b38b02",
+        "currentSourceSha256": "0deda13cb99f1afc75941b474d2a8ae9ba9c67aecee5993d146a750cd292e3cb"
+      },
+      {
+        "name": "loadYouTubeApi",
+        "equivalent": true,
+        "comparison": "Exact AST",
+        "baselineSourceSha256": "625bac88e4ef83e28c0f6d4fa74a1bf85604038494292a802c1961a79e0a5ffa",
+        "currentSourceSha256": "625bac88e4ef83e28c0f6d4fa74a1bf85604038494292a802c1961a79e0a5ffa"
+      },
+      {
+        "name": "showVideoError",
+        "equivalent": true,
+        "comparison": "Exact AST",
+        "baselineSourceSha256": "d3edab9e63891e7927e4e43001fa11797f13197e814509bc8c9d9487421ec339",
+        "currentSourceSha256": "d3edab9e63891e7927e4e43001fa11797f13197e814509bc8c9d9487421ec339"
+      },
+      {
+        "name": "openOfficialFrame",
+        "equivalent": true,
+        "comparison": "Exact AST",
+        "baselineSourceSha256": "d93314ad85f8d6d1efabdb3176cac50c9660fe06d4d59928ac7a9783e61e134b",
+        "currentSourceSha256": "d93314ad85f8d6d1efabdb3176cac50c9660fe06d4d59928ac7a9783e61e134b"
+      },
+      {
+        "name": "openHlsVideo",
+        "equivalent": true,
+        "comparison": "Exact AST",
+        "baselineSourceSha256": "a08a4decbe88da581b9c599b9def38c83c38b1b83f2c81000abe4985e89a7d0c",
+        "currentSourceSha256": "a08a4decbe88da581b9c599b9def38c83c38b1b83f2c81000abe4985e89a7d0c"
+      },
+      {
+        "name": "startVideo",
+        "equivalent": true,
+        "comparison": "Exact AST",
+        "baselineSourceSha256": "bb288c342f7b9df7a7ed44df900e5547c5b8b10c6ef84675db170fc6a7232915",
+        "currentSourceSha256": "bb288c342f7b9df7a7ed44df900e5547c5b8b10c6ef84675db170fc6a7232915"
+      }
+    ],
+    "allowedSelectRemovals": [
+      "viewer-location",
+      "viewer-category",
+      "viewer-description",
+      "provider-note",
+      "source-link-label"
+    ],
+    "rule": "Only the five declared metadata text assignments are removed from select. Every remaining AST node and each other compared function must match v26 exactly."
+  },
+  "lifecycle": {
+    "hlsCameraCount": 368,
+    "pathsCompared": 736,
+    "exactTracesEquivalent": true,
+    "normalization": "None; both versions receive the identical English camera entry.",
+    "comparisonManifestSha256": "aeb28da99f5817b65f7aaca98bc3208efffe19aeb666802e88684c635f3caf20"
+  },
+  "historicalBoundedObservationCount": 800,
+  "newPlaybackObservationCount": 0,
+  "scope": "Source preservation and offline playback equivalence only. Does not certify present availability. Map layout, filters, new list-collapse controls, startup/deep-link behavior and focus restoration require separate browser QA."
+}

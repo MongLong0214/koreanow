@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-11-26T05:36:45.252549+00:00",
+  "asset": "web/map-geography.js",
+  "global": "window.KOREA_GEOGRAPHY",
+  "format": "GeoJSON FeatureCollection assigned as a JavaScript data literal",
+  "source": {
+    "publisher": "Natural Earth / Nathaniel Vaughn Kelso",
+    "repository": "https://github.com/nvkelso/natural-earth-vector",
+    "dataset": "Natural Earth 1:10m Cultural Vectors \u2014 Admin 0 Countries",
+    "downloadUrl": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_countries.geojson",
+    "repositoryPath": "geojson/ne_10m_admin_0_countries.geojson",
+    "ref": "master snapshot, exact input identified by SHA-256",
+    "sha256": "239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255",
+    "bytes": 13287234,
+    "features": 258
+  },
+  "license": {
+    "name": "Public domain",
+    "termsUrl": "https://www.naturalearthdata.com/about/terms-of-use/",
+    "repositoryLicenseUrl": "https://github.com/nvkelso/natural-earth-vector/blob/master/LICENSE.md",
+    "basis": "Natural Earth states that all versions of its raster and vector map data are public domain, including modification and redistribution.",
+    "suggestedCredit": "Made with Natural Earth."
+  },
+  "transformation": {
+    "selectedBy": "properties.ADM0_A3 in [KOR, PRK, JPN, CHN]",
+    "geometry": "Exact original Polygon/MultiPolygon geometry, without clipping, simplification or coordinate rounding.",
+    "properties": "Retain only stable ISO alpha-3 identifiers and English display names.",
+    "networkAtRuntime": "None. The map asset is served with the website.",
+    "externalCodeExecuted": false
+  },
+  "features": {
+    "KOR": {
+      "name": "South Korea",
+      "polygons": 53,
+      "coordinatePairs": 3060,
+      "geometrySha256": "263f2ecfe935885a37a50f050e602cbef8197b4b12878757c0246b9165fa35e2"
+    },
+    "PRK": {
+      "name": "North Korea",
+      "polygons": 10,
+      "coordinatePairs": 1782,
+      "geometrySha256": "ca42fc31c0b2143ce459de8210aa4a20825589d1d557e543fc58fc8187231a35"
+    },
+    "JPN": {
+      "name": "Japan",
+      "polygons": 109,
+      "coordinatePairs": 6952,
+      "geometrySha256": "f0fba88c30972b4227820589ebbd10cb528ca049ff74b93b9daca85988721d55"
+    },
+    "CHN": {
+      "name": "China",
+      "polygons": 70,
+      "coordinatePairs": 14118,
+      "geometrySha256": "97c02032eaa5b08f92584d39139cc8cc69da31e295afd32e96e97dfb50f69a02"
+    }
+  },
+  "jejuIncluded": [
+    {
+      "bounds": [
+        126.161143,
+        33.197577,
+        126.953624,
+        33.563797
+      ],
+      "coordinatePairs": 61
+    }
+  ],
+  "validation": {
+    "featureCount": 4,
+    "finiteWgs84Coordinates": true,
+    "closedPolygonRings": true,
+    "allGeometryMatchesSource": true,
+    "englishDisplayNames": true
+  },
+  "output": {
+    "bytes": 589076,
+    "gzipBytes": 211355,
+    "sha256": "aed5bd86f576202a32446bcbaa269fef0eeb16de0b677ea6ed3bddcfc4002290"
+  },
+  "cartographicScope": "Country outlines for an overview map, not street-level geography. Very small islands and local features may be omitted at this cartographic scale. Camera coordinates are separate and unchanged."
+}
