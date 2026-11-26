@@ -158,3 +158,84 @@ test('source diagnostic preserves direct playback and ignores stale player callb
   const before=h.output.textContent;h.instances[0].handlers.get('MANIFEST_PARSED')();assert.equal(h.output.textContent,before);
   assert.equal(h.timers.size,1);
 });
+
+test('provider cutoff observes the retained real video without invalidating the strict frame clock',()=>{
+  const rect={left:0,top:0,right:0,bottom:0,width:0,height:0};
+  const retained={currentTime:0,readyState:0,networkState:0,videoWidth:0,videoHeight:0,paused:true,ended:false,seeking:false,error:null,
+    buffered:{length:0},getBoundingClientRect:()=>rect,closest:()=>null,getVideoPlaybackQuality:()=>({totalVideoFrames:0,droppedVideoFrames:0})};
+  const doc={visibilityState:'visible',querySelector:()=>null,defaultView:{getComputedStyle:()=>({display:'block',visibility:'visible',opacity:'1'})},
+    getElementById:id=>id==='video-limit'?{hidden:false}:id==='playback-status'?{dataset:{state:'paused'}}:null};
+  const iframe={getBoundingClientRect:()=>({left:0,top:0,right:400,bottom:300,width:400,height:300}),clientWidth:400,clientHeight:300};
+  const begin=source.indexOf('const PLAYING_FRAME_CLOCK_POLICY='),end=source.indexOf('  // END exact pure playing-frame-clock candidate body');
+  const h=evaluate(source.slice(begin,end)+section('observe','playable'),{document:{visibilityState:'visible'},innerWidth:1000,innerHeight:800,
+    number:value=>Number.isFinite(value)?value:null,compactRect:value=>value?[value.left,value.top,value.width,value.height]:null,
+    inBounds:(value,w,height)=>!!value&&value.width>0&&value.height>0&&value.right<=w&&value.bottom<=height});
+  const attempt={},frames={supported:true,count:1,presented:12,mediaTime:24.8};
+  const observed=h.observePlayerMedia(iframe,doc,retained,frames,500,attempt);
+  assert.equal(observed.currentVideo,null);assert.equal(observed.observedVideo,retained);
+  assert.equal(observed.sample.paused,true);assert.equal(observed.sample.readyState,0);assert.equal(observed.sample.currentTime,0);
+  assert.equal(observed.sample.videoVisible,false);assert.equal(attempt.normalProviderLimitObserved,true);
+  assert.equal(attempt.terminalControl.nativeSnapshotSource,'retained_actual_video');assert.equal(attempt.terminalControl.mediaRemoved,true);
+  const state=h.createPlayingFrameClock({parentTimeOriginMs:100,startedPerfMs:1000,registeredAtPerfMs:999});
+  const live={paused:false,ended:false,seeking:false,readyState:4,width:640,height:360,currentTime:24.8,mediaErrorCode:null,pageVisibility:'visible',appVisibility:'visible'};
+  const point=(event,index,elapsed,native,frame=null)=>({event,observationIndex:index,clock:'parent_performance_now',atPerfMs:1000+elapsed,elapsedPerfMs:elapsed,frameCallbackCount:1,frame,native});
+  h.observePlayingFrameClock(state,point('rvfc',0,100,live,{mediaTime:24.8,presentedFrames:12}));
+  const terminal={...observed.sample,seeking:retained.seeking};
+  h.observePlayingFrameClock(state,point('sample',1,500,terminal));h.observePlayingFrameClock(state,point('observation-end',2,501,terminal));
+  assert.equal(h.summarizePlayingFrameClock(state).usable,true);
+  assert.equal(h.summarizePlayingFrameClock(state).certifiesPlayback,false);
+});
+
+test('provider cutoff retains every original progress threshold and decoded-frame requirement',()=>{
+  const h=evaluate(section('providerLimitOutcome','playable'));
+  for(const [progress,target] of [[24.8087,25],[24.4435,25],[15.9344,17],[11.1639,12]]){
+    assert.equal(h.providerLimitOutcome(progress,target,true).verdict,'fail');
+    assert.equal(h.providerLimitOutcome(progress,target,true).reason,'provider_limit_before_required_verified_progress');
+  }
+  for(const target of [12,17,25]){
+    assert.equal(h.providerLimitOutcome(target,target,true).verdict,'playback_pass');
+    assert.equal(h.providerLimitOutcome(target,target,false).verdict,'fail');
+  }
+});
+
+test('result rendering preserves unchanged camera rows and ignores large raw journals',()=>{
+  const {createDom}=require('./helpers/instrumented-dom.cjs');
+  const {document}=createDom('<html><body><table><tbody id="rows"></tbody></table></body></html>');
+  const run={runId:'rows',cameras:Array.from({length:368},(_,i)=>({id:'camera-'+i,name:'Camera '+i})),attempts:[],activeAttempts:[],visualReviews:{}};
+  let builds=0;
+  const h=evaluate(section('verdictFor','buildResultRow')+section('renderResults','updateProgress'),{run,document,$:id=>document.getElementById(id),resultRows:new Map(),renderedResultRun:null,
+    buildResultRow(camera){builds++;const row=document.createElement('tr');row.dataset.camera=camera.id;return row;}});
+  h.renderResults();assert.equal(builds,368);
+  const rows=[...document.getElementById('rows').children];
+  const attempt={id:'camera-100',attemptId:'one',round:1,verdict:'running',metrics:{firstFrameMs:null,verifiedProgressSeconds:0},samples:{toJSON(){throw new Error('raw journal must not be fingerprinted');}}};
+  run.activeAttempts.push(attempt);h.renderResults('camera-100');assert.equal(builds,369);
+  assert.equal(document.getElementById('rows').children[99],rows[99]);assert.equal(document.getElementById('rows').children[101],rows[101]);
+  assert.notEqual(document.getElementById('rows').children[100],rows[100]);
+  h.renderResults();assert.equal(builds,369);
+});
+
+test('full checkpoint work is deferred until no visible attempt is active',async()=>{
+  const run={runId:'save',attempts:[],activeAttempts:[{id:'active'}],interruptedAttempts:[],toJSON(){throw new Error('must not serialize during measurement');}};
+  let writes=0;
+  const note={dataset:{}};
+  const h=evaluate(section('save','markRoundCompleted'),{run,saving:null,saveAgain:false,lastSaveAt:0,iso:()=>new Date(0).toISOString(),$:()=>note,
+    writeCheckpoint:async value=>{writes++;assert.equal(value.activeAttempts.length,0);return {backend:'indexeddb'};},stop:()=>assert.fail('unexpected stop')});
+  await h.save();assert.equal(writes,0);
+  run.activeAttempts=[];delete run.toJSON;await h.save();assert.equal(writes,1);
+});
+
+test('batch scheduling isolates providers and waits for a quiet checkpoint before the next cameras',async()=>{
+  const calls=[],pending=new Map(),saves=[];
+  const start=source.indexOf('  async function measureBatches('),end=source.indexOf('  async function assetHash(');
+  const h=evaluate(source.slice(start,end),{slots:[{},{},{}],
+    measure(camera){calls.push(camera);return new Promise(resolve=>pending.set(camera.id,resolve));},
+    save(){return new Promise(resolve=>saves.push(resolve));}});
+  const queue=[{id:'a1',providerType:'a'},{id:'a2',providerType:'a'},{id:'b1',providerType:'b'},{id:'c1',providerType:'c'},{id:'b2',providerType:'b'}];
+  const done=h.measureBatches(queue,1,new AbortController().signal);
+  assert.deepEqual(calls.map(c=>c.id),['a1','b1','c1']);
+  pending.get('a1')();pending.get('b1')();await new Promise(setImmediate);assert.equal(saves.length,0);assert.equal(calls.length,3);
+  pending.get('c1')();await new Promise(setImmediate);assert.equal(saves.length,1);assert.equal(calls.length,3);
+  saves[0]();await new Promise(setImmediate);assert.deepEqual(calls.map(c=>c.id),['a1','b1','c1','a2','b2']);
+  pending.get('a2')();pending.get('b2')();await new Promise(setImmediate);assert.equal(saves.length,2);saves[1]();await done;
+  assert.equal(queue.length,0);
+});
